@@ -1,0 +1,78 @@
+/* 
+    Document   : style
+    Created on : May 31, 2011, 2:38:25 PM
+    Author     : salem
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+body{background-color: #829395; font-family: Tahoma,Verdana,Arial; font-size: 12px;}
+img{border: none;}
+a {text-decoration: none;}
+a:hover {color: #045379;}
+.message{color:#F6733B; float:right;}
+.tooltip-content {display: none; position: absolute; padding: 10px; border: 1px solid black; background-color: white;}
+.tooltip-content ol {margin:0px; padding:0px 15px;}
+.tooltip-content ol li {width:300px; border-bottom: 1px solid #CCC;}
+.tooltip-target{padding-left:15px; margin-left:5px; background: url('../images/notifications.png') no-repeat scroll 0 -305px transparent;color: #3D6DB5;}/*305*/
+.input_button{border: 1px solid #8E9C9D; color: #183B4D;}
+.input_text{border: 1px solid #000; width: 150px;}
+.text_area{border: 1px solid #000; width: 300px;}
+.hasDatepicker {border: 1px solid #000;}
+
+.center {text-align: center;}
+
+.pagewrap{margin: 10px auto 5px; width: 1150px;}
+
+.topheader {width: 1150px; height: 95px; position: relative;}
+.topheader .logo {position: absolute;}
+.topheader .topmenu {position: absolute; right: 0px; list-style-type:none; margin: 0px; top:10px;}
+.topheader .topmenu a {color: black; display: block;}
+.topheader .topmenu a:hover {color: #045379;}
+.topheader .topmenu li {float:right; text-align: center; margin-left: 10px; font-weight: bold;}
+.topheader .topprofile {position: absolute; right: 0px; top: 65px; color: white;}
+
+.footer{margin-top:20px; text-align: center; color: white;}
+
+.box{background-color: #93A6A8; margin-top: 10px;}
+.box_header{border: #A8B4B5 solid 1px; color: #183B4D; padding: 3px; font-weight: bold; font-size: 13px; background: #5E7A7D url(../images/expand_blue.gif) no-repeat right;}
+.box_header a {display: block; color: #183B4D;}
+.box_header a:hover {color: #045379;}
+.box_body{padding:5px; border-right: #A8B4B5 solid 1px; border-left: #A8B4B5 solid 1px; border-bottom: #A8B4B5 solid 1px;}
+
+.grid table th {background-color: #5E7A7D; color: white; font-weight: bold; border: #DDDDDD solid 1px; padding:2px; font-size: 13px;}
+.grid table td {border: white solid 1px;}
+
+.paging{margin-top: 10px;}
+
+.room_title {font-weight: bold; font-size: 14px; color: #183B4D;margin: 5px 0px;}
+.room_box {display: inline-table; text-align: center; margin-right: 15px;}
+.room_box_title {border: 1px solid #555; width: 60px; border-bottom: none; padding: 2px 0px;}
+.room_box_body {border: 1px solid #555; width: 60px; height: 30px; line-height: 30px;}
+.room_box_table {width: 44px; height: 50px; padding-bottom: 10px;}
+.room_green {background-color: #00FF00;}
+.room_yellow {background-color: yellow;}
+.room_red {background-color: red;}
+.room_dark {background-color: #800000; color: white;}
+.room_box a {display: block;}
+.room_box_title a {color: white;}
+
+.topMenus {
+    list-style-type: none; margin: 0; position: absolute; right: 0; top: 10px;
+}
+
+.topMenus li {
+    float: right;
+    font-weight: bold;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.topMenus li a {
+    color: black;
+    display: block;
+}
