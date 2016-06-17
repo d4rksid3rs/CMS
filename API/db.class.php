@@ -1,5 +1,5 @@
 <?php
-require('../Config.php');
+//require('../Config.php');
 class db {
     /*     * * Declare instance ** */
 
@@ -25,9 +25,10 @@ class db {
      *
      */
     public static function getInstance() {
-
+//        $info_connect = "mysql:host=".__MYSQL_SERVER.";port=".__MYSQL_PASS.";dbname=".__DB.", ".__MYSQL_USER.", ".__MYSQL_PASS."";
+//        var_dump($info_connect);die;
         if (!self::$instance) {
-            self::$instance = new PDO("mysql:host=".__MYSQL_SERVER.";port=".__MYSQL_PASS.";dbname=".__DB.", ".__MYSQL_USER.", ".__MYSQL_PASS."");
+            self::$instance = new PDO("mysql:host=".__MYSQL_SERVER.";port=".__MYSQL_PASS.";dbname=".__DB, __MYSQL_USER, __MYSQL_PASS);
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$instance;
