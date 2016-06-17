@@ -1,5 +1,5 @@
 <?php
-
+require('../Config.php');
 class db {
     /*     * * Declare instance ** */
 
@@ -27,7 +27,7 @@ class db {
     public static function getInstance() {
 
         if (!self::$instance) {
-            self::$instance = new PDO("mysql:host=127.0.0.1;port=3306;dbname=gim_wap", 'root', '');
+            self::$instance = new PDO("mysql:host=".__MYSQL_SERVER.";port=".__MYSQL_PASS.";dbname=".__DB.", ".__MYSQL_USER.", ".__MYSQL_PASS."");
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$instance;
