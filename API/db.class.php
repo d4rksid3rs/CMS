@@ -27,7 +27,7 @@ class db {
     public static function getInstance() {
 
         if (!self::$instance) {
-            self::$instance = new PDO("mysql:host=127.0.0.1;port=3307;dbname=gim_wap", 'megatron', 'optimus2771983');
+            self::$instance = new PDO("mysql:host=127.0.0.1;port=3306;dbname=gim_wap", 'root', '');
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$instance;

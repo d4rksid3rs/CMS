@@ -1,9 +1,9 @@
 <?php
 
-define('__PORT', "6767");
-define('__TIMEOUT', "30");
-define('__HOST', "115.84.178.4");
-
+//define('__PORT', "6767");
+//define('__TIMEOUT', "30");
+//define('__HOST', "115.84.178.4");
+require('../Config.php');
 #define('__PORT', "6889");210.211.101.42
 #define('__TIMEOUT', "30");
 #define('__HOST', "localhost");
