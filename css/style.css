@@ -10,7 +10,7 @@
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
-body{background-color: #829395; font-family: Tahoma,Verdana,Arial; font-size: 12px;}
+body{background-color: #fff; font-family: Tahoma,Verdana,Arial; font-size: 12px;}
 img{border: none;}
 a {text-decoration: none;}
 a:hover {color: #045379;}
@@ -38,10 +38,10 @@ a:hover {color: #045379;}
 
 .footer{margin-top:20px; text-align: center; color: white;}
 
-.box{background-color: #93A6A8; margin-top: 10px;}
-.box_header{border: #A8B4B5 solid 1px; color: #183B4D; padding: 3px; font-weight: bold; font-size: 13px; background: #5E7A7D url(../images/expand_blue.gif) no-repeat right;}
-.box_header a {display: block; color: #183B4D;}
-.box_header a:hover {color: #045379;}
+.box{background-color: #0462BF; margin-top: 10px;}
+.box_header{border: #A8B4B5 solid 1px; color: #fff; padding: 3px; font-weight: bold; font-size: 13px; background: #0462BF url(../images/expand_blue.gif) no-repeat right;}
+.box_header a {display: block; color: #FFF;}
+.box_header a:hover {color: #FFF;}
 .box_body{padding:5px; border-right: #A8B4B5 solid 1px; border-left: #A8B4B5 solid 1px; border-bottom: #A8B4B5 solid 1px;}
 
 .grid table th {background-color: #5E7A7D; color: white; font-weight: bold; border: #DDDDDD solid 1px; padding:2px; font-size: 13px;}
