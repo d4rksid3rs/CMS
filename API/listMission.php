@@ -70,8 +70,10 @@ if ($type == 'get')
 		}
 		$i++;
 	}
-	$new_arr['mission'] = $arr_mission;
-	$json = json_encode($new_arr);
+//	$new_arr['mission'] = $arr_mission;
+//	$json = json_encode($new_arr);
+        $arr['mission'] = $arr_mission;
+	$json = json_encode($arr);
 	$json = mysql_escape_string($json);
 	$sql = "UPDATE config SET `value` = '$json' WHERE `key` = 'config_mission'";
 	$db->query($sql);
