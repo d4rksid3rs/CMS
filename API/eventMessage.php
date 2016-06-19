@@ -18,6 +18,9 @@ if (isset($type) && $type == 'delete') {
         $last_record = json_decode($row['id'], true);
     }
     $new_id = $last_record + 1;
+    if ($new_id < 100) {
+        $new_id = 101;
+    }
     $title = $_POST['title'];
     $content = $_POST['content'];
     $dateBegin = $_POST['dateBegin'] . " " . $_POST['from_time'];
