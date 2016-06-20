@@ -76,13 +76,13 @@ $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip")
 
 
 
-        foreach ($menu as $m) {
+        foreach (array_reverse($menu) as $m) {
             $link = $m['link'];
             $img = $m['img'];
             $head_title = $m['title'];
             echo "<li>
 						<a href='{$link}'><img src='images/ui/{$img}' height='40px'/>
-						<br/>{$head_title}</a>
+						<span>{$head_title}</span></a>
 					</li>";
         }
         ?>

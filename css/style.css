@@ -26,10 +26,10 @@ a:hover {color: #045379;}
 
 .center {text-align: center;}
 
-.pagewrap{margin: 10px auto 5px; width: 1150px;}
+.pagewrap{margin: 10px auto 5px; width: 100%;}
 
-.topheader {width: 1150px; height: 95px; position: relative;}
-.topheader .logo {position: absolute;}
+.topheader {width: 10%; height: 95px; position: relative;float: left;}
+.topheader .logo {width: 100%;}
 .topheader .topmenu {position: absolute; right: 0px; list-style-type:none; margin: 0px; top:10px;}
 .topheader .topmenu a {color: black; display: block;}
 .topheader .topmenu a:hover {color: #045379;}
@@ -38,7 +38,7 @@ a:hover {color: #045379;}
 
 .footer{margin-top:20px; text-align: center; color: white;}
 
-.box{background-color: #0462BF; margin-top: 10px;}
+.box{background-color: #0462BF; margin-top: 10px;width: 85%; float: right;}
 .box_header{border: #A8B4B5 solid 1px; color: #fff; padding: 3px; font-weight: bold; font-size: 13px; background: #0462BF url(../images/expand_blue.gif) no-repeat right;}
 .box_header a {display: block; color: #FFF;}
 .box_header a:hover {color: #FFF;}
@@ -62,17 +62,28 @@ a:hover {color: #045379;}
 .room_box_title a {color: white;}
 
 .topMenus {
-    list-style-type: none; margin: 0; position: absolute; right: 0; top: 10px;
+    list-style-type: none; margin: 0;
+    padding-left: 0;
 }
-
+.logo img {
+    width: 100%;
+}
 .topMenus li {
-    float: right;
+    /*float: right;*/
     font-weight: bold;
-    margin-left: 10px;
-    text-align: center;
+    /*margin-left: 10px;*/
+    text-align: center;    
+    display: block;
+    clear: both;
+    /*border-bottom: 1px solid #ccc;*/
 }
-
-.topMenus li a {
+.topMenus li img {
+    float: left;
+    position: relative;
+    top: -10px;
+}
+.topMenus li a span{
     color: black;
     display: block;
+    margin-top: 15px;
 }
