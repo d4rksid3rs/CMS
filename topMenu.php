@@ -40,6 +40,10 @@ $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip")
 
                 $menu = array($logout, $settings, $trans, $activity, $koin, $money,$vip, $tool, $register, $system, $user, $comment, $dau, $game);
                 break;
+            case "monaco":
+
+                $menu = array($logout, $settings, $trans, $activity, $koin, $money,$vip, $tool, $register, $system, $user, $comment, $dau, $game);
+                break;
 
             case "mkt":
                 $menu = array($activity, $koin, $register,$vip, $system, $user, $comment);
