@@ -101,7 +101,7 @@ $to_date5 = isset($_REQUEST['to_date5']) ? trim($_REQUEST['to_date5']) : '';
 $to_time5 = !empty($_REQUEST['to_time5']) ? trim($_REQUEST['to_time5']) : '23:59:59';
 $factor5 = array();
 for ($i = 0; $i < $no_cards; $i++) {
-    $factor4[] = isset($_REQUEST['factor5'][$i]) ? (float) ($_REQUEST['factor5'][$i]) : 1.0;
+    $factor5[] = isset($_REQUEST['factor5'][$i]) ? (float) ($_REQUEST['factor5'][$i]) : 1.0;
 }
 include 'connectdb_gimwap.php';
 
