@@ -53,7 +53,7 @@ session_start();
 <body>
 <form action="" method="post">
 <div class="login_box">
-    <span class="login_title">Beme.net.vn</span><br />
+    <img src="images/logo.png" style="width: 100px; height: 100px; margin-left: 150px;" /><br />
     <br />
     
     <?php $login->error_login(); ?>
