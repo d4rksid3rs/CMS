@@ -62,42 +62,42 @@ for ($i = 0; $i < $no_iaps; $i++) {
 }
 
 // sms
-$from_date = isset($_REQUEST['from_date']) ? trim($_REQUEST['from_date']) : '';
+$from_date = isset($_REQUEST['from_date']) ? trim($_REQUEST['from_date']) : '2015-06-20';
 $from_time = !empty($_REQUEST['from_time']) ? trim($_REQUEST['from_time']) : '00:00:00';
-$to_date = isset($_REQUEST['to_date']) ? trim($_REQUEST['to_date']) : '';
+$to_date = isset($_REQUEST['to_date']) ? trim($_REQUEST['to_date']) : '2015-06-2';
 $to_time = !empty($_REQUEST['to_time']) ? trim($_REQUEST['to_time']) : '23:59:59';
 $factor = isset($_REQUEST['factor']) ? (float) ($_REQUEST['factor']) : 1.0;
 // card 1
-$from_date2 = isset($_REQUEST['from_date2']) ? trim($_REQUEST['from_date2']) : '';
+$from_date2 = isset($_REQUEST['from_date2']) ? trim($_REQUEST['from_date2']) : '2015-06-2';
 $from_time2 = !empty($_REQUEST['from_time2']) ? trim($_REQUEST['from_time2']) : '00:00:00';
-$to_date2 = isset($_REQUEST['to_date2']) ? trim($_REQUEST['to_date2']) : '';
+$to_date2 = isset($_REQUEST['to_date2']) ? trim($_REQUEST['to_date2']) : '2015-06-2';
 $to_time2 = !empty($_REQUEST['to_time2']) ? trim($_REQUEST['to_time2']) : '23:59:59';
 $factor2 = array();
 for ($i = 0; $i < $no_cards; $i++) {
     $factor2[] = isset($_REQUEST['factor2'][$i]) ? (float) ($_REQUEST['factor2'][$i]) : 1.0;
 }
 // card 2
-$from_date3 = isset($_REQUEST['from_date3']) ? trim($_REQUEST['from_date3']) : '';
+$from_date3 = isset($_REQUEST['from_date3']) ? trim($_REQUEST['from_date3']) : '2015-06-2';
 $from_time3 = !empty($_REQUEST['from_time3']) ? trim($_REQUEST['from_time3']) : '00:00:00';
-$to_date3 = isset($_REQUEST['to_date3']) ? trim($_REQUEST['to_date3']) : '';
+$to_date3 = isset($_REQUEST['to_date3']) ? trim($_REQUEST['to_date3']) : '2015-06-2';
 $to_time3 = !empty($_REQUEST['to_time3']) ? trim($_REQUEST['to_time3']) : '23:59:59';
 $factor3 = array();
 for ($i = 0; $i < $no_cards; $i++) {
     $factor3[] = isset($_REQUEST['factor3'][$i]) ? (float) ($_REQUEST['factor3'][$i]) : 1.0;
 }
 // iap 1
-$from_date4 = isset($_REQUEST['from_date4']) ? trim($_REQUEST['from_date4']) : '';
+$from_date4 = isset($_REQUEST['from_date4']) ? trim($_REQUEST['from_date4']) : '2015-06-2';
 $from_time4 = !empty($_REQUEST['from_time4']) ? trim($_REQUEST['from_time4']) : '00:00:00';
-$to_date4 = isset($_REQUEST['to_date4']) ? trim($_REQUEST['to_date4']) : '';
+$to_date4 = isset($_REQUEST['to_date4']) ? trim($_REQUEST['to_date4']) : '2015-06-2';
 $to_time4 = !empty($_REQUEST['to_time4']) ? trim($_REQUEST['to_time4']) : '23:59:59';
 $factor4 = array();
 for ($i = 0; $i < $no_cards; $i++) {
     $factor4[] = isset($_REQUEST['factor4'][$i]) ? (float) ($_REQUEST['factor4'][$i]) : 1.0;
 }
 // iap 2
-$from_date5 = isset($_REQUEST['from_date5']) ? trim($_REQUEST['from_date5']) : '';
+$from_date5 = isset($_REQUEST['from_date5']) ? trim($_REQUEST['from_date5']) : '2015-06-2';
 $from_time5 = !empty($_REQUEST['from_time5']) ? trim($_REQUEST['from_time5']) : '00:00:00';
-$to_date5 = isset($_REQUEST['to_date5']) ? trim($_REQUEST['to_date5']) : '';
+$to_date5 = isset($_REQUEST['to_date5']) ? trim($_REQUEST['to_date5']) : '2015-06-2';
 $to_time5 = !empty($_REQUEST['to_time5']) ? trim($_REQUEST['to_time5']) : '23:59:59';
 $factor5 = array();
 for ($i = 0; $i < $no_cards; $i++) {
