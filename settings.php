@@ -103,14 +103,16 @@ $factor5 = array();
 for ($i = 0; $i < $no_cards; $i++) {
     $factor5[] = isset($_REQUEST['factor5'][$i]) ? (float) ($_REQUEST['factor5'][$i]) : 1.0;
 }
-include 'connectdb_gimwap.php';
+//include 'connectdb_gimwap.php';
 
 // SET
-if (
-        (!empty($from_date) AND ! empty($to_date))
-        OR ( !empty($from_date2) AND ! empty($to_date2))
-        OR ( !empty($from_date3) AND ! empty($to_date3))
-) {
+//if (
+//        (!empty($from_date) AND ! empty($to_date))
+//        OR ( !empty($from_date2) AND ! empty($to_date2))
+//        OR ( !empty($from_date3) AND ! empty($to_date3))
+//        OR ( !empty($from_date4) AND ! empty($to_date4))
+//        OR ( !empty($from_date5) AND ! empty($to_date5))
+//) {
     $arr = array();
     $arr['sms']['from_date'] = "$from_date $from_time";
     $arr['sms']['to_date'] = "$to_date $to_time";
@@ -130,8 +132,10 @@ if (
     $json = json_encode($arr);
     $sql = sprintf("update config set value = '%s' where `key` = 'special_offer_koin_v3'", $json);
     $result = mysql_query($sql);
-}
-
+//    var_dump($arr);die;
+//}
+//var_dump($arr);
+//die;
 // GET
 $init = TRUE;
 $sql = "select value from config where `key` = 'special_offer_koin_v3' limit 1";
@@ -256,7 +260,7 @@ foreach ($value as $k => $v) {
 <html>
     <head>
         <title>Settings</title>
-<?php require('header.php'); ?>
+        <?php require('header.php'); ?>
         <script>
             $(document).ready(function () {
                 $("#datepicker1").datepicker(); // sms
@@ -523,7 +527,7 @@ foreach ($value as $k => $v) {
     </head>
     <body>
         <div class="pagewrap">
-<?php require('topMenu.php'); ?>
+            <?php require('topMenu.php'); ?>
 
             <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Koin Special Offers</a></div>
@@ -685,11 +689,11 @@ foreach ($value as $k => $v) {
                 <div class="box_header"><a href="javascript:void(0);">Hiển thị full game VMS</a></div>
                 <div class="box_body">
                     <form action="" method="post">	               
-<?php if ($gamevms == 1) { ?>
+                        <?php if ($gamevms == 1) { ?>
                             Có hiển thị full game? <select name="gamevms" id="gamevms"> <option value="1">Có</option><option value="0">Không</option> </select> <br />
-<?php } else { ?>
+                        <?php } else { ?>
                             Có hiển thị full game? <select name="gamevms" id="gamevms"><option value="0">Không</option> <option value="1">Có</option> </select> <br />
-<?php } ?>
+                        <?php } ?>
                         <input type="button" value="Xác nhận" onclick="configFullgame();"/>
                     </form>
                 </div>
