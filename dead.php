@@ -1,4 +1,7 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', 'On');
+
 require('API/socket1.php');
 $service = 0xF900;
 $input = "{}";
