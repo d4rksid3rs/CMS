@@ -55,7 +55,7 @@ if (isset($fromDate) &&  isset($toDate)) {
 function getNapSMS(){
 
 	//mysql_connect("10.0.0.2","pokervmg_tk","Z2bLevYRuLtnY") or die("loi ket noi toi may chu---");
-	mysql_connect("127.0.0.1:3307","megatron","optimus2771983") or die("loi ket noi toi may chu---");
+	mysql_connect("local.db:3306","root","Tienquang1!") or die("loi ket noi toi may chu---");
 	
 	//define('HOST', '127.0.0.1:3307');
 	mysql_select_db("gim_wap") or die("Ko ket noi duoc toi CSDL");
