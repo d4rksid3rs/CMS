@@ -46,9 +46,10 @@
     <body>
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
-            <?php include('topMenu.trans.php'); ?>
+            
 
             <div class="box grid">
+                <?php include('topMenu.trans.php'); ?>
                 <div class="box_header"><a href="javascript:void(0);"><?php echo "Thống kê tiền fee"; ?></a></div>
                 <div class="box_body">
                     <table width="100%">

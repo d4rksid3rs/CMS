@@ -4,32 +4,31 @@
         <title><?php echo $title; ?></title>
         <?php require('header.php'); ?>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $("#datepicker1").datepicker();
                 $("#datepicker2").datepicker();
-            }); 
+            });
         </script>
 
- 
-       
+
+
 
     </head>
-    <body>
+    <body>   
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
-            <?php include('topMenu.koin.php'); ?>
-
             <div class="box grid">
+                <?php include('topMenu.koin.php'); ?>
                 <div class="box_header"><a href="javascript:void(0);"><?php echo "Thống kê Koin"; ?></a></div>
                 <div class="box_body">
                     <table width="100%">
-                      
+
 
                         <tr>
-                       <td width="50%">
-						<iframe height="370" width="100%" frameBorder="0" src="koin_data.php?change=1">your browser does not support IFRAMEs</iframe></td>
-						</tr>
-                       
+                            <td width="50%">
+                                <iframe height="370" width="100%" frameBorder="0" src="koin_data.php?change=1">your browser does not support IFRAMEs</iframe></td>
+                        </tr>
+
 
                     </table>
                 </div>

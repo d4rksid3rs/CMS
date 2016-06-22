@@ -141,9 +141,10 @@ $title = "Thống kê doanh thu theo giờ";
     <body>
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
-            <?php include('topMenu.sub2.php'); ?>
+            
 
             <div class="box grid">
+                <?php include('topMenu.sub2.php'); ?>
                 <div class="box_header"><a href="javascript:void(0);"><?php echo "Thống kê doanh thu theo giờ (trước telco)"; ?></a></div>
                 <div class="box_body">
                     <div style="padding-left:10px;">

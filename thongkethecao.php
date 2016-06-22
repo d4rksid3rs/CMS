@@ -22,9 +22,9 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
     <body>
         <div class="pagewrap">
                 <?php require_once('topMenu.php'); ?>
-                <?php require_once('topMenu.sub2.php'); ?>
-            <div class="box grid">
                 
+            <div class="box grid">
+                <?php require_once('topMenu.sub2.php'); ?>
                         <div class="box_header"><a href="javascript:void(0);">Thống kê tin nhắn</a></div>
                 <div class="box_body">
                     <table width="100%">

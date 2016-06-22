@@ -35,6 +35,9 @@ a:hover {color: #045379;}
 .topheader .topmenu a:hover {color: #045379;}
 .topheader .topmenu li {float:right; text-align: center; margin-left: 10px; font-weight: bold;}
 .topheader .topprofile {position: absolute; right: 0px; top: 65px; color: white;}
+.top-filter {list-style-type:none;clear: both; padding: 10px;}
+.top-filter li {display: inline;}
+.top-filter li a{color: #fff; font-weight: bold;}
 
 .footer{margin-top:20px; text-align: center; color: white;}
 
