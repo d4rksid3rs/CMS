@@ -103,7 +103,7 @@ $factor5 = array();
 for ($i = 0; $i < $no_cards; $i++) {
     $factor5[] = isset($_REQUEST['factor5'][$i]) ? (float) ($_REQUEST['factor5'][$i]) : 1.0;
 }
-//include 'connectdb_gimwap.php';
+include 'connectdb_gimwap.php';
 
 // SET
 //if (
@@ -113,6 +113,8 @@ for ($i = 0; $i < $no_cards; $i++) {
 //        OR ( !empty($from_date4) AND ! empty($to_date4))
 //        OR ( !empty($from_date5) AND ! empty($to_date5))
 //) {
+// check method POST vào
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $arr = array();
     $arr['sms']['from_date'] = "$from_date $from_time";
     $arr['sms']['to_date'] = "$to_date $to_time";
@@ -132,6 +134,9 @@ for ($i = 0; $i < $no_cards; $i++) {
     $json = json_encode($arr);
     $sql = sprintf("update config set value = '%s' where `key` = 'special_offer_koin_v3'", $json);
     $result = mysql_query($sql);
+    echo 'xxx';
+}
+    
 //    var_dump($arr);die;
 //}
 //var_dump($arr);
@@ -141,7 +146,8 @@ $init = TRUE;
 $sql = "select value from config where `key` = 'special_offer_koin_v3' limit 1";
 $result = mysql_query($sql);
 if ($row = mysql_fetch_assoc($result)) {
-    $value = $row['value'];
+//    var_dump($row);die;
+    $value = $row['value'];    
     if (!empty($value)) {
         $init = FALSE;
         // sms
