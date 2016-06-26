@@ -44,19 +44,19 @@ foreach ($db->query($sql) as $row) {
     <head>
         <title>Góp ý</title>
         <link type='text/css' href='css/basic.css' rel='stylesheet' media='screen' />
-        
-       
+
+
         <?php require('header.php'); ?>
-         <script src="js/jquery.simplemodal.js"></script>
+        <script src="js/jquery.simplemodal.js"></script>
         <script type="text/javascript" >
-            $(document).ready(function(){
-                
+            $(document).ready(function () {
+
             });
-            
+
             function prepareReply(element, id, userId) {
                 $(".reply").remove();
                 var parent = element.parent().parent();
-                parent.after("<tr class='reply'><td colspan=5 align=right><input type='text' name='replyContent' style='margin-right:5px; width:250px;'/><input type='button' value='Trả lời' style='margin-right:5px;' onclick='reply("+id+"," +userId+");'/><input type='button' value='Hủy' onclick='$(this).parent().parent().remove();'/></td></tr>");
+                parent.after("<tr class='reply'><td colspan=5 align=right><input type='text' name='replyContent' style='margin-right:5px; width:250px;'/><input type='button' value='Trả lời' style='margin-right:5px;' onclick='reply(" + id + "," + userId + ");'/><input type='button' value='Hủy' onclick='$(this).parent().parent().remove();'/></td></tr>");
             }
 
             function disableReply(element, id) {
@@ -64,12 +64,12 @@ foreach ($db->query($sql) as $row) {
                     type: "GET",
                     url: "API/replyComment.php",
                     data: {
-                        "type":"disable",
-                        "id":id,
-                        "userId":0
+                        "type": "disable",
+                        "id": id,
+                        "userId": 0
                     },
                     dataType: 'text',
-                    success: function(msg) {
+                    success: function (msg) {
                         msg = msg.trim();
                         if (msg != '' && msg.length > 2) {
                             var data = jQuery.parseJSON(msg);
@@ -84,49 +84,49 @@ foreach ($db->query($sql) as $row) {
                             alert("Lỗi hệ thống");
                         }
                     },
-                    failure: function() {
+                    failure: function () {
                         alert("Kiểm tra lại kết nối mạng")
                     }
                 });
             }
-            
+
             function showAll(element, id) {
                 $.ajax({
                     type: "GET",
                     url: "API/getAllFeedback.php",
                     data: {
-                        "uid":id
+                        "uid": id
                     },
                     dataType: 'text',
-                    success: function(msg) {
+                    success: function (msg) {
                         if (msg != '' && msg.length > 2) {
                             //var data = jQuery.parseJSON(msg);
                             //if (data.status == 1) {
-                               // var parent = element.parent().parent();
-  //                              var comment = document.getElementById(element);
+                            // var parent = element.parent().parent();
+                            //                              var comment = document.getElementById(element);
 //                                comment.innerHTML = msg;
-								$('#feedback').html(msg);
-                                $('#feedback').modal({
-									closeHTML: '<div style="float:right; font-size:25px; color:#fff"><a href="#" class="simplemodal-close" style="color:#fff">x</a></div>',
-									opacity:65,
-									overlayClose:true,
-									minWidth: '750px',
-									minHeight: '500px'
-                                });
-                              //  comment.html(comment.html() + " - <font color=#4965AF>Không trả lời</font>");
+                            $('#feedback').html(msg);
+                            $('#feedback').modal({
+                                closeHTML: '<div style="float:right; font-size:25px; color:#fff"><a href="#" class="simplemodal-close" style="color:#fff">x</a></div>',
+                                opacity: 65,
+                                overlayClose: true,
+                                minWidth: '750px',
+                                minHeight: '500px'
+                            });
+                            //  comment.html(comment.html() + " - <font color=#4965AF>Không trả lời</font>");
                             //} else {
-                              //  alert(data.message);
+                            //  alert(data.message);
                             //}
                         } else {
                             alert("Lỗi hệ thống");
                         }
                     },
-                    failure: function() {
+                    failure: function () {
                         alert("Kiểm tra lại kết nối mạng")
                     }
                 });
             }
-            
+
             function reply(id, userId) {
                 var element = $("input[name=replyContent]");
                 var content = element.val();
@@ -138,13 +138,13 @@ foreach ($db->query($sql) as $row) {
                         type: "GET",
                         url: "API/replyComment.php",
                         data: {
-                            "type":"reply",
-                            "id":id,
-                            "userId":userId,
-                            "content":content
+                            "type": "reply",
+                            "id": id,
+                            "userId": userId,
+                            "content": content
                         },
                         dataType: 'text',
-                        success: function(msg) {
+                        success: function (msg) {
                             msg = msg.trim();
                             if (msg != '' && msg.length > 2) {
                                 var data = jQuery.parseJSON(msg);
@@ -160,7 +160,7 @@ foreach ($db->query($sql) as $row) {
                                 alert("Lỗi hệ thống");
                             }
                         },
-                        failure: function() {
+                        failure: function () {
                             alert("Kiểm tra lại kết nối mạng")
                         }
                     });
@@ -171,36 +171,37 @@ foreach ($db->query($sql) as $row) {
     <body>
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
-            <div class="topheader">
-			    <ul class="topMenus">
-			        <a href="comment_sms.php">Góp ý qua sms</a>
-			    </ul>
-			</div>
-            <div class="box_header">
-                Góp ý
-            </div>
-            <div class="box_body">
-                <form action="comment.php" method="get" style="margin-bottom: 0px; padding-bottom: 0px;">
-                    <table width="100%" style="font-size: 13px;">
-                        <tr>
-                            <td width="250px">
-                                Tài khoản
-                                <input type="text" name="a" class="input_text" value="<?php echo $acc; ?>" style="margin-left: 10px;"/>
-                            </td>
-                            <td>
-                                Message
-                                <input type="text" name="m" class="input_text" value="<?php echo $message; ?>" style="margin-left: 10px;"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <input type="submit" value="Submit" class="input_button"/>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
+
             <div class="box grid">
+                <div class="topheader">
+                    <ul class="topMenus">
+                        <a href="comment_sms.php">Góp ý qua sms</a>
+                    </ul>
+                </div>
+                <div class="box_header">
+                    Góp ý
+                </div>
+                <div class="box_body">
+                    <form action="comment.php" method="get" style="margin-bottom: 0px; padding-bottom: 0px;">
+                        <table width="100%" style="font-size: 13px;">
+                            <tr>
+                                <td width="250px">
+                                    Tài khoản
+                                    <input type="text" name="a" class="input_text" value="<?php echo $acc; ?>" style="margin-left: 10px;"/>
+                                </td>
+                                <td>
+                                    Message
+                                    <input type="text" name="m" class="input_text" value="<?php echo $message; ?>" style="margin-left: 10px;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <input type="submit" value="Submit" class="input_button"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
                 <div class="box_header">
                     <a href="javascript:void(0);">Kết quả tìm kiếm</a>
                 </div>
@@ -225,18 +226,18 @@ foreach ($db->query($sql) as $row) {
                                 echo "<td align=center>" . $cm['username'] . "</td>";
                                 echo "<td align=center>" . $cm['mobile'] . "</td>";
                                 if ($cm['status'] == 1) {
-									$index = strrpos($cm['comment'],'->');
-									if ($index === false) {
-										echo "<td class=comment>" . $cm['comment'] . "<font color=#4965AF> - đã xử lý</font></td>";
-									} else {
-										echo "<td class=comment>" . substr($cm['comment'],0,$index-1) . "<font color=#4965AF>".substr($cm['comment'],$index-1)."</font></td>";
-									}
+                                    $index = strrpos($cm['comment'], '->');
+                                    if ($index === false) {
+                                        echo "<td class=comment>" . $cm['comment'] . "<font color=#4965AF> - đã xử lý</font></td>";
+                                    } else {
+                                        echo "<td class=comment>" . substr($cm['comment'], 0, $index - 1) . "<font color=#4965AF>" . substr($cm['comment'], $index - 1) . "</font></td>";
+                                    }
                                 } else {
                                     echo "<td class=comment>" . $cm['comment'] . "</td>";
                                 }
                                 echo "<td align=center>" . $cm['date'] . "</td>";
                                 echo "<td align=center>";
-                                echo "<a href='javascript:void(0);' onclick=\"showAll('feedback".$cm['userId']."', " . $cm['userId'] . ")\"><img src='images/ui/message-icon.gif' width=20px/></a> ";
+                                echo "<a href='javascript:void(0);' onclick=\"showAll('feedback" . $cm['userId'] . "', " . $cm['userId'] . ")\"><img src='images/ui/message-icon.gif' width=20px/></a> ";
                                 if ($cm['userId'] != 0) {
                                     echo " <a href='javascript:void(0);' onclick=\"prepareReply($(this)," . $cm['id'] . "," . $cm['userId'] . ")\"><img src='images/ui/mail_reply.png' width=20px/></a>";
                                 }

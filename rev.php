@@ -3,7 +3,8 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 
-        <title><?php echo $title; ?></title>
+        <!--<title><?php // echo $title; ?></title>-->
+        <title>Thống Kê Doanh thu</title>
         <?php require('header.php'); ?>
 
         <script type="text/javascript">

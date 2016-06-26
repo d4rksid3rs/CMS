@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
    
-	<title><?php echo $title; ?></title>
+    <title>DAU</title>
         <?php require('header.php'); ?>
  
     <script type="text/javascript">

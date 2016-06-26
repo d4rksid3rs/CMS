@@ -21,7 +21,7 @@ while (strtotime($date_start) <= strtotime($end_date)) {
 
 //$cpname = asort($cpname);
 
-$cplist = implode(",",$cps);
+//$cplist = implode(",",$cps);
 
 //var_dump($cps);
 
