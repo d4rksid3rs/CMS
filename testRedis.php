@@ -4,7 +4,7 @@
 		
 		try {
 			$redis = new Redis();
-			$redis->connect('127.0.0.1');
+			$redis->connect('local.redis');
 			echo "${username} : ".$redis->get("o${username}");
 			if (isset($_REQUEST['d'])) {
 				echo " -> ".$redis->del("o${username}");

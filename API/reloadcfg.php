@@ -12,7 +12,7 @@ try {
 	$obj->msg = $msg;
 
 	$redis = new Redis();
-	$redis->connect('127.0.0.1');
+	$redis->connect('local.redis');
 	$redis->publish("GameChannel", "1003@".json_encode($obj));
 	$redis->close();
 

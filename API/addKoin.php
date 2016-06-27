@@ -31,7 +31,7 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause
                     echo "{\"status\":0,\"message\":\"Cộng koin thành công\"}";
                     try {
                         $redis = new Redis();
-                        $redis->connect('local.db');
+                        $redis->connect('local.redis');
                         $obj = new stdClass();
                         $obj->username = $user;
                         $obj->type = 3;

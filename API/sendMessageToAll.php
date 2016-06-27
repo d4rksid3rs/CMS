@@ -15,7 +15,7 @@ try {
 	$obj->msg = $msg;
 
 	$redis = new Redis();
-	$redis->connect('local.db');
+	$redis->connect('local.redis');
 	$redis->publish("GameChannel", "1003@".json_encode($obj));
 	$redis->close();
 

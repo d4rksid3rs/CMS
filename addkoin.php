@@ -27,7 +27,7 @@ $cause = $_POST['cause'];
 			echo "{\"status\":0,\"message\":\"Cộng koin thành công\"}";
 			try {
 				$redis = new Redis();
-				$redis->connect('127.0.0.1');
+				$redis->connect('local.redis');
 				$obj = new stdClass();
 				$obj->username = $user; 
 				$obj->type = 3;

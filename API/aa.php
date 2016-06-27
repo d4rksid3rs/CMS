@@ -2,7 +2,7 @@
 require('../Config.php');
 try {
 	$redis = new Redis();
-	$redis->connect('127.0.0.1');
+	$redis->connect('local.redis');
 	$redis->del("obatigol82");
 	$redis->del("ochoapp");
 	$redis->close();
