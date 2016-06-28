@@ -22,15 +22,15 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
     <body>
         <div class="pagewrap">
                 <?php require_once('topMenu.php'); ?>
-                <?php require_once('topMenu.sub2.php'); ?>
+            
             <div class="box grid">
-                
-                        <div class="box_header"><a href="javascript:void(0);">Thống kê tin nhắn</a></div>
+                <?php require_once('topMenu.sub2.php'); ?>
+                <div class="box_header"><a href="javascript:void(0);">Thống kê tin nhắn</a></div>
                 <div class="box_body">
                     <table width="100%">
                         <div style="padding-left:10px;">
-                        <form action="" method="post">
-                            Từ ngày:
+                            <form action="" method="post">
+                                Từ ngày:
                             <input type="text" id="datepicker1" name="fromDate" style="text-align: center; width: 100px;" value="<?php echo $fromDate;?>" readonly="true"/> 
                             (00:00:00)
                             Tới ngày:
