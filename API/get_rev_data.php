@@ -18,15 +18,23 @@ require('db.class.php');
 //}
 
 $today = date('Y-m-d');
-//$today = date('2016-06-28');
+$today = date('2016-06-26');
 $yesterday = date("Y-m-d", strtotime("-1 day", strtotime($today)));
-$yesterday_start = $yesterday. ' 00:00:00';
-$yesterday_end = $yesterday. ' 23:59:59';
+$yesterday_start = $yesterday . ' 00:00:00';
+$yesterday_end = $yesterday . ' 23:59:59';
 $sql = "select type, sum(money) as sum_money from log_nap_koin "
         . "where  created_on >= '{$yesterday_start}' AND created_on <= '{$yesterday_end}' group by type";
-$total = 0;
-foreach ($db->query($sql) as $row) {       
-    $sql_insert = "INSERT INTO revenue (date_created, type, partner, k2, mv, total) VALUES ('{$yesterday}', '{$row['type']}', 'partner', '0', '0', '{$row['sum_money']}')";
+$stmt = $db->prepare($sql);
+$stmt->execute();
+
+if ($stmt->rowCount() > 0) {
+    foreach ($stmt as $row) {           
+        $sql_insert = "INSERT INTO revenue (date_created, type, partner, k2, mv, total) VALUES ('{$yesterday}', '{$row['type']}', 'partner', '0', '0', '{$row['sum_money']}')";
+        $db->exec($sql_insert);
+    }
+    echo 'Success !!!!';
+} else {
+    $sql_insert = "INSERT INTO revenue (date_created, type, partner, k2, mv, total) VALUES ('{$yesterday}', '0', 'partner', '0', '0', '0')";
     $db->exec($sql_insert);
+    echo 'No Moeny for Today !!';
 }
-echo 'Success !!!!';
