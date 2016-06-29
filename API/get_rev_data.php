@@ -1,5 +1,6 @@
 <?php
-
+//error_reporting(-1);
+//ini_set('display_errors', 'On');
 require('db.class.php');
 //$end_date = date('Y-m-d');
 //
@@ -18,7 +19,7 @@ require('db.class.php');
 //}
 
 $today = date('Y-m-d');
-$today = date('2016-06-26');
+//$today = date('2016-06-26');
 $yesterday = date("Y-m-d", strtotime("-1 day", strtotime($today)));
 $yesterday_start = $yesterday . ' 00:00:00';
 $yesterday_end = $yesterday . ' 23:59:59';
