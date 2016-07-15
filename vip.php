@@ -15,8 +15,10 @@ $u = isset($_SESSION['username']) ? $_SESSION['username'] : 'foobar';
             <?php require('topMenu.php'); ?>
             <div class="box grid">
                 <div class="topheader">
-                    <ul class="topMenus">
-                        <a href="vipweekly.php">Vip theo tuần</a> | <a href="vipdaily.php">Vip theo ngày</a> | <a href="viptype.php">Vip theo cấp độ</a> 
+                    <ul class="top-filter">
+                        <li><a href="vipweekly.php">Vip theo tuần</a></li> | 
+                        <li><a href="vipdaily.php">Vip theo ngày</a></li> | 
+                        <li><a href="viptype.php">Vip theo cấp độ</a> </li>
                     </ul>
                 </div>
                 <div class="box_header"><a href="javascript:void(0);">VIP user</a></div>

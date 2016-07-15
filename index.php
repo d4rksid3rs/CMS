@@ -41,7 +41,7 @@ foreach ($versions as $version){
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Beme</title>
+        <title>Monaco</title>
         <?php require('header.php'); ?>
         <script>
             $(document).ready(function(){

@@ -98,7 +98,7 @@ if (!isset($toDate)) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Beme</title>
+        <title>Monaco</title>
         <?php require('header.php'); ?>
 		<script>
 			$(document).ready(function(){
@@ -117,7 +117,7 @@ if (!isset($toDate)) {
                         <tr>
                             <td width="50%">
                                 <table width=100%>
-                                    <tr><td colspan="2" align="center"><b>Beme 1 - 115.84.178.4:6767</b></td></tr>
+                                    <tr><td colspan="2" align="center"><b>Monaco</b></td></tr>
                                     <tr><td width="40%">Tổng số người online </td><td align="center"><?php echo $value1["total"]." / ".$value1["online"]; ?></td></tr>
                                     <?php
                                         for ($i=0;$i<sizeof($key);$i++) {
@@ -126,7 +126,7 @@ if (!isset($toDate)) {
                                     ?>                                      
                                 </table>
                             </td>
-                            <td width="50%">
+<!--                            <td width="50%">
                                 <table width=100%>
                                     <tr><td colspan="2" align="center"><b>Beme 2 - 115.84.178.4:6969</b></td></tr>
                                     <tr><td width="40%">Tổng số người online </td><td align="center"><?php echo $value2["total"]." / ".$value2["online"]; ?></td></tr>
@@ -136,7 +136,7 @@ if (!isset($toDate)) {
                                         }
                                     ?>
                                 </table>
-                            </td>
+                            </td>-->
                         </tr>
                         <!--
                         <tr><td>Chơi nhảy cột </td><td align="center"><?php echo $nhaycot["online"]; ?></td></tr>
@@ -180,7 +180,7 @@ if (!isset($toDate)) {
             </div>
             <div class="box grid">
                 <div class="box_header">
-                    <a href="javascript:void(0);">Beme 1</a>
+                    <a href="javascript:void(0);">Monaco</a>
                 </div>
                 <div class="box_body" style="display:none;">
                     <table>
@@ -207,7 +207,7 @@ if (!isset($toDate)) {
                 </div>
             </div>
             
-            <div class="box grid">
+<!--            <div class="box grid">
                 <div class="box_header">
                     <a href="javascript:void(0);">Beme 2</a>
                 </div>
@@ -233,7 +233,7 @@ if (!isset($toDate)) {
                         </tr>
                     </table>
                 </div>
-            </div>
+            </div>-->
             
             
             
