@@ -1119,7 +1119,7 @@
                     </form>
                 </div>
             </div>
-            <div class="box grid">
+<!--            <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Thay huy hiệu bang</a></div>
                 <div class="box_body" style="display: none">
                     <form id="changeIcon">						
@@ -1143,7 +1143,7 @@
 						</tr>                            
 					</table>
 				</div>
-            </div>
+            </div>-->
         </div>
     </body>
 </html>

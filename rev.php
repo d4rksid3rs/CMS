@@ -40,14 +40,14 @@
                 <div class="box_body">
 
                     <table width=100%>
-                        <tr>
+<!--                        <tr>
                             <td colspan="2">Kenh thanh toan MV</td>
                         </tr>
                         <tr>
 
                             <td width=50% align=center><div>The cao MV</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=3">your browser does not support IFRAMEs</iframe></div></td>
                             <td width=50% align=center><div>SMS MV</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=1">your browser does not support IFRAMEs</iframe></div></td>
-                        </tr>
+                        </tr>-->
                         <tr>
                             <td colspan="2">Kenh thanh toan doi tac</td>
                         </tr>

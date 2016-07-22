@@ -765,7 +765,7 @@ foreach ($value as $k => $v) {
                 </div>
             </div>
 
-            <div class="box grid">
+<!--            <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Bật tắt kênh thanh toán</a></div>
                 <div class="box_body">
                     <div style="margin-right:10px;">
@@ -776,7 +776,7 @@ foreach ($value as $k => $v) {
                     </div>
                     <input type="button" value="Lưu" onclick="saveConfigPayment();"/>
                 </div>
-            </div>
+            </div>-->
         </div>
     </body>
 </html>

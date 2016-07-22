@@ -242,7 +242,7 @@
                 <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Thống kê người dùng</a></div>
                 <div class="box_body">
                     <form id="statistic">
-                        Theo version <input type="text" name="version" style="width: 100px; text-align:center;" value="2.0.2"/>
+                        Theo version <input type="text" name="version" style="width: 100px; text-align:center;" value="1.0.0"/>
                         <input type="button" name="add" value="Thống kê" onclick="statistics(1);"/>
                         <span id="message1" style="color: #800000; font-weight: bold"></span>
 						<br/>
