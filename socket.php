@@ -1,8 +1,8 @@
 <?php
 
-define('__PORT', "6889");
-define('__TIMEOUT', "30");
-define('__HOST', "210.211.99.76");
+define('__PORT', "8081");
+define('__TIMEOUT', "15");
+define('__HOST', "104.155.222.189");
 
 //define('__PORT', "6887");
 //define('__TIMEOUT', "30");
