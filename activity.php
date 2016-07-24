@@ -268,8 +268,8 @@ if (!isset($toDate)) {
 
 
 
-<!--            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);"><?php echo "Số thuê bao điện thoại Nạp tiền qua SMS"; ?></a></div>
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);"><?php echo "Số thuê bao điện thoại Nạp tiền qua IAP"; ?></a></div>
                 <div class="box_body">
                     <table width="100%">
                         <tr><td>
@@ -288,7 +288,7 @@ if (!isset($toDate)) {
 
                             </td></tr></table>		
                 </div>
-            </div>-->
+            </div>
 
 
             <div class="box grid">

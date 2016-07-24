@@ -26,14 +26,14 @@ switch($type){
 
 function getNapCard(){
 
-require('../connectdb_vnptcard.php');
+require('../connectdb_gimwap.php');
 
 	$fromDate = $_REQUEST['fromDate'];
 	$toDate = $_REQUEST['toDate'];
 	
 if (isset($fromDate) &&  isset($toDate)) {
 	try {
-		$sql = "SELECT count(distinct(username)) as log FROM `request` where date(created_on) >= '".$fromDate."' and date(created_on) <= '".$toDate."' AND success=1";
+		$sql = "SELECT count(distinct(username)) as log FROM `log_nap_koin` where date(created_on) >= '".$fromDate."' and date(created_on) <= '".$toDate."' AND type='2";
 		//die($sql);
 		$result = mysql_query($sql);
 		
@@ -53,18 +53,18 @@ if (isset($fromDate) &&  isset($toDate)) {
 
 
 function getNapSMS(){
-
+        require('../connectdb_gimwap.php');
 	//mysql_connect("10.0.0.2","pokervmg_tk","Z2bLevYRuLtnY") or die("loi ket noi toi may chu---");
-	mysql_connect("local.db:3306","root","Tienquang1!") or die("loi ket noi toi may chu---");
-	
-	//define('HOST', '127.0.0.1:3307');
-	mysql_select_db("gim_wap") or die("Ko ket noi duoc toi CSDL");
+//	mysql_connect("local.db:3306","root","Tienquang1!") or die("loi ket noi toi may chu---");
+//	
+//	//define('HOST', '127.0.0.1:3307');
+//	mysql_select_db("gim_wap") or die("Ko ket noi duoc toi CSDL");
 	$fromDate = $_REQUEST['fromDate'];
 	$toDate = $_REQUEST['toDate'];
 	
 if (isset($fromDate) &&  isset($toDate)) {
 	try {
-		$sql = "SELECT count(distinct(sender)) as log FROM `auth_user_partner` where date(created_on) >= '".$fromDate."' and date(created_on) <= '".$toDate."' AND service='NAP'";
+		$sql = "SELECT count(distinct(sender)) as log FROM `log_nap_koin` where date(created_on) >= '".$fromDate."' and date(created_on) <= '".$toDate."' AND type='4'";
 		//die($sql);
 		$result = mysql_query($sql);
 		
