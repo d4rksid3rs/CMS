@@ -18,14 +18,14 @@ require('db.class.php');
 //    $week[] = $date_start;
 //}
 
-$today = date('Y-m-d');
-//$today = date('2016-06-12');
-$month = date("Y-m-d", strtotime("-30 day", strtotime($today)));
-$today_start = $today . ' 00:00:00';
-$month_start = $month . ' 00:00:00';
+//$today = date('Y-m-d');
+$today = date('2016-07-22');
+//$month = date("Y-m-d", strtotime("-30 day", strtotime($today)));
+//$today_start = $today . ' 00:00:00';
+//$month_start = $month . ' 00:00:00';
 
-//$today_start = '2016-06-12 00:00:00';
-//$month_start = '2016-05-12 00:00:00';
+$today_start = '2016-07-22 00:00:00';
+$month_start = '2016-06-22 00:00:00';
 
 
 
