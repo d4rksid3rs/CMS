@@ -11,9 +11,11 @@
 	$fromDate = $toDate;
 	$newdate = strtotime ( '-366 day' , strtotime ( $fromDate ) ) ;
 	$fromDate = date('Y-m-d', $newdate);
+        
 	
 	try {
-		$sql = "select * from active_user where (date(date_login) >= '".$fromDate."' and date(date_login) <= '".$toDate."' and day(date_login)>27) or date_login = date(now()) order by date_login asc";
+		$sql = "select date_login, dau as login_time, mau as mau from active_user_detail where (date(date_login) >= '".$fromDate."' and date(date_login) <= '".$toDate."' and day(date_login)>27) or date_login = date(now()) order by date_login asc";
+                
 		$users = array();
 		$count = 0;
 		foreach ($db->query($sql) as $row) {

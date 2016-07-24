@@ -15,7 +15,7 @@ $comment = array("link" => "comment.php", "img" => "comment.png", "title" => "G�
 $chatroom = array("link" => "chatroom.php", "img" => "comment.png", "title" => "Chatroom");
 $home = array("link" => "index.php", "img" => "home.png", "title" => "Trang chủ");
 $picture = array("link" => "picture.php", "img" => "picture.png", "title" => "Picture");
-$trans = array("link" => "trans_card.php", "img" => "transaction.png", "title" => "Giao dịch xu");
+//$trans = array("link" => "trans_card.php", "img" => "transaction.png", "title" => "Giao dịch xu");
 $dau = array("link" => "dau.php", "img" => "dau.png", "title" => "DAU");
 $game = array("link" => "game.php", "img" => "game.png", "title" => "GAME");
 $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip");
@@ -38,11 +38,11 @@ $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip")
         switch ($u) {
             case "bemon":
 
-                $menu = array($logout, $settings, $trans, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
+                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
                 break;
             case "monaco":
 
-                $menu = array($logout, $settings, $trans, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
+                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
                 break;
 
             case "mkt":
@@ -64,7 +64,7 @@ $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip")
                 //echo $_SERVER['REQUEST_URI'];
                 /*                     header("Location: http://beme.net.vn/bi1/vip.php"); */
                 /*                     header("Location: http://beme.net.vn/bi1/comment.php"); */
-                $menu = array($logout,$vip, $comment, $user, $trans);
+                $menu = array($logout,$vip, $comment, $user);
                 break;
             default;
                 setcookie($domain_code . '_uid', '');

@@ -12,7 +12,7 @@ if (!isset($toDate)) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?php echo $title; ?></title>
+        <title><?php echo 'Activity'; ?></title>
         <?php require('header.php'); ?>
         <script>
             $(document).ready(function () {

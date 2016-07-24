@@ -44,7 +44,9 @@ try {
         $chart_data[] = array('day' => $row['datecreate'],
             'data' => json_encode($obj),
             'koin' => $row['diff_server_koin'],
-            'regKoin' => $row['reg_koin']);
+            'regKoin' => $row['reg_koin'],
+            'iapKoin' => $row['iap_koin']
+                );
     }
 
 //   var_dump($obj);
@@ -73,7 +75,7 @@ $title = "Thống kê tiền fee";
                         defaultSeriesType: 'spline'
                     },
                     title: {
-                        text: 'Koin Game'
+                        text: 'Xu Game'
                     },
                     xAxis: {
                         categories:
@@ -213,6 +215,7 @@ foreach ($chart_data as $row) {
     break;
 }
 echo substr($output, 0, -1);
+
 ?>
                     ]
                 });
@@ -223,7 +226,7 @@ echo substr($output, 0, -1);
                         defaultSeriesType: 'spline'
                     },
                     title: {
-                        text: 'Koin Daily Bonus + Register + Koin SMS, Card'
+                        text: 'Xu Daily Bonus + First Login + Xu SMS, Card'
                     },
                     xAxis: {
                         categories:
@@ -262,7 +265,7 @@ foreach ($chart_data as $row) {
     }
     $output .= "]}, ";
     //koin sms
-    $output .= "{name: 'KOIN SMS',";
+    $output .= "{name: 'XU SMS',";
     $output .= "data:[";
     foreach ($chart_data as $row2) {
         $obj = json_decode($row2['data']);
@@ -270,11 +273,19 @@ foreach ($chart_data as $row) {
     }
     $output .= "]}, ";
     //koin card
-    $output .= "{name: 'KOIN CARD',";
+    $output .= "{name: 'XU CARD',";
     $output .= "data:[";
     foreach ($chart_data as $row2) {
         $obj = json_decode($row2['data']);
         $output .= $obj->KOINCARD . ",";
+    }
+    $output .= "]}, ";
+    // IAP Koin
+    $output .= "{name: 'IAP XU',";
+    $output .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output .= $row['iapKoin'] . ",";
     }
     $output .= "]}, ";
     break;
@@ -311,17 +322,14 @@ echo substr($output, 0, -1);
                                 <td>Phỏm</td>
                                 <td>TLMN</td>
                                 <td>TLMN DC</td>
-                                <td>TLMB</td>
                                 <td>POKER</td>
                                 <td>BACAYCH</td>
-                                <td>INVITE</td>
                                 <td>Bacay</td>
                                 <td>Bacay moi</td>
                                 <td>LIENG</td>
                                 <td>Sam</td>
                                 <td>Binh</td>
-                                <td>BuyItem</td>
-                                <td align="center" style="background-color:#81A0F3;"><b>Koin game</b></td>
+                                <td align="center" style="background-color:#81A0F3;"><b>Xu game</b></td>
 
 <!--                                <td>Facebook</td>
                                 <td>Daily Bonus</td>
@@ -340,17 +348,14 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->PHOM) . "</td>";
                                 echo "<td>" . number_format($obj->TLMN) . "</td>";
                                 echo "<td>" . number_format($obj->TLMNDC) . "</td>";
-                                echo "<td>" . number_format($obj->TLMB) . "</td>";
                                 echo "<td>" . number_format($obj->POKER) . " </td>";
                                 echo "<td>" . number_format($obj->BACAYCH) . " </td>";
-                                echo "<td>" . number_format($obj->INVITE) . " </td>";
                                 echo "<td>" . number_format($obj->BACAY) . "</td>";
                                 echo "<td>" . number_format($obj->BACAYNEW) . "</td>";
                                 echo "<td>" . number_format($obj->LIENG) . "</td>";
                                 echo "<td>" . number_format($obj->SAM) . "</td>";
                                 echo "<td>" . number_format($obj->MAUBINH) . "</td>";
-                                echo "<td>" . number_format($obj->BUYITEM) . "</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->TLMB + $obj->POKER + $obj->BACAYCH + $obj->INVITE + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH + $obj->BUYITEM;
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + $obj->POKER + $obj->BACAYCH  + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH ;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 /*
@@ -373,15 +378,16 @@ echo substr($output, 0, -1);
                         <table width="100%" style="padding-top:20px">
                             <tr>
                                 <td>Ngày</td>
-                                <td align="center" style="background-color:#81A0F3;"><b>Koin game</b></td>
+                                <td align="center" style="background-color:#81A0F3;"><b>Xu game</b></td>
                                 <td>Facebook</td>
                                 <td>Daily Bonus</td>
-                                <td>Admin nạp koin</td>
+                                <td>Admin nạp xu</td>
                                 <td>Exp Event</td>
                                 <td>Text Event</td>
-                                <td>Koin SMS</td>
-                                <td>Koin Card</td>
+                                <td>Xu SMS</td>
+                                <td>Xu Card</td>
                                 <td>Register</td>
+                                <td>First Win</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Tổng</b></td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Diff</b></td>
                             </tr>
@@ -390,7 +396,7 @@ echo substr($output, 0, -1);
                                 $obj = json_decode($row['data']);
                                 echo "<tr>";
                                 echo "<td>{$row['day']}</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->TLMB + $obj->POKER + $obj->BACAYCH + $obj->INVITE + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH + $obj->BUYITEM;
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 echo "<td>" . number_format($obj->FACEBOOK) . "</td>";
@@ -401,8 +407,9 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->KOINSMS) . "</td>";
                                 echo "<td>" . number_format($obj->KOINCARD) . "</td>";
                                 echo "<td>" . number_format($row['regKoin']) . "</td>";
-
-                                $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->EXP_MISSION + $obj->EVENT + $obj->KOINSMS + $obj->KOINCARD + $obj->KOINADMIN + $row['regKoin'];
+                                echo "<td>" . number_format($obj->MONACO_FIRSTWIN) . "</td>";
+                                
+                                $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->EXP_MISSION + $obj->EVENT + $obj->KOINSMS + $obj->KOINCARD + $obj->KOINADMIN + $row['regKoin'] + $obj->MONACO_FIRSTWIN ;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($row['koin']) . "</b></td>";
                                 echo "</tr>";

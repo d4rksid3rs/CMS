@@ -40,7 +40,6 @@
 				}
 			}*/
 		}
-
 		$size = 1000;
 		foreach ($users as $key => $value) {
 			if ($size > sizeof($value)) {

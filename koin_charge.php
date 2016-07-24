@@ -59,7 +59,7 @@ if ($cmd != NULL && $cmd == "Submit") {
                                 <div style="height: 20px; text-align: right; padding-right: 9px;"><b><font color="#FFFFFF"> Tổng: <?php echo $sms . " user"; ?> </font></b></div>
                                 <div id="chart_div" style="width: 900px; ">
                                 <?php
-                                $sql = "SELECT * FROM koin_charge WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                $sql = "SELECT * FROM log_nap_koin WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
                                 //echo $sql;
                                 $rs = mysql_query($sql) or die("Không thống kê được");
                                 if (mysql_num_rows($rs) <= 0)
@@ -86,7 +86,7 @@ if ($cmd != NULL && $cmd == "Submit") {
                                     while ($row = mysql_fetch_array($rs2)) {
                                         echo "<tr>" .
                                         "<td align='center'>" . $row["username"] . "</td>" .
-                                        "<td align='center'>" . $row["koin"] . "</td>" .
+                                        "<td align='center'>" . $row["koin_added"] . "</td>" .
                                         "<td align='center'>" . $row["partner"] . "</td>" .
                                         "<td align='center'>" . $row["money"] . "</td>" .
                                         "<td align='center'>" . $row["created_on"] . "</td>";

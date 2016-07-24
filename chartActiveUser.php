@@ -15,7 +15,7 @@
 	$fromDate = date('Y-m-d', $newdate);
 	
 	try {
-		$sql = "select * from active_user where date(date_login) >= '".$fromDate."' and date(date_login) <= '".$toDate."' order by date_login asc";
+		$sql = "select date_login, dau as login_time, mau as mau from active_user_detail where date(date_login) >= '".$fromDate."' and date(date_login) <= '".$toDate."' order by date_login asc";
 		$users = array();
 		foreach ($db->query($sql) as $row) {
 			$users[] = array('date' => $row['date_login'],
