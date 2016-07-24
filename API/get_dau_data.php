@@ -19,13 +19,13 @@ require('db.class.php');
 //}
 
 //$today = date('Y-m-d');
-$today = date('2016-07-22');
+$today = date('2016-07-23');
 //$month = date("Y-m-d", strtotime("-30 day", strtotime($today)));
 //$today_start = $today . ' 00:00:00';
 //$month_start = $month . ' 00:00:00';
 
-$today_start = '2016-07-22 00:00:00';
-$month_start = '2016-06-22 00:00:00';
+$today_start = '2016-07-23 00:00:00';
+$month_start = '2016-06-23 00:00:00';
 
 
 
@@ -48,6 +48,7 @@ if ($stmt1->rowCount() > 0) {
             }
         }
         $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '2', '{$row['cp']}', '{$row['cp']}', '{$row['total']}', '{$total_month}')";
+        
         $db->exec($sql_insert);
     }
     echo 'Success !!!!';
@@ -57,7 +58,6 @@ if ($stmt1->rowCount() > 0) {
 //    $db->exec($sql_insert);
     echo 'No Moeny for Today !!';
 }
-
 // Log Login by CP
 
 $sql_login_cp_day = "select count(*) as total, cp from user where  last_login > '{$today_start}' group by cp"; 
@@ -101,12 +101,12 @@ if ($stmt5->rowCount() > 0) {
     foreach ($stmt5 as $row) {
         $total_month = 0;
         foreach ($stmt6 as $row2) {
-            if ($row2['cp'] == $row['cp']) {
+            if ($row2['os_type'] == $row['os_type']) {
                 $total_month = $row2['total'];
                 break;
             }
         }
-        $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '1', '{$row['cp']}', '{$row['cp']}', '{$row['total']}', '{$total_month}')";
+        $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '1', '{$row['os_type']}', '{$row['os_type']}', '{$row['total']}', '{$total_month}')";
         $db->exec($sql_insert);
     }
     echo 'Success !!!!';
@@ -129,12 +129,12 @@ if ($stmt7->rowCount() > 0) {
     foreach ($stmt7 as $row) {
         $total_month = 0;
         foreach ($stmt8 as $row2) {
-            if ($row2['cp'] == $row['cp']) {
+            if ($row2['os_type'] == $row['os_type']) {
                 $total_month = $row2['total'];
                 break;
             }
         }
-        $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '3', '{$row['cp']}', '{$row['cp']}', '{$row['total']}', '{$total_month}')";
+        $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '3', '{$row['os_type']}', '{$row['os_type']}', '{$row['total']}', '{$total_month}')";
         $db->exec($sql_insert);
     }
     echo 'Success !!!!';

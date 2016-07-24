@@ -8,7 +8,7 @@ $activity = array("link" => "activity.php", "img" => "activity.png", "title" => 
 $koin = array("link" => "koin.php", "img" => "koin.png", "title" => "T/k Tiền Trong game");
 $money = array("link" => "rev.php", "img" => "money_bills.png", "title" => "T/k doanh thu");
 $tool = array("link" => "vip.php", "img" => "bembuild.png", "title" => "VIP user");
-$register = array("link" => "stat_partner.php", "img" => "stats.png", "title" => "T/k user đăng ký");
+//$register = array("link" => "stat_partner.php", "img" => "stats.png", "title" => "T/k user đăng ký");
 $system = array("link" => "sysConfig.php", "img" => "system.png", "title" => "Hệ thống");
 $user = array("link" => "user.php", "img" => "user.png", "title" => "Người chơi");
 $comment = array("link" => "comment.php", "img" => "comment.png", "title" => "Góp ý");
@@ -38,19 +38,19 @@ $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip")
         switch ($u) {
             case "bemon":
 
-                $menu = array($logout, $settings, $trans, $activity, $koin, $money,$vip, $tool, $register, $system, $user, $comment, $dau, $game);
+                $menu = array($logout, $settings, $trans, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
                 break;
             case "monaco":
 
-                $menu = array($logout, $settings, $trans, $activity, $koin, $money,$vip, $tool, $register, $system, $user, $comment, $dau, $game);
+                $menu = array($logout, $settings, $trans, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
                 break;
 
             case "mkt":
-                $menu = array($activity, $koin, $register,$vip, $system, $user, $comment);
+                $menu = array($activity, $koin,$vip, $system, $user, $comment);
                 break;
 
             case "sale":
-                $menu = array($activity, $koin, $money, $register);
+                $menu = array($activity, $koin, $money);
                 break;
 
             case "chamsockh":

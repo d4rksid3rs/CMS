@@ -47,6 +47,7 @@ $name = array("Phỏm", "Ba cây", "Ba cây chương", "Tiến lên MN", "Tiến
 $value1 = array();
 $value1["online"] = $jsonData->{"online"};
 $value1["total"] = 0;
+$value1["bot"] = $jsonData->{"bot"};
 foreach ($key as $k) {
     $value1[$k]["online"] = 0;
     foreach ($jsonData->{$k}->{"room"} as $row) {
@@ -123,7 +124,8 @@ if (!isset($toDate)) {
                                         for ($i=0;$i<sizeof($key);$i++) {
                                             echo "<tr><td>".$name[$i]." </td><td align=\"center\">".$value1[$key[$i]]["online"]."</td></tr>";
                                         }
-                                    ?>                                      
+                                    ?>    
+                                    <tr><td width="40%">Bot </td><td align="center"><?php echo $value1["bot"]; ?></td></tr>
                                 </table>
                             </td>
 <!--                            <td width="50%">
