@@ -38,7 +38,7 @@
                    
 	<table width=100%>
 		<tr>
-			<td colspan="2">CP</td>
+			<td colspan="2">Hệ thống</td>
 		</tr>
 		<tr>
 
