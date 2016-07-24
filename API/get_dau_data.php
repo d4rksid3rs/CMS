@@ -1,6 +1,6 @@
 <?php
-//error_reporting(-1);
-//ini_set('display_errors', 'On');
+error_reporting(-1);
+ini_set('display_errors', 'On');
 require('db.class.php');
 //$end_date = date('Y-m-d');
 //
@@ -52,8 +52,9 @@ if ($stmt1->rowCount() > 0) {
     }
     echo 'Success !!!!';
 } else {
-    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '0')";
-    $db->exec($sql_insert);
+//    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '0')";
+//    var_dump($sql_insert);
+//    $db->exec($sql_insert);
     echo 'No Moeny for Today !!';
 }
 
@@ -77,12 +78,13 @@ if ($stmt3->rowCount() > 0) {
             }
         }
         $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '4', '{$row['cp']}', '{$row['cp']}', '{$row['total']}', '{$total_month}')";
+//        var_dump($sql_insert);
         $db->exec($sql_insert);
     }
     echo 'Success !!!!';
 } else {
-    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '0')";
-    $db->exec($sql_insert);
+//    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '0')";
+//    $db->exec($sql_insert);
     echo 'No Moeny for Today !!';
 }
 
@@ -109,8 +111,8 @@ if ($stmt5->rowCount() > 0) {
     }
     echo 'Success !!!!';
 } else {
-    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '')";
-    $db->exec($sql_insert);
+//    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '')";
+//    $db->exec($sql_insert);
     echo 'No Moeny for Today !!';
 }
 
@@ -137,8 +139,8 @@ if ($stmt7->rowCount() > 0) {
     }
     echo 'Success !!!!';
 } else {
-    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '')";
-    $db->exec($sql_insert);
+//    $sql_insert = "INSERT INTO `active_user_detail` (`date_login`, `type`, `name1`, `name2`, `dau`, `mau`) VALUES ('{$today}', '0', '', '', '', '')";
+//    $db->exec($sql_insert);
     echo 'No Moeny for Today !!';
 }
 
