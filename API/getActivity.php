@@ -33,8 +33,9 @@ require('../connectdb_gimwap.php');
 	
 if (isset($fromDate) &&  isset($toDate)) {
 	try {
-		$sql = "SELECT count(distinct(username)) as log FROM `log_nap_koin` where date(created_on) >= '".$fromDate."' and date(created_on) <= '".$toDate."' AND type='2";
-		//die($sql);
+		$sql = "SELECT count(distinct(username)) as log FROM `log_nap_koin` where date(created_on) >= '".$fromDate."' and date(created_on) <= '".$toDate."' AND type='2'";
+                
+//		die($sql);
 		$result = mysql_query($sql);
 		
 		while($row = mysql_fetch_assoc($result)){
