@@ -48,7 +48,6 @@ try {
             'iapKoin' => $row['iap_koin']
                 );
     }
-
 //   var_dump($obj);
 //   var_dump($chart_data);
 } catch (Exception $e) {
@@ -261,7 +260,7 @@ foreach ($chart_data as $row) {
     $output .= "data:[";
     foreach ($chart_data as $row2) {
         $obj = json_decode($row2['data']);
-        $output .= $row['regKoin'] . ",";
+        $output .= $row2['regKoin'] . ",";
     }
     $output .= "]}, ";
     //koin sms
