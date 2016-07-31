@@ -36,21 +36,21 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
                             Tới ngày:
                             <input type="text" id="datepicker2" name="toDate" style="text-align: center; width: 100px;" value="<?php echo $toDate;?>" readonly="true"/> 
                             (23:59:59)
-                            Mã đối tác:
+<!--                            Mã đối tác:-->
                             <?php
-                            require('connectdb_bemecp.php');
-                                /*
-$host="127.0.0.1";
-                                $user="dong";
-                                $password="dong!@#654";
-                                mysql_connect($host,$user,$password);
-                                                                                            
-                                mysql_select_db("beme_cp") or die("Ko ket noi duoc toi CSDL");
-*/
-                                $sql9 = "SELECT username,code FROM bm_partner WHERE status=1";
-                                $rs9 = mysql_query($sql9);
+//                            require('connectdb_bemecp.php');
+//                                /*
+//$host="127.0.0.1";
+//                                $user="dong";
+//                                $password="dong!@#654";
+//                                mysql_connect($host,$user,$password);
+//                                                                                            
+//                                mysql_select_db("beme_cp") or die("Ko ket noi duoc toi CSDL");
+//*/
+//                                $sql9 = "SELECT username,code FROM bm_partner WHERE status=1";
+//                                $rs9 = mysql_query($sql9);
                             ?>
-                            <select name="macp">
+<!--                            <select name="macp">
 								<?php while($row9=mysql_fetch_array($rs9)){
 								    if($row9["code"]==$_POST["macp"]){
 									   echo "<option  selected='true' value=".$row9["code"].">".$row9["username"]."</option>";
@@ -59,7 +59,7 @@ $host="127.0.0.1";
                                     }
 								}
 								?>
-							</select>
+							</select>-->
                             <input type="submit" value="Submit" name="cmd" class="input_button"/>
                         </form>
                         <div style="height: 10px;"></div>
@@ -67,22 +67,22 @@ $host="127.0.0.1";
                             <?php
                                                             
                                 //require("connectdb_logsms.php");
-                                require("connectdb_vnptcard.php");                            
+                                require("connectdb_gimwap.php");                            
                                 $cmd = isset($_REQUEST["cmd"])?trim($_REQUEST["cmd"]):NULL;
         			            if($cmd != NULL && $cmd=="Submit"){
         			                $a = isset($_REQUEST["fromDate"])?trim($_REQUEST["fromDate"]):NULL;
         				            $b = isset($_REQUEST["toDate"])?trim($_REQUEST["toDate"]):NULL;
                                     $code = isset($_REQUEST["macp"])?trim($_REQUEST["macp"]):NULL;
                                     
-                                    if($code==NULL){
-                                        echo "<center><b><font style='color: black;'>Chưa điền mã đối tác</font></b></center>";
-                                        break;
-                                    }
+//                                    if($code==NULL){
+//                                        echo "<center><b><font style='color: black;'>Chưa điền mã đối tác</font></b></center>";
+//                                        break;
+//                                    }
                                     
                                     $fDate = $a." 00:00:00";
                                     $tDate = $b." 23:59:59";
-                                    
-                                    $sql5 = "SELECT sum(count) as count FROM (SELECT count(cardvalue) as count FROM request WHERE success = 1 AND cp = '{$code}' AND created_on BETWEEN '{$fDate}' AND '{$tDate}' GROUP BY issuer,cardvalue,cp) AS S1";
+//                                    $sql5 = "SELECT sum(count) as count FROM (SELECT count(cardvalue) as count FROM request WHERE success = 1 AND cp = '{$code}' AND created_on BETWEEN '{$fDate}' AND '{$tDate}' GROUP BY issuer,cardvalue,cp) AS S1";
+                                    $sql5 = "SELECT sum(count) as count FROM (SELECT count(cardvalue) as count FROM request WHERE success = 1 AND created_on BETWEEN '{$fDate}' AND '{$tDate}' GROUP BY issuer,cardvalue,cp) AS S1";
                                     
                                     $rs5=mysql_query($sql5) or die("Không thống kế đc");
                                     $row5=mysql_fetch_array($rs5);
@@ -92,7 +92,8 @@ $host="127.0.0.1";
                             <div id="chart_div" style="width: 900px; ">
                         <?php
                                 
-                                $sql = "SELECT created_on, issuer, cardvalue, cp, success, count(cardvalue) as count FROM request WHERE success = 1 AND cp = '{$code}' AND created_on BETWEEN '{$fDate}' AND '{$tDate}' GROUP BY issuer,cardvalue,cp ORDER BY issuer,created_on DESC";
+//                                $sql = "SELECT created_on, issuer, cardvalue, cp, success, count(cardvalue) as count FROM request WHERE success = 1 AND cp = '{$code}' AND created_on BETWEEN '{$fDate}' AND '{$tDate}' GROUP BY issuer,cardvalue,cp ORDER BY issuer,created_on DESC";
+                                $sql = "SELECT created_on, issuer, cardvalue, cp, success, count(cardvalue) as count FROM request WHERE success = 1 AND created_on BETWEEN '{$fDate}' AND '{$tDate}' GROUP BY issuer,cardvalue,cp ORDER BY issuer,created_on DESC";
                                 
                                 //echo $sql;
                                     $rs=mysql_query($sql) or die("Không thống kê được"); 

@@ -191,6 +191,65 @@
                 });
             }
             
+            function findUserDBbyScreenName() {
+                var username = $("#findUser input[name=screen-name]").val();
+                $("#userDetail").hide();
+                $("#userDetailDB").hide();
+                $('#findUserDBID').attr("disabled", true);
+                $.ajax({
+                    type: "GET",
+                    url: "API/findUserDBbyScreen.php",
+                    data: {
+                        "username":username
+                    },
+                    dataType: 'text',
+                    success: function(msg) {
+                        msg = msg.trim();
+                        if (msg != '' && msg.length > 2) {
+                            var data = jQuery.parseJSON(msg);
+                            if (data.status == 1) {
+                                $("#username").text(username);
+                                $("#fullname").text(data.fullname);
+                                $("#mobile").text(data.mobile);
+                                $("#last_login").text(data.lastLogin);
+                                $("#cp").text(data.cp);
+                                $("#version").text(data.version);
+                                $("#date").text(data.dateCreated);
+                                $("#valueChargedSMS").text(data.smsmoney);
+                                $("#valueChargedCard").text(data.cardmoney);
+                                $("#valueSmsDate").text(data.smsDate);
+                                $("#valueCardDate").text(data.cardDate);
+                                $("#farmCount").text(data.farm);
+                                $("#userType").text(data.type);
+                                $("#lockTime").text(data.lock_time);
+								$('#findUserDBID').attr("disabled", false);
+                                $("#userDetailDB").slideDown(500);
+								findUserKoin();
+                            } else {
+                                $("#findUser #message").html(data.message);
+                                $(this).oneTime(5000, function() {
+                                    $("#findUser #message").html("");
+								$('#findUserDBID').attr("disabled", false);
+                                });
+                            }
+                        } else {
+                            $("#findUser #message").html("Lỗi hệ thống");
+								$('#findUserDBID').attr("disabled", false);
+                            $(this).oneTime(5000, function() {
+                                $("#findUser #message").html("");
+                            });
+                        }
+                    },
+                    failure: function() {
+                        $("#findUser #message").html("Lỗi hệ thống");
+								$('#findUserDBID').attr("disabled", false);
+                        $(this).oneTime(5000, function() {
+                            $("#findUser #message").html("");
+                        });
+                    }
+                });
+            }
+            
             function findUser() {
                 var username = $("#findUser input[name=user]").val();
                 $("#userDetail").slideUp();
@@ -887,9 +946,12 @@
                 <div class="box_header"><a href="javascript:void(0);">Tìm kiếm</a></div>
                 <div class="box_body">
                     <form id="findUser">
+                        Screen Name <input type="text" name="screen-name" style="width: 100px"/>
+                        <input type="button" name="add" value="Tìm trong DB" id="findUserDBID" onclick="findUserDBbyScreenName();"/><br /> 
                         Username <input type="text" name="user" style="width: 100px"/>
                         <input type="button" name="add" value="Tìm trong game" onclick="findUser();"/>
                         <input type="button" name="add" value="Tìm trong DB" id="findUserDBID" onclick="findUserDB();"/><br />
+                                               
                         Password Admin <input type="password" name="adminpass" id="adminpass" style="width: 100px"/>
                         <input type="button" name="add" value="Đổi mật khẩu" onclick="findUserPassword();"/>
                         <span id="message" style="color: #800000; font-weight: bold"></span>
