@@ -62,7 +62,6 @@ try {
 $output = "";
 $tmp = array();
 foreach ($users as $key => $val) {
-    var_dump($val);die;
 //while (list($key, $val) = each($users)) {
     $output = $output . "{name: '" . $key . "',";
     $output = $output . "data:[";
