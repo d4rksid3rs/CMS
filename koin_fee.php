@@ -1,16 +1,18 @@
 <?php
 //include 'cache_begin.php';
 require('API/db.class.php');
-$fromDate = $_REQUEST['fromDate'];
-$toDate = $_REQUEST['toDate'];
 
-if (!isset($fromDate)) {
+if (!isset($_REQUEST['fromDate'])) {
     $fromDate = date('Y-m-d', time());
     $newdate = strtotime('-10 day', strtotime($fromDate));
     $fromDate = date('Y-m-d', $newdate);
+} else {
+    $fromDate = $_REQUEST['fromDate'];
 }
-if (!isset($toDate)) {
+if (!isset($_REQUEST['toDate'])) {
     $toDate = date('Y-m-d', time());
+} else {
+    $toDate = $_REQUEST['toDate'];
 }
 try {
     $sql = "select * from server_koin_daily where datecreate >= '" . $fromDate . "' and datecreate <= '" . $toDate . "' order by datecreate";
@@ -48,7 +50,7 @@ try {
             'iapKoin' => $row['iap_koin']
                 );
     }
-//   var_dump($obj);
+//   var_dump($obj);die;
 //   var_dump($chart_data);
 } catch (Exception $e) {
     echo "Lỗi kết nối CSDL";
@@ -200,6 +202,22 @@ foreach ($chart_data as $row) {
         $output .= $obj->SAM . ",";
     }
     $output .= "]}, ";
+    //Sam
+    $output .= "{name: 'XOCDIA',";
+    $output .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output .= $obj->XOCDIA . ",";
+    }
+    $output .= "]}, ";
+    //Sam
+    $output .= "{name: 'BAUCUA',";
+    $output .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output .= $obj->BAUCUA . ",";
+    }
+    $output .= "]}, ";
     //buy item
     /*
       $output .= "{name: 'BUY ITEM',";
@@ -328,6 +346,8 @@ echo substr($output, 0, -1);
                                 <td>LIENG</td>
                                 <td>Sam</td>
                                 <td>Binh</td>
+                                <td>Xoc Dia</td>
+                                <td>Bau Cua</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Xu game</b></td>
 
 <!--                                <td>Facebook</td>
@@ -354,7 +374,9 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->LIENG) . "</td>";
                                 echo "<td>" . number_format($obj->SAM) . "</td>";
                                 echo "<td>" . number_format($obj->MAUBINH) . "</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + $obj->POKER + $obj->BACAYCH  + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH ;
+                                echo "<td>" . number_format($obj->XOCDIA) . "</td>";
+                                echo "<td>" . number_format($obj->BAUCUA) . "</td>";
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + $obj->POKER + $obj->BACAYCH  + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 /*

@@ -14,7 +14,7 @@ if (!isset($toDate)) {
     $toDate = date('Y-m-d', time());
 }
 try {
-    $sql = "select type, hour(dateOnline) as hourTime, sum(online) as online from user_online_history where date(dateOnline) >= '" . $fromDate . "' and date(dateOnline) <= '" . $toDate . "' group by type,hour(dateOnline) order by hour(dateOnline)";
+    $sql = "select type, hour(dateOnline) as hourTime, sum(online)/count(*) as online from user_online_history where date(dateOnline) >= '" . $fromDate . "' and date(dateOnline) <= '" . $toDate . "' group by type,hour(dateOnline) order by hour(dateOnline)";
 //echo $sql;
     $users = array();
     foreach ($db->query($sql) as $row) {
@@ -23,7 +23,7 @@ try {
             $type = substr($type, 3);
             if ($type == 'All') {
                 $type = 'Monaco';
-                $users[$type][] = array('hour' => $row['hourTime'], 'online' => $row['online']);
+                $users[$type][] = array('hour' => $row['hourTime'], 'online' => round($row['online']));
             }
         } else if (startsWith($type, "s2")) {
             $type = substr($type, 3);
