@@ -52,8 +52,8 @@
                             <td colspan="2">Kenh thanh toan doi tac</td>
                         </tr>
                         <tr>
-                            <td width=50% align=center><div>The cao</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
-                            <td width=50% align=center><div>IAP</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=2">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=50% align=center><div>The cao</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=2">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=50% align=center><div>IAP</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
                         </tr>
 
                     </table>

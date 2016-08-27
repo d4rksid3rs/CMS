@@ -17,13 +17,13 @@ if (!isset($toDate)) {
 }
 
 try {
-    $sql = "select koin, date(date) as day from server_koin where date(date) >= '" . $fromDate . "' and date(date) <= '" . $toDate . "' order by date";
+    $sql = "select koin_vip, date(date) as day from server_koin where date(date) >= '" . $fromDate . "' and date(date) <= '" . $toDate . "' order by date";
     //echo $sql;
     $chart_data = array();
 
     foreach ($db->query($sql) as $row) {
         $chart_data[] = array('day' => $row['day'],
-            'koin' => $row['koin']);
+            'koin_vip' => $row['koin_vip']);
     }
     //var_dump($rec_arr);
 } catch (Exception $e) {
@@ -48,18 +48,18 @@ try {
             google.setOnLoadCallback(drawChart);
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
-                    ['Ngày', 'Xu'],
+                    ['Ngày', 'Chip'],
 <?php
 foreach ($chart_data as $data) {
     $day = formatdate($data['day']);
-    $koin = $data['koin'];
+    $koin = $data['koin_vip'];
     echo "['{$day}',  {$koin}],";
 }
 ?>
                 ]);
 
                 var options = {
-                    title: 'Xu',
+                    title: 'Chip',
                     hAxis: {title: 'Ngay', titleTextStyle: {color: 'red'}},
                     width: 500, height: 300
                 };

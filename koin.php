@@ -27,8 +27,13 @@
 
                         <tr>
                             <td width="50%">
-                                <iframe height="370" width="100%" frameBorder="0" src="koin_data.php?change=1">your browser does not support IFRAMEs</iframe></td>
+                                <iframe height="370" width="100%" frameBorder="0" src="koin_data.php?change=1">your browser does not support IFRAMEs</iframe>
+                            </td>
+                            <td width="50%">
+                                <iframe height="370" width="100%" frameBorder="0" src="koin_vip_data.php?change=1">your browser does not support IFRAMEs</iframe>
+                            </td>
                         </tr>
+                        
 
 
                     </table>

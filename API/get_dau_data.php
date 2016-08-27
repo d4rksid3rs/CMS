@@ -143,11 +143,11 @@ if ($stmt7->rowCount() > 0) {
 }
 
 // Server Koin
-$sql_koin = "select sum(koin) as total from auth_user";
+$sql_koin = "select sum(koin) as total, sum(koin_vip) as total_vip from auth_user";
 $stmt10 = $db->prepare($sql_koin);
 $stmt10->execute();
 $today_timestamp = date("Y-m-d H:i:s");
 foreach ($stmt10 as $row) {
-    $sql_insert = "INSERT INTO `server_koin` (`date`, `koin`) VALUES ('{$today_timestamp}', {$row['total']})";
+    $sql_insert = "INSERT INTO `server_koin` (`date`, `koin`, `koin_vip`) VALUES ('{$today_timestamp}', {$row['total']}, {$row['total_vip']})";
     $db->exec($sql_insert);
 }

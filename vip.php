@@ -32,9 +32,9 @@ $u = isset($_SESSION['username']) ? $_SESSION['username'] : 'foobar';
                                 $money = 2000000;
                             $day = $_POST['day'];
                             if ($day)
-                                $sql = "SELECT u.username, u.mobile, os_type, client_version, date_created, last_login, koin, money, u.cp, DATEDIFF(CURDATE(), last_login) AS loginDate FROM user u JOIN auth_user au ON u.username = au.username LEFT JOIN (SELECT username, sum(money) AS money FROM log_nap_koin GROUP BY username) l ON l.username = u.username WHERE DATEDIFF(CURDATE(), last_login) >= $day AND money > $money ORDER BY money DESC";
+                                $sql = "SELECT u.username, u.mobile, os_type, client_version, date_created, last_login, koin, koin_vip, money, u.cp, DATEDIFF(CURDATE(), last_login) AS loginDate FROM user u JOIN auth_user au ON u.username = au.username LEFT JOIN (SELECT username, sum(money) AS money FROM log_nap_koin GROUP BY username) l ON l.username = u.username WHERE DATEDIFF(CURDATE(), last_login) >= $day AND money > $money ORDER BY money DESC";
                             else
-                                $sql = "SELECT u.username, u.mobile, os_type, client_version, date_created, last_login, koin, money, u.cp, DATEDIFF(CURDATE(), last_login) AS loginDate FROM user u JOIN auth_user au ON u.username = au.username LEFT JOIN (SELECT username, sum(money) AS money FROM log_nap_koin GROUP BY username) l ON l.username = u.username WHERE money > $money ORDER BY money DESC";
+                                $sql = "SELECT u.username, u.mobile, os_type, client_version, date_created, last_login, koin, koin_vip, money, u.cp, DATEDIFF(CURDATE(), last_login) AS loginDate FROM user u JOIN auth_user au ON u.username = au.username LEFT JOIN (SELECT username, sum(money) AS money FROM log_nap_koin GROUP BY username) l ON l.username = u.username WHERE money > $money ORDER BY money DESC";
 
 
 //	echo $sql;
@@ -51,7 +51,8 @@ $u = isset($_SESSION['username']) ? $_SESSION['username'] : 'foobar';
                                         <th>Username</th>
                                         <th align="center" style="width: 100px;">Phiên bản</th>
                                         <th align="center" style="width: 150px;">Số điện thoại</th>
-                                        <th align="center" style="width: 150px;">Balance</th>
+                                        <th align="center" style="width: 150px;">Xu</th>
+                                        <th align="center" style="width: 150px;">Chip</th>
                                         <th style="width:150px">Số tiền nạp</th>
                                         <th align="center" style="width: 150px;">CP</th>
                                         <th align="center" style="width: 150px;">Số ngày chưa login</th>
@@ -82,6 +83,7 @@ $u = isset($_SESSION['username']) ? $_SESSION['username'] : 'foobar';
                                             <td align="center" style="width: 100px;"><?php echo $r['os_type'] . ' | ' . $r['client_version'] ?></td>
                                             <td align="center" style="width: 150px;"><?php echo $r['mobile'] ?></td>
                                             <td align="center" style="width: 150px;"><?php echo number_format($r['koin']) ?></td>
+                                            <td align="center" style="width: 150px;"><?php echo number_format($r['koin_vip']) ?></td>
                                             <td align="center"><?php echo number_format($r['money']) . ' vnđ' ?></td>
                                             <td align="center" style="width: 150px;"><?php echo $r['cp'] ?></td>
                                             <td align="center" style="width: 150px;"><?php echo $r['loginDate'] ?></td>

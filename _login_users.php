@@ -14,5 +14,7 @@ $users = array(
     'lam' => 'lam2023',
     'chamsockh' => 'cskh2013xyz2013',
     'monaco' => 'monaco123',
+    'monacovh' => 'monacovh123456',
+    'hq' => 'monaco654321'
 );
 ?>

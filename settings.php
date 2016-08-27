@@ -536,11 +536,11 @@ foreach ($value as $k => $v) {
             <?php require('topMenu.php'); ?>
 
             <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Koin Special Offers</a></div>
+                <div class="box_header"><a href="javascript:void(0);">Xu Special Offers</a></div>
                 <div class="box_body">
                     <div style="padding-left:10px;">
                         <form action="" method="post">
-                            <b>Koin (SMS) </b><br>
+                            <b>Xu (SMS) </b><br>
                             Từ ngày
                             <input type="text" id="datepicker1" name="from_date" style="text-align: center; width: 100px;" value="<?php echo $from_date; ?>"/>
                             <input type="text" id="" name="from_time" style="width: 60px;" value="<?php echo $from_time; ?>"/>
@@ -551,7 +551,7 @@ foreach ($value as $k => $v) {
                             Hệ số nhân
                             <input type="text" id="factor" name="factor" style="text-align: right; width: 40px;" value="<?php echo $factor; ?>"/> 
                             <hr>
-                            <b>Koin (CARD) (Khoảng thời gian 1) </b><br>
+                            <b>Xu (CARD) (Khoảng thời gian 1) </b><br>
                             Từ ngày
                             <input type="text" id="datepicker5" name="from_date2" style="text-align: center; width: 100px;" value="<?php echo $from_date2; ?>"/> 
                             <input type="text" id="" name="from_time2" style="width: 60px;" value="<?php echo $from_time2; ?>"/>
@@ -567,7 +567,7 @@ foreach ($value as $k => $v) {
                             }
                             ?>
                             <br>
-                            <b>Koin (CARD) (Khoảng thời gian 2) </b><br>
+                            <b>Xu (CARD) (Khoảng thời gian 2) </b><br>
                             Từ ngày
                             <input type="text" id="datepicker7" name="from_date3" style="text-align: center; width: 100px;" value="<?php echo $from_date3; ?>"/> 
                             <input type="text" id="" name="from_time3" style="width: 60px;" value="<?php echo $from_time3; ?>"/>

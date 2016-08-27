@@ -44,7 +44,15 @@ $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip")
 
                 $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
                 break;
+            case "monacovh":
 
+                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
+                break;
+            case "hq":
+
+                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $user, $comment, $dau, $game);
+                break;
+            
             case "mkt":
                 $menu = array($activity, $koin,$vip, $system, $user, $comment);
                 break;
