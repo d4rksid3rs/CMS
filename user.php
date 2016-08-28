@@ -226,7 +226,7 @@
                                 $("#lockTime").text(data.lock_time);
                                 $('#findUserDBID').attr("disabled", false);
                                 $("#userDetailDB").slideDown(500);
-                                findUserKoin(text(username));
+                                findUserKoin(username);
                             } else {
                                 $("#findUser #message").html(data.message);
                                 $(this).oneTime(5000, function () {
@@ -788,6 +788,35 @@
                 });
             }
 
+            function statUser(href) {
+                if (!href) {
+                    console.log('aaaa');
+                    var balance_koin = $("#statUser input[name=balance_koin]").val();
+                    var range_koin = $("#statUser input[name=range_koin]").val();
+                    $("#btnFindMobileDataSMS").attr("disabled", true);
+                    $.ajax({
+                        type: "GET",
+                        url: "API/getListUserByKoin.php",
+                        data: {
+                            "balance_koin": balance_koin,
+                            "range_koin": range_koin,
+                        },
+                        dataType: 'text',
+                        success: function (msg) {
+                            $("#statUserList").html(msg);
+                            $("#statUserList").show();
+                        },
+                        failure: function () {
+                            $("#phoneDataDetail").html("<span>Không truy cập được dữ liệu</span>");
+                            $("#btnFindMobileDataSMS").attr("disabled", false);
+                        }
+                    });
+                } else {
+                    console.log(href)
+                }
+                
+            }
+
             function findMobileUser() {
                 var username = $("#findUserPhoneData input[name=username]").val();
                 $("#btnFindUserMobileDataSMS").attr("disabled", true);
@@ -925,6 +954,11 @@
                     });
                 }
             }
+            $('.pagination-link').click(function (e) {
+                e.preventDefault();
+                var href = $(this).attr('href');
+                return false;
+            });
         </script>
     </head>
     <body>
@@ -1059,21 +1093,21 @@
             </div>
 
 
-<!--            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Tìm kiếm số điện thoại</a></div>
-                <div class="box_body" style="display: none">                    
-                    <form id="findUserPhoneData">
-                        Username:
-                        <input type="text" name="username" value="" />
-                        <input type="button" name="add" id="btnFindUserMobileDataSMS" value="Search" onclick="findMobileUser();"/>
-                        <span id="message" style="color: #800000; font-weight: bold"></span>
-                    </form>                    
-                    <div id="phoneData">
-                        <div id="userphoneDataDetail"></div>                        
-                    </div>
-                    <div id="userPassword" style="display: none; padding-top:3px;"></div>
-                </div>
-            </div>-->
+            <!--            <div class="box grid">
+                            <div class="box_header"><a href="javascript:void(0);">Tìm kiếm số điện thoại</a></div>
+                            <div class="box_body" style="display: none">                    
+                                <form id="findUserPhoneData">
+                                    Username:
+                                    <input type="text" name="username" value="" />
+                                    <input type="button" name="add" id="btnFindUserMobileDataSMS" value="Search" onclick="findMobileUser();"/>
+                                    <span id="message" style="color: #800000; font-weight: bold"></span>
+                                </form>                    
+                                <div id="phoneData">
+                                    <div id="userphoneDataDetail"></div>                        
+                                </div>
+                                <div id="userPassword" style="display: none; padding-top:3px;"></div>
+                            </div>
+                        </div>-->
 
 
             <div class="box grid">
@@ -1090,37 +1124,53 @@
                 </div>
             </div>
 
-
-<!--            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Tìm kiếm list user theo passport</a></div>
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);">Thống kê User</a></div>
                 <div class="box_body" style="display: none">
-                    <form id="findUserPassport">
-                        Passport: <input type="text" name="passport" value="" />
-                        <input type="button" name="add" id="btnFindUserPassport" value="Search" onclick="findListUserPassport();"/><br />
-                        Lý do khoá: <input type="text" name="cause" value="" />
-                        <input type="button" name="add" id="btnFindLockPassport" value="Khoá" onclick="lockPassport();"/>
-                        <input type="button" name="add" id="btnFindLockPassport" value="Mở Khoá" onclick="unlockPassport();"/>
-                    </form>                    
-                    <div id="userData">
-                        <div id="userPassport"></div>                        
-                    </div>
+                    <form id="statUser">						
+                        Số xu <input type="text" name="balance_koin" style="width: 100px"/>
+                        Khoảng <input type="text" name="range_koin" style="width: 100px"/>
+                        <input type="button" name="add" value="Thống kê" onclick="statUser();"/>
+
+                        <span id="message" style="color: #800000; font-weight: bold"></span>
+                    </form>
                 </div>
-            </div>-->
+                <div id="statUserList" style="display: none;">
+
+                </div>
+            </div>
 
 
-<!--            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Tìm kiếm list user theo số điện thoại nạp sms</a></div>
-                <div class="box_body" style="display: none">
-                    <form id="findUserSMS">
-                        Số điện thoại:
-                        <input type="text" name="mobile" value="" /> (có dạng: 84xxxxxxx)
-                        <input type="button" name="add" id="btnFindUserSMS" value="Search" onclick="findListUserSMS();"/>
-                    </form>                    
-                    <div id="userData">
-                        <div id="userSMS"></div>                        
-                    </div>
-                </div>
-            </div>-->
+            <!--            <div class="box grid">
+                            <div class="box_header"><a href="javascript:void(0);">Tìm kiếm list user theo passport</a></div>
+                            <div class="box_body" style="display: none">
+                                <form id="findUserPassport">
+                                    Passport: <input type="text" name="passport" value="" />
+                                    <input type="button" name="add" id="btnFindUserPassport" value="Search" onclick="findListUserPassport();"/><br />
+                                    Lý do khoá: <input type="text" name="cause" value="" />
+                                    <input type="button" name="add" id="btnFindLockPassport" value="Khoá" onclick="lockPassport();"/>
+                                    <input type="button" name="add" id="btnFindLockPassport" value="Mở Khoá" onclick="unlockPassport();"/>
+                                </form>                    
+                                <div id="userData">
+                                    <div id="userPassport"></div>                        
+                                </div>
+                            </div>
+                        </div>-->
+
+
+            <!--            <div class="box grid">
+                            <div class="box_header"><a href="javascript:void(0);">Tìm kiếm list user theo số điện thoại nạp sms</a></div>
+                            <div class="box_body" style="display: none">
+                                <form id="findUserSMS">
+                                    Số điện thoại:
+                                    <input type="text" name="mobile" value="" /> (có dạng: 84xxxxxxx)
+                                    <input type="button" name="add" id="btnFindUserSMS" value="Search" onclick="findListUserSMS();"/>
+                                </form>                    
+                                <div id="userData">
+                                    <div id="userSMS"></div>                        
+                                </div>
+                            </div>
+                        </div>-->
 
             <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Gửi tin nhắn cho 1 người chơi</a></div>
@@ -1193,26 +1243,26 @@
                             <div class="box_body" style="display: none">
                                 <form id="changeIcon">						
                                     Tên bang <input type="text" name="guild_name" style="width: 100px"/>
-                                                            Mã huy hiệu <input type="text" name="icon_id" style="width: 100px"/>
-                                                            <input type="button" name="add" value="Xem thông tin" onclick="findGuild();"/>
+                                    Mã huy hiệu <input type="text" name="icon_id" style="width: 100px"/>
+                                    <input type="button" name="add" value="Xem thông tin" onclick="findGuild();"/>
                                     <input type="button" name="add" value="Thay đổi" onclick="changeIcon();"/>
             
                                     <span id="message" style="color: #800000; font-weight: bold"></span>
                                 </form>
                             </div>
-                                            <div id="guildDetail" style="display: none;">
-                                                    <table width="100%">
-                                                            <tr>
-                                                                    <td width="10%">Tên bang hội</td>
-                                                                    <td><span id="name"></span></td>
-                                                                    <td width="10%">Bang chủ</td>
-                                                                    <td><span id="owner"></span></td>
-                                                                    <td width="10%">Huy hiệu</td>
-                                                                    <td><span id="icon"></span></td>
-                                                            </tr>                            
-                                                    </table>
-                                            </div>
-                        </div>-->
+                            <div id="guildDetail" style="display: none;">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="10%">Tên bang hội</td>
+                                        <td><span id="name"></span></td>
+                                        <td width="10%">Bang chủ</td>
+                                        <td><span id="owner"></span></td>
+                                        <td width="10%">Huy hiệu</td>
+                                        <td><span id="icon"></span></td>
+                                    </tr>                            
+                                </table>
+                            </div>
+                        </div>-->            
         </div>
     </body>
 </html>

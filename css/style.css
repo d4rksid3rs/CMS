@@ -90,3 +90,16 @@ a:hover {color: #045379;}
     display: block;
     margin-top: 15px;
 }
+.userStatPagination li {
+    float: left;
+    list-style: none;
+    margin-right: 20px;
+    
+}
+.userStatPagination li a {
+    color: #fff;
+    font-weight: bold;
+}
+.userStatPagination {
+    float: right;
+}
