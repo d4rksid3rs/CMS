@@ -1,7 +1,7 @@
 <?php
-$host="127.0.0.1:3307";
-$user="megatron";
-$password="optimus2771983";
+$host="local.db";
+$user="root";
+$password="";
 mysql_connect($host,$user,$password);
 mysql_select_db('logsms') or die(mysql_error());
 $u = $_REQUEST['username'];

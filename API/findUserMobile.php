@@ -9,7 +9,7 @@ if (isset($phonenumber) && strlen($phonenumber) >= 8) {
         $found = false;
         $resultData = array();
         $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;'>";
-        $html .= "<td>Username</td><td>Koin</td><td>Time</td><td>Function</td>";
+        $html .= "<td>Username</td><td>Xu</td><td>Chip</td><td>Time</td><td>Function</td>";
         $i = 0;
         foreach ($db->query($sql) as $row) {
             $i+=1;
@@ -17,6 +17,7 @@ if (isset($phonenumber) && strlen($phonenumber) >= 8) {
             $html .= "<tr style='background-color: rgb(" . ($i % 2 > 0 ? "204,204,204" : "255, 255, 255") . ");text-align:center;'>";
             $html .= "<td width='5%'>" . $row['username'] . "</td>";
             $html .= "<td width='5%'>" . $row['koin'] . "</td>";
+            $html .= "<td width='5%'>" . $row['koin_vip'] . "</td>";
             $html .= "<td width='6%'>" . $row['created_on'] . "</td>";
             $html .= '<td width=\'10%\'><input type="checkbox" id="usernamemobile" name="usernamemobile" value="'.$row['username'].'" /> <input placeholder="Lý do" type="text" id="causemobile'.$row['username'].'" name="causemobile'.$row['username'].'" value="" /> <input type="button" value="Block '.$row['username'].'" onClick="blockUserName(\''.$row['username'].'\', \'causemobile'.$row['username'].'\')" /></td>';
 			

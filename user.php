@@ -95,8 +95,9 @@
                     }
                 });
             }
-            function findUserKoin() {
-                var username = $("#findUser input[name=user]").val();
+            function findUserKoin(username) {
+//                var username = $("#findUser input[name=user]").val();
+                console.log(username);
                 $.ajax({
                     type: "GET",
                     url: "API/findUserKoin.php",
@@ -166,7 +167,7 @@
                                 $("#lockTime").text(data.lock_time);
                                 $('#findUserDBID').attr("disabled", false);
                                 $("#userDetailDB").slideDown(500);
-                                findUserKoin();
+                                findUserKoin(username);
                             } else {
                                 $("#findUser #message").html(data.message);
                                 $(this).oneTime(5000, function () {
@@ -225,7 +226,7 @@
                                 $("#lockTime").text(data.lock_time);
                                 $('#findUserDBID').attr("disabled", false);
                                 $("#userDetailDB").slideDown(500);
-                                findUserKoin();
+                                findUserKoin(text(username));
                             } else {
                                 $("#findUser #message").html(data.message);
                                 $(this).oneTime(5000, function () {
@@ -1058,7 +1059,7 @@
             </div>
 
 
-            <div class="box grid">
+<!--            <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Tìm kiếm số điện thoại</a></div>
                 <div class="box_body" style="display: none">                    
                     <form id="findUserPhoneData">
@@ -1072,7 +1073,7 @@
                     </div>
                     <div id="userPassword" style="display: none; padding-top:3px;"></div>
                 </div>
-            </div>
+            </div>-->
 
 
             <div class="box grid">
@@ -1090,7 +1091,7 @@
             </div>
 
 
-            <div class="box grid">
+<!--            <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Tìm kiếm list user theo passport</a></div>
                 <div class="box_body" style="display: none">
                     <form id="findUserPassport">
@@ -1104,10 +1105,10 @@
                         <div id="userPassport"></div>                        
                     </div>
                 </div>
-            </div>
+            </div>-->
 
 
-            <div class="box grid">
+<!--            <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Tìm kiếm list user theo số điện thoại nạp sms</a></div>
                 <div class="box_body" style="display: none">
                     <form id="findUserSMS">
@@ -1119,7 +1120,7 @@
                         <div id="userSMS"></div>                        
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Gửi tin nhắn cho 1 người chơi</a></div>
