@@ -3,6 +3,8 @@
     <head>
         <title>Người chơi</title>
         <?php require('header.php'); ?>
+        <script src="js/highcharts.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/themes/grid.js"></script> 
         <script>
             function addKoin() {
                 var user = $("#addKoin input[name=user]").val();
@@ -788,33 +790,52 @@
                 });
             }
 
-            function statUser(href) {
-                if (!href) {
-                    console.log('aaaa');
-                    var balance_koin = $("#statUser input[name=balance_koin]").val();
-                    var range_koin = $("#statUser input[name=range_koin]").val();
-                    $("#btnFindMobileDataSMS").attr("disabled", true);
-                    $.ajax({
-                        type: "GET",
-                        url: "API/getListUserByKoin.php",
-                        data: {
-                            "balance_koin": balance_koin,
-                            "range_koin": range_koin,
-                        },
-                        dataType: 'text',
-                        success: function (msg) {
-                            $("#statUserList").html(msg);
-                            $("#statUserList").show();
-                        },
-                        failure: function () {
-                            $("#phoneDataDetail").html("<span>Không truy cập được dữ liệu</span>");
-                            $("#btnFindMobileDataSMS").attr("disabled", false);
-                        }
-                    });
-                } else {
-                    console.log(href)
-                }
-                
+            function statUser() {
+                var balance_koin = $("#statUser input[name=balance_koin]").val();
+                var range_koin = $("#statUser input[name=range_koin]").val();
+                $("#btnFindMobileDataSMS").attr("disabled", true);
+                $.ajax({
+                    type: "GET",
+                    url: "API/getListUserByKoin.php",
+                    data: {
+                        "balance_koin": balance_koin,
+                        "range_koin": range_koin,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#statUserList").html(msg);
+                        $("#statUserList").show();
+                    },
+                    failure: function () {
+                        $("#phoneDataDetail").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindMobileDataSMS").attr("disabled", false);
+                    }
+                });
+
+            }
+
+            function statUser2() {
+                var balance_koin = $("#statUser input[name=balance_koin_vip]").val();
+                var range_koin = $("#statUser input[name=range_koin_vip]").val();
+                $("#btnFindMobileDataSMS").attr("disabled", true);
+                $.ajax({
+                    type: "GET",
+                    url: "API/getListUserByKoinVip.php",
+                    data: {
+                        "balance_koin_vip": balance_koin,
+                        "range_koin_vip": range_koin,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#statUserList").html(msg);
+                        $("#statUserList").show();
+                    },
+                    failure: function () {
+                        $("#phoneDataDetail").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindMobileDataSMS").attr("disabled", false);
+                    }
+                });
+
             }
 
             function findMobileUser() {
@@ -954,11 +975,110 @@
                     });
                 }
             }
-            $('.pagination-link').click(function (e) {
+            function getExchange() {
+                var fromDate = $("#koin_vip_exchange input[name=fromDate]").val();
+                var toDate = $("#koin_vip_exchange input[name=toDate]").val();
+
+                $("#btnFindListUser").attr("disabled", true);
+                $.ajax({
+                    type: "GET",
+                    url: "API/getListExchange.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#exchangeUserList").html(msg);
+                        $("#exchangeUserList").show();
+                    },
+                    failure: function () {
+                        $("#exchangeUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindListUser").attr("disabled", false);
+                    }
+                });
+
+            }
+            function getLogKoin() {
+                var username = $("#findUser input[name=user]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/getLogKoin.php",
+                    data: {
+                        "username": username
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("pre.logKoin").html(msg);
+                        $("pre.logKoin").show();
+                        $("input#hidelog").show();
+                    },
+                    failure: function () {
+                        $("#exchangeUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindListUser").attr("disabled", false);
+                    }
+                });
+            }
+            $("a.pagination-link").live("click", function (e) {
                 e.preventDefault();
-                var href = $(this).attr('href');
-                return false;
+                var page = $(this).attr('page');
+                var balance_koin = $(this).attr('balance_koin');
+                var range_koin = $(this).attr('range_koin');
+                $("#btnFindMobileDataSMS").attr("disabled", true);
+                $.ajax({
+                    type: "GET",
+                    url: "API/getListUserByKoin.php",
+                    data: {
+                        "page": page,
+                        "balance_koin": balance_koin,
+                        "range_koin": range_koin,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#statUserList").html(msg);
+                        $("#statUserList").show();
+                    },
+                    failure: function () {
+                        $("#phoneDataDetail").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindMobileDataSMS").attr("disabled", false);
+                    }
+                });
             });
+            $("a.pagination-link-vip").live("click", function (e) {
+                e.preventDefault();
+                var page = $(this).attr('page');
+                var balance_koin = $(this).attr('balance_koin');
+                var range_koin = $(this).attr('range_koin');
+                $("#btnFindMobileDataSMS").attr("disabled", true);
+                $.ajax({
+                    type: "GET",
+                    url: "API/getListUserByKoinVip.php",
+                    data: {
+                        "page": page,
+                        "balance_koin_vip": balance_koin,
+                        "range_koin_vip": range_koin,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#statUserList").html(msg);
+                        $("#statUserList").show();
+                    },
+                    failure: function () {
+                        $("#phoneDataDetail").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindMobileDataSMS").attr("disabled", false);
+                    }
+                });
+            });
+            $("input#hidelog").live("click", function (e) {
+                e.preventDefault();
+                $("pre.logKoin").hide();
+                $('input#hidelog').hide();
+            });
+            $(document).ready(function () {
+                $("#datepicker1").datepicker();
+                $("#datepicker2").datepicker();
+            });
+
         </script>
     </head>
     <body>
@@ -1042,32 +1162,40 @@
                             <tr>
                                 <td width="10%">Chip</td>
                                 <td width="20%" align="center"><span id="koin_vip"></span></td>
-                                <td width="10%"></td>
-                                <td align="center"></td>
-                            </tr>
-                            <tr>
                                 <td width="10%">Số tiền nạp SMS</td>
                                 <td align="center"><span id="valueChargedSMS"></span></td>
+                            </tr>
+                            <tr>
+
                                 <td width="20%">Lần nạp SMS cuối cùng</td>
                                 <td width="" align="center"><span id="valueSmsDate"></span></td>
-                            </tr>
-                            <tr>
                                 <td width="10%">Số tiền nạp thẻ cào</td>
                                 <td align="center"><span id="valueChargedCard"></span></td>
+                            </tr>
+                            <tr>
+
                                 <td width="20%">Lần nạp thẻ cuối cùng</td>
                                 <td width="" align="center"><span id="valueCardDate"></span></td>
-                            </tr>
-                            <tr>
                                 <td width="10%">Số account farm</td>
                                 <td align="center"><span id="farmCount"></span></td>
-                                <td width="10%">Loại user</td>
-                                <td align="center"><span id="userType"></span></td>
                             </tr>
                             <tr>
+
+                                <td width="10%">Loại user</td>
+                                <td align="center"><span id="userType"></span></td>
                                 <td width="10%">VIP</td>
                                 <td align="center"><span id="vip"></span></td>
+                            </tr>
+                            <tr>
+
                                 <td width="10%">Bị khoá đến</td>
-                                <td colspan="3"><span id="lockTime"></span></td>
+                                <td align="center"><span id="lockTime"></span></td>
+                                <td width="10%">Xem log</td>
+                                <td align="center">
+                                    <input type="button" name="show-log" value="Xem Log" id="myBtn" onclick="getLogKoin();" />
+                                    <input type="button" name="hide-log" value="Hide Log" id="hidelog" style="display: none;"/>
+                                    <pre class="logKoin" style="display: none;"></pre>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -1131,11 +1259,31 @@
                         Số xu <input type="text" name="balance_koin" style="width: 100px"/>
                         Khoảng <input type="text" name="range_koin" style="width: 100px"/>
                         <input type="button" name="add" value="Thống kê" onclick="statUser();"/>
+                        <br />
+                        Số chip <input type="text" name="balance_koin_vip" style="width: 100px"/>
+                        Khoảng <input type="text" name="range_koin_vip" style="width: 100px"/>
+                        <input type="button" name="add" value="Thống kê" onclick="statUser2();"/>
 
                         <span id="message" style="color: #800000; font-weight: bold"></span>
                     </form>
                 </div>
                 <div id="statUserList" style="display: none;">
+
+                </div>
+            </div>
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);">Thống kê Danh sách User đổi thưởng</a></div>
+                <div class="box_body" style="display: none">
+                    <form id="koin_vip_exchange">
+                        Từ Ngày
+                        <input type="text" id="datepicker1" name="fromDate" style="text-align: center; width: 100px;" />
+                        Tới Ngày
+                        <input type="text" id="datepicker2" name="toDate" style="text-align: center; width: 100px;" />
+                        <input type="button" name="add" value="Thống kê" onclick="getExchange();"/>
+
+                    </form>
+                </div>
+                <div id="exchangeUserList" style="display: none;">
 
                 </div>
             </div>
@@ -1263,6 +1411,18 @@
                                 </table>
                             </div>
                         </div>-->            
+        </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">×</span>
+                <pre class="logKoin">
+                    
+                </pre>
+            </div>
+
         </div>
     </body>
 </html>
