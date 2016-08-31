@@ -999,19 +999,21 @@
                 });
 
             }
-            function getLogKoin() {
-                var username = $("#findUser input[name=user]").val();
+            function getLogKoin(type) {
+                var username = $("#logKoin input[name=username]").val();
+                var date = $("#logKoin input[name=dateKoin]").val();
                 $.ajax({
                     type: "GET",
                     url: "API/getLogKoin.php",
                     data: {
-                        "username": username
+                        "username": username,
+                        "date": date,
+                        "type": type
                     },
                     dataType: 'text',
                     success: function (msg) {
-                        $("pre.logKoin").html(msg);
-                        $("pre.logKoin").show();
-                        $("input#hidelog").show();
+                        $("#logKoinResult pre").html(msg);
+                        $("#logKoinResult").show();
                     },
                     failure: function () {
                         $("#exchangeUserList").html("<span>Không truy cập được dữ liệu</span>");
@@ -1077,6 +1079,7 @@
             $(document).ready(function () {
                 $("#datepicker1").datepicker();
                 $("#datepicker2").datepicker();
+                $("#datepicker3").datepicker();
             });
 
         </script>
@@ -1189,13 +1192,7 @@
                             <tr>
 
                                 <td width="10%">Bị khoá đến</td>
-                                <td align="center"><span id="lockTime"></span></td>
-                                <td width="10%">Xem log</td>
-                                <td align="center">
-                                    <input type="button" name="show-log" value="Xem Log" id="myBtn" onclick="getLogKoin();" />
-                                    <input type="button" name="hide-log" value="Hide Log" id="hidelog" style="display: none;"/>
-                                    <pre class="logKoin" style="display: none;"></pre>
-                                </td>
+                                <td align="center"><span id="lockTime"></span></td>                                
                             </tr>
                         </table>
                     </div>
@@ -1285,6 +1282,23 @@
                 </div>
                 <div id="exchangeUserList" style="display: none;">
 
+                </div>
+            </div>
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);">Xem log nạp Xu/Chip của Người chơi</a></div>
+                <div class="box_body" style="display: none">
+                    <form id="logKoin">
+                        Ngày
+                        <input type="text" id="datepicker3" name="dateKoin" style="text-align: center; width: 100px;" />
+                        Username:
+                        <input type="text" name="username" value="" />
+                        <input type="button" name="add" value="Log Nạp Xu" onclick="getLogKoin(1);"/>
+                        <input type="button" name="add" value="Lop Nạp Chip" onclick="getLogKoin(2);"/>
+
+                    </form>
+                </div>
+                <div id="logKoinResult" style="display: none; background-color: white;">
+                    <pre></pre>
                 </div>
             </div>
 

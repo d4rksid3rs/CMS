@@ -2,10 +2,16 @@
 
 require('../Config.php');
 require('db.class.php');
-$username = $_GET['username'];
-echo $username;
-
-
+if ($_GET['username']) {
+    $username = $_GET['username'];
+} else {
+    echo "<b>Chưa nhập Username</b>";
+}
+$date = '';
+if (!empty($_GET['date'])) {
+    $date = '.'.$_GET['date'];
+}
+$type = $_GET['type'];
 try {
     $found = false;
     include('Net/SSH2.php');
@@ -19,7 +25,12 @@ try {
     if (!$ssh->login($remote, $password)) {
         exit('Login Failed');
     }
-    $ssh->exec("cat beme/logs/money.log | grep $username > $username.txt");
+    if ($type == 1) {
+        $cmd = "cat beme/logs/money.log$date | grep $username > $username.txt";
+    } else if ($type == 2) {
+        $cmd = "cat beme/logs/moneyvip.log$date | grep $username > $username.txt";
+    }
+    $ssh->exec($cmd);
     $log = $ssh->exec("cat $username.txt");
     $ssh->exec("rm $username.txt");
     echo $log;
