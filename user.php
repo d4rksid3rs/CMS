@@ -155,7 +155,7 @@
                             if (data.status == 1) {
                                 $("#username").text(username);
                                 $("#fullname").text(data.fullname);
-                                $("#mobile").text(data.mobile);
+                                $("#mobile").text(data.no_charging);
                                 $("#last_login").text(data.lastLogin);
                                 $("#cp").text(data.cp);
                                 $("#version").text(data.version);
@@ -1145,7 +1145,7 @@
                                 <td align="center"><span id="fullname"></span></td>
                             </tr>
                             <tr>
-                                <td width="10%">Mobile</td>
+                                <td width="10%">No Charging</td>
                                 <td width="20%" align="center"><span id="mobile"></span></td>
                                 <td width="10%">CP</td>
                                 <td align="center"><span id="cp"></span></td>

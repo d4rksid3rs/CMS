@@ -5,7 +5,7 @@ require('db.class.php');
 $username = $_GET['username'];
 if (isset($username) && strlen($username) > 0) {
     try {
-        $sql = "SELECT cause,lock_time,daily_bonus, passport,screen_name, mobile, cp, os_type, client_version, date_created, login_times, last_login, smsmoney, smsDate, cardmoney, cardDate, lastCard FROM user u LEFT JOIN user_block ON u.id = user_block.id LEFT JOIN (SELECT username, sum(money) as smsmoney, created_on as smsDate FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 1) l ON u.username = l.username LEFT JOIN (SELECT username, sum(money) as cardmoney, created_on as cardDate, money as lastCard FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 2) ls ON u.username = ls.username WHERE u.username = '{$username}'";
+        $sql = "SELECT cause,lock_time,daily_bonus, passport,screen_name, mobile, no_charging, cp, os_type, client_version, date_created, login_times, last_login, smsmoney, smsDate, cardmoney, cardDate, lastCard FROM user u LEFT JOIN user_block ON u.id = user_block.id LEFT JOIN (SELECT username, sum(money) as smsmoney, created_on as smsDate FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 1) l ON u.username = l.username LEFT JOIN (SELECT username, sum(money) as cardmoney, created_on as cardDate, money as lastCard FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 2) ls ON u.username = ls.username WHERE u.username = '{$username}'";
 //        echo $sql;
         $found = false;
         foreach ($db->query($sql) as $row) {
