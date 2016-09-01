@@ -103,6 +103,15 @@ $factor5 = array();
 for ($i = 0; $i < $no_cards; $i++) {
     $factor5[] = isset($_REQUEST['factor5'][$i]) ? (float) ($_REQUEST['factor5'][$i]) : 1.0;
 }
+// chip
+$from_date6 = isset($_REQUEST['from_date6']) ? trim($_REQUEST['from_date6']) : '2016-06-20';
+$from_time6 = !empty($_REQUEST['from_time6']) ? trim($_REQUEST['from_time6']) : '00:00:00';
+$to_date6 = isset($_REQUEST['to_date6']) ? trim($_REQUEST['to_date6']) : '2016-06-20';
+$to_time6 = !empty($_REQUEST['to_time6']) ? trim($_REQUEST['to_time6']) : '23:59:59';
+$factor6 = array();
+for ($i = 0; $i < $no_cards; $i++) {
+    $factor6[] = isset($_REQUEST['factor6'][$i]) ? (float) ($_REQUEST['factor6'][$i]) : 1.0;
+}
 include 'connectdb_gimwap.php';
 
 // SET
@@ -131,7 +140,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $arr['iap2']['from_date'] = "$from_date5 $from_time5";
     $arr['iap2']['to_date'] = "$to_date5 $to_time5";
     $arr['iap2']['factor'] = $factor5;
+    $arr['chip']['from_date'] = "$from_date6 $from_time6";
+    $arr['chip']['to_date'] = "$to_date6 $to_time6";
+    $arr['chip']['factor'] = $factor6;
+//    var_dump($arr);die;
     $json = json_encode($arr);
+    
     $sql = sprintf("update config set value = '%s' where `key` = 'special_offer_koin_v3'", $json);
     $result = mysql_query($sql);
     echo 'xxx';
@@ -201,14 +215,24 @@ if ($row = mysql_fetch_assoc($result)) {
         $to_date5 = $arr1[0];
         $to_time5 = $arr1[1];
         $factor5 = !empty($arr['iap2']['factor']) ? $arr['iap2']['factor'] : $ratio_presets;
+        // chip
+        $from_date6 = !empty($arr['chip']['from_date']) ? $arr['chip']['from_date'] : '2016-06-20';
+        $arr1 = explode(' ', $from_date6);
+        $from_date6 = $arr1[0];
+        $from_time6 = $arr1[1];
+        $to_date6 = !empty($arr['chip']['to_date']) ? $arr['chip']['to_date'] : '2016-06-20';
+        $arr1 = explode(' ', $to_date6);
+        $to_date6 = $arr1[0];
+        $to_time6 = $arr1[1];
+        $factor6 = !empty($arr['chip']['factor']) ? $arr['chip']['factor'] : $ratio_presets;
     }
 }
 if ($init) {
-    $from_date = $to_date = $from_date2 = $to_date2 = $from_date3 = $to_date3 = $from_date4 = $to_date4 = $from_date5 = $to_date5 = '';
-    $from_time = $from_time2 = $from_time3 = $from_time4 = $from_time5 = '00:00:00';
-    $to_time = $to_time2 = $to_time3 = $to_time4 = $to_time5 = '23:59:59';
+    $from_date = $to_date = $from_date2 = $to_date2 = $from_date3 = $to_date3 = $from_date4 = $to_date4 = $from_date5 = $to_date5 = $from_date6 = $to_date6 = '';
+    $from_time = $from_time2 = $from_time3 = $from_time4 = $from_time5 = $from_time6 = '00:00:00';
+    $to_time = $to_time2 = $to_time3 = $to_time4 = $to_time5 = $to_time6 = '23:59:59';
     $factor = 1.0;
-    $factor2 = $factor3 = $ratio_presets;
+    $factor2 = $factor3 = $factor6 = $ratio_presets;
     $factor4 = $factor5 = $iap_ratio_presets;
 }
 
@@ -281,6 +305,7 @@ foreach ($value as $k => $v) {
                 $("#datepicker10").datepicker(); // iap 1
                 $("#datepicker11").datepicker(); // iap 2
                 $("#datepicker12").datepicker(); // iap 2
+                $('.datepicker').datepicker();
             });
 
             function deleteMessage(id) {
@@ -536,7 +561,7 @@ foreach ($value as $k => $v) {
             <?php require('topMenu.php'); ?>
 
             <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Xu Special Offers</a></div>
+                <div class="box_header"><a href="javascript:void(0);">Xu/Chip Special Offers</a></div>
                 <div class="box_body">
                     <div style="padding-left:10px;">
                         <form action="" method="post">
@@ -614,6 +639,24 @@ foreach ($value as $k => $v) {
                                 echo $item . " <input type='text' id='factor5[]' name='factor5[]' style='text-align: right; width: 40px;' value='" . $factor5[$key] . "' /> ";
                             }
                             ?>
+                            <br />
+                            <hr />
+                            <b>Chip (CARD)  </b><br>
+                            Từ ngày
+                            <input type="text" class="datepicker" name="from_date6" style="text-align: center; width: 100px;" value="<?php echo $from_date6; ?>"/> 
+                            <input type="text" id="" name="from_time6" style="width: 60px;" value="<?php echo $from_time6; ?>"/>
+                            Tới ngày
+                            <input type="text" class="datepicker" name="to_date6" style="text-align: center; width: 100px;" value="<?php echo $to_date6; ?>"/> 
+                            <input type="text" id="" name="to_time6" style="width: 60px;" value="<?php echo $to_time6; ?>"/>
+                            <br>
+                            Hệ số nhân
+                            <br>
+                            <?php
+                            foreach ($card_types as $key => $item) {
+                                echo $item . " <input type='text' id='factor6[]' name='factor6[]' style='text-align: right; width: 40px;' value='" . $factor6[$key] . "' /> ";
+                            }
+                            ?>
+                            <br>
                             <hr>
                             <input type="submit" value="Cập nhật" class="input_button"/>
                         </form>

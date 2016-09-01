@@ -1285,15 +1285,15 @@
                 </div>
             </div>
             <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Xem log nạp Xu/Chip của Người chơi</a></div>
+                <div class="box_header"><a href="javascript:void(0);">Xem log chơi Xu/Chip của Người chơi</a></div>
                 <div class="box_body" style="display: none">
                     <form id="logKoin">
                         Ngày
                         <input type="text" id="datepicker3" name="dateKoin" style="text-align: center; width: 100px;" />
                         Username:
                         <input type="text" name="username" value="" />
-                        <input type="button" name="add" value="Log Nạp Xu" onclick="getLogKoin(1);"/>
-                        <input type="button" name="add" value="Lop Nạp Chip" onclick="getLogKoin(2);"/>
+                        <input type="button" name="add" value="Log Chơi (Xu)" onclick="getLogKoin(1);"/>
+                        <input type="button" name="add" value="Lop Chơi (Chip)" onclick="getLogKoin(2);"/>
 
                     </form>
                 </div>
