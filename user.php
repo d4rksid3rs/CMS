@@ -155,7 +155,7 @@
                             if (data.status == 1) {
                                 $("#username").text(username);
                                 $("#fullname").text(data.fullname);
-                                $("#mobile").text(data.no_charging);
+                                $("#mobile").text(data.mobile);
                                 $("#last_login").text(data.lastLogin);
                                 $("#cp").text(data.cp);
                                 $("#version").text(data.version);
@@ -196,7 +196,7 @@
             }
 
             function findUserDBbyScreenName() {
-                var username = $("#findUser input[name=screen-name]").val();
+                var screen_name = $("#findUser input[name=screen-name]").val();
                 $("#userDetail").hide();
                 $("#userDetailDB").hide();
                 $('#findUserDBID').attr("disabled", true);
@@ -204,15 +204,16 @@
                     type: "GET",
                     url: "API/findUserDBbyScreen.php",
                     data: {
-                        "username": username
+                        "screen_name": screen_name
                     },
                     dataType: 'text',
                     success: function (msg) {
                         msg = msg.trim();
                         if (msg != '' && msg.length > 2) {
                             var data = jQuery.parseJSON(msg);
+                            console.log(data.username);
                             if (data.status == 1) {
-                                $("#username").text(username);
+                                $("#username").text(data.username);
                                 $("#fullname").text(data.fullname);
                                 $("#mobile").text(data.mobile);
                                 $("#last_login").text(data.lastLogin);
@@ -228,7 +229,7 @@
                                 $("#lockTime").text(data.lock_time);
                                 $('#findUserDBID').attr("disabled", false);
                                 $("#userDetailDB").slideDown(500);
-                                findUserKoin(username);
+                                findUserKoin(data.username);
                             } else {
                                 $("#findUser #message").html(data.message);
                                 $(this).oneTime(5000, function () {
@@ -1145,7 +1146,7 @@
                                 <td align="center"><span id="fullname"></span></td>
                             </tr>
                             <tr>
-                                <td width="10%">No Charging</td>
+                                <td width="10%">Mobile</td>
                                 <td width="20%" align="center"><span id="mobile"></span></td>
                                 <td width="10%">CP</td>
                                 <td align="center"><span id="cp"></span></td>

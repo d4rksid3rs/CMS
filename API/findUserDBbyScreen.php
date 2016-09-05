@@ -2,10 +2,15 @@
 
 require('../Config.php');
 require('db.class.php');
-$username = $_GET['username'];
-if (isset($username) && strlen($username) > 0) {
+$screen_name = $_GET['screen_name'];
+if (isset($screen_name) && strlen($screen_name) > 0) {
     try {
-        $sql = "SELECT cause,lock_time,daily_bonus, passport,screen_name, mobile, cp, os_type, client_version, date_created, login_times, last_login, smsmoney, smsDate, cardmoney, cardDate, lastCard FROM user u LEFT JOIN user_block ON u.id = user_block.id LEFT JOIN (SELECT username, sum(money) as smsmoney, created_on as smsDate FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 1) l ON u.username = l.username LEFT JOIN (SELECT username, sum(money) as cardmoney, created_on as cardDate, money as lastCard FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 2) ls ON u.username = ls.username WHERE u.screen_name = '{$username}'";
+        $sql_username = "SELECT * FROM `user` WHERE `screen_name` LIKE '{$screen_name}'";
+        $u = $db->prepare($sql_username);
+        $u->execute();
+        $row = $u->fetch();
+        $username = $row['username'];
+        $sql = "SELECT cause,lock_time,daily_bonus, passport, u.username, screen_name, mobile, cp, os_type, client_version, date_created, login_times, last_login, smsmoney, smsDate, cardmoney, cardDate, lastCard FROM user u LEFT JOIN user_block ON u.id = user_block.id LEFT JOIN (SELECT username, sum(money) as smsmoney, created_on as smsDate FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 1) l ON u.username = l.username LEFT JOIN (SELECT username, sum(money) as cardmoney, created_on as cardDate, money as lastCard FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 2) ls ON u.username = ls.username WHERE u.username = '{$username}'";
 //        echo $sql;
         $found = false;
         foreach ($db->query($sql) as $row) {
@@ -17,16 +22,16 @@ if (isset($username) && strlen($username) > 0) {
 				
 				if($row['lock_time'] == "" || ($lockdate - $curdate) < 0)	$row['lock_time'] = 'Không khoá';
 				if(strlen($row['screen_name']) < 1 ) $row['screen_name'] = $username;
-				echo "{\"status\":1,\"lock_time\":\"".$row['lock_time']." | ". $row['cause']."\",\"type\":\"$str\",\"farm\":\"$farm\",\"fullname\":\"" . $row['screen_name'] . "\",\"mobile\":\"" . $row['mobile'] . "\",\"cardmoney\":\"" . number_format($row['cardmoney']).' vnd' . "\",\"smsmoney\":\"" . number_format($row['smsmoney']).' vnd' . "\",\"cp\":\"" . $row['cp'] . "\",\"version\":\"" . $row['os_type']." | ".$row['client_version'] . "\",\"dateCreated\":\"" . $row['date_created'] . "\",\"smsDate\":\"" . $row['smsDate'] . "\",\"cardDate\":\"" . $row['cardDate']. " | " . number_format($row['lastCard']) . ' vnđ' . "\",\"loginTimes\":\"" . $row['login_times'] . "\",\"lastLogin\":\"" . $row['last_login'] . "\"}";
+				echo "{\"status\":1,\"lock_time\":\"".$row['lock_time']." | ". $row['cause']."\",\"type\":\"$str\",\"farm\":\"$farm\",\"fullname\":\"" . $row['screen_name'] . "\",\"username\":\"" . $row['username'] . "\",\"mobile\":\"" . $row['mobile'] . "\",\"cardmoney\":\"" . number_format($row['cardmoney']).' vnd' . "\",\"smsmoney\":\"" . number_format($row['smsmoney']).' vnd' . "\",\"cp\":\"" . $row['cp'] . "\",\"version\":\"" . $row['os_type']." | ".$row['client_version'] . "\",\"dateCreated\":\"" . $row['date_created'] . "\",\"smsDate\":\"" . $row['smsDate'] . "\",\"cardDate\":\"" . $row['cardDate']. " | " . number_format($row['lastCard']) . ' vnđ' . "\",\"loginTimes\":\"" . $row['login_times'] . "\",\"lastLogin\":\"" . $row['last_login'] . "\"}";
         }
         if ($found == false) {
-            echo "{\"status\":0,\"message\":\"Không tìm thấy username\"}";
+            echo "{\"status\":0,\"message\":\"Không tìm thấy Screen Name\"}";
         }
     } catch (Exception $e) {
         echo "{\"status\":0,\"message\":\"" . $e->getMessage() . "\"}";
     }
 } else {
-    echo "{\"status\":0,\"message\":\"Chưa nhập username\"}";
+    echo "{\"status\":0,\"message\":\"Chưa nhập Screen Name\"}";
 }
 
 
