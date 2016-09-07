@@ -162,6 +162,7 @@
                                 $("#date").text(data.dateCreated);
                                 $("#valueChargedSMS").text(data.smsmoney);
                                 $("#valueChargedCard").text(data.cardmoney);
+                                $("#valueIAPCard").text(data.iapmoney); 
                                 $("#valueSmsDate").text(data.smsDate);
                                 $("#valueCardDate").text(data.cardDate);
                                 $("#farmCount").text(data.farm);
@@ -210,9 +211,9 @@
                     success: function (msg) {
                         msg = msg.trim();
                         if (msg != '' && msg.length > 2) {
-                            var data = jQuery.parseJSON(msg);
-                            console.log(data.username);
+                            var data = jQuery.parseJSON(msg);                            
                             if (data.status == 1) {
+                                console.log(data.iapmoney);
                                 $("#username").text(data.username);
                                 $("#fullname").text(data.fullname);
                                 $("#mobile").text(data.mobile);
@@ -222,6 +223,7 @@
                                 $("#date").text(data.dateCreated);
                                 $("#valueChargedSMS").text(data.smsmoney);
                                 $("#valueChargedCard").text(data.cardmoney);
+                                $("#valueIAPCard").text(data.iapmoney);                                
                                 $("#valueSmsDate").text(data.smsDate);
                                 $("#valueCardDate").text(data.cardDate);
                                 $("#farmCount").text(data.farm);
@@ -1177,21 +1179,22 @@
                                 <td align="center"><span id="valueChargedCard"></span></td>
                             </tr>
                             <tr>
-
+                                <td width="10%">Số tiền nạp IAP</td>
+                                <td align="center"><span id="valueIAPCard"></span></td>
                                 <td width="20%">Lần nạp thẻ cuối cùng</td>
                                 <td width="" align="center"><span id="valueCardDate"></span></td>
+                                
+                            </tr>
+                            <tr>
                                 <td width="10%">Số account farm</td>
                                 <td align="center"><span id="farmCount"></span></td>
-                            </tr>
-                            <tr>
-
                                 <td width="10%">Loại user</td>
                                 <td align="center"><span id="userType"></span></td>
-                                <td width="10%">VIP</td>
-                                <td align="center"><span id="vip"></span></td>
+                                
                             </tr>
                             <tr>
-
+                                <td width="10%">VIP</td>
+                                <td align="center"><span id="vip"></span></td>
                                 <td width="10%">Bị khoá đến</td>
                                 <td align="center"><span id="lockTime"></span></td>                                
                             </tr>

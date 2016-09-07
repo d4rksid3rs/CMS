@@ -10,7 +10,10 @@ if (isset($screen_name) && strlen($screen_name) > 0) {
         $u->execute();
         $row = $u->fetch();
         $username = $row['username'];
-        $sql = "SELECT cause,lock_time,daily_bonus, passport, u.username, screen_name, mobile, cp, os_type, client_version, date_created, login_times, last_login, smsmoney, smsDate, cardmoney, cardDate, lastCard FROM user u LEFT JOIN user_block ON u.id = user_block.id LEFT JOIN (SELECT username, sum(money) as smsmoney, created_on as smsDate FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 1) l ON u.username = l.username LEFT JOIN (SELECT username, sum(money) as cardmoney, created_on as cardDate, money as lastCard FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 2) ls ON u.username = ls.username WHERE u.username = '{$username}'";
+        $sql = "SELECT cause,lock_time,daily_bonus, passport,screen_name,u.username, mobile, no_charging, cp, os_type, client_version, date_created, login_times, last_login, smsmoney, smsDate, iapmoney, iapDate, cardmoney, cardDate, ls.lastCard FROM user u LEFT JOIN user_block ON u.id = user_block.id "
+                . "LEFT JOIN (SELECT username, sum(money) as smsmoney, created_on as smsDate FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 1) l ON u.username = l.username "
+                . "LEFT JOIN (SELECT username, sum(money) as cardmoney, created_on as cardDate, money as lastCard FROM (SELECT * FROM log_nap_koin WHERE username='{$username}' ORDER BY created_on DESC) ln WHERE type = 2) ls ON u.username = ls.username "
+                . "LEFT JOIN (SELECT username, sum(money) as iapmoney, created_on as iapDate, money as lastCard FROM (SELECT * FROM log_nap_koin WHERE username='$username' ORDER BY created_on DESC) ln WHERE type = 4) lz ON u.username = lz.username WHERE u.username = '{$username}'";
 //        echo $sql;
         $found = false;
         foreach ($db->query($sql) as $row) {
@@ -22,7 +25,7 @@ if (isset($screen_name) && strlen($screen_name) > 0) {
 				
 				if($row['lock_time'] == "" || ($lockdate - $curdate) < 0)	$row['lock_time'] = 'Không khoá';
 				if(strlen($row['screen_name']) < 1 ) $row['screen_name'] = $username;
-				echo "{\"status\":1,\"lock_time\":\"".$row['lock_time']." | ". $row['cause']."\",\"type\":\"$str\",\"farm\":\"$farm\",\"fullname\":\"" . $row['screen_name'] . "\",\"username\":\"" . $row['username'] . "\",\"mobile\":\"" . $row['mobile'] . "\",\"cardmoney\":\"" . number_format($row['cardmoney']).' vnd' . "\",\"smsmoney\":\"" . number_format($row['smsmoney']).' vnd' . "\",\"cp\":\"" . $row['cp'] . "\",\"version\":\"" . $row['os_type']." | ".$row['client_version'] . "\",\"dateCreated\":\"" . $row['date_created'] . "\",\"smsDate\":\"" . $row['smsDate'] . "\",\"cardDate\":\"" . $row['cardDate']. " | " . number_format($row['lastCard']) . ' vnđ' . "\",\"loginTimes\":\"" . $row['login_times'] . "\",\"lastLogin\":\"" . $row['last_login'] . "\"}";
+				echo "{\"status\":1,\"lock_time\":\"".$row['lock_time']." | ". $row['cause']."\",\"type\":\"$str\",\"farm\":\"$farm\",\"fullname\":\"" . $row['screen_name'] . "\",\"username\":\"" . $row['username'] . "\",\"mobile\":\"" . $row['mobile'] . "\",\"cardmoney\":\"" . number_format($row['cardmoney']).' vnd' . "\",\"iapmoney\":\"" . number_format($row['iapmoney']).' vnd' . "\",\"smsmoney\":\"" . number_format($row['smsmoney']).' vnd' . "\",\"cp\":\"" . $row['cp'] . "\",\"version\":\"" . $row['os_type']." | ".$row['client_version'] . "\",\"dateCreated\":\"" . $row['date_created'] . "\",\"smsDate\":\"" . $row['smsDate'] . "\",\"cardDate\":\"" . $row['cardDate']. " | " . number_format($row['lastCard']) . ' vnđ' . "\",\"loginTimes\":\"" . $row['login_times'] . "\",\"lastLogin\":\"" . $row['last_login'] . "\"}";
         }
         if ($found == false) {
             echo "{\"status\":0,\"message\":\"Không tìm thấy Screen Name\"}";
