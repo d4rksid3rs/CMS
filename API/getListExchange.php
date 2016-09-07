@@ -8,11 +8,12 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
 
 
     try {
-        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate' AND `return_code` = 1";
+//        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate' AND `return_code` = 1";        
+        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate'";        
         $found = false;
         $resultData = array();
         $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;'>";
-        $html .= "<td>Username</td><td>Chip</td>";
+        $html .= "<td>Username</td><td>Chip</td><td>Thời gian</td></tr>";
         $i = 0;
         foreach ($db->query($sql) as $row) {
             $i+=1;
@@ -20,6 +21,7 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
             $html .= "<tr style='background-color: rgb(" . ($i % 2 > 0 ? "204,204,204" : "255, 255, 255") . ");text-align:center;'>";
             $html .= "<td width='25%'>" . $row['username'] . "</td>";
             $html .= "<td width='25%'>" . $row['coin'] . "</td>";
+            $html .= "<td width='25%'>" . $row['date_created'] . "</td>";
             $html .= "</tr>";
         }
         $html .= "</table>";        
