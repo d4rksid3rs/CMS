@@ -9,7 +9,9 @@ if ($_GET['fromDate'] && $_GET['toDate']) {
 
     try {
 //        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate' AND `return_code` = 1";        
-        $sql = "SELECT * FROM `koin_deduct` WHERE `date_created` BETWEEN '$fromDate' AND '$toDate'";        
+        $sql = "SELECT * FROM `koin_deduct` WHERE date(date_created) >= '$fromDate' AND date(date_created) <= '$toDate' AND return_code = 1"; 
+//        echo $sql;die;
+        //select koin, date(date) as day from server_koin where date(date) >= '2016-08-18' and date(date) <= '2016-09-07' 
         $found = false;
         $resultData = array();
         $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;'>";
