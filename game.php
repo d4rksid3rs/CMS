@@ -42,8 +42,10 @@ $jsonData = json_decode($my_file);
 $total = 0;
 //$key = array("phom", "bacay", "bacaynew", "bacaychuong", "poker", "tienlenmb", "tienlenmn", "tienlenmndc", "caro", "bing", "lieng", "sam");
 //$name = array("Phỏm", "Ba cây", "Ba cây mới", "Ba cây chương", "Poker", "Tiến lên MB", "Tiến lên MN", "Tiến lên MNDC", "Caro", "Binh", "Liêng", "Sâm");
-$key = array("phom", "bacay", "bacaychuong","tienlenmn", "tienlenmndc", "bing", "lieng", "sam", "baucua", 'xito', 'xocdia');
-$name = array("Phỏm", "Ba cây", "Ba cây chương", "Tiến lên MN", "Tiến lên MNDC", "Binh", "Liêng", "Sâm", "Bầu cua", "Xì tố", "Xóc đĩa");
+$key = array("phom", "bacay", "bacaychuong","tienlenmn", "tienlenmndc", "bing", "lieng", "sam", "baucua", 'xito', 'xocdia', 
+    "vipphom", "vipbacay", "vipbacaychuong","viptienlenmn", "viptienlenmndc", "vipbing", "viplieng", "vipsam", "vipbaucua", 'vipxito', 'vipxocdia');
+$name = array("Phỏm", "Ba cây", "Ba cây chương", "Tiến lên MN", "Tiến lên MNDC", "Binh", "Liêng", "Sâm", "Bầu cua", "Xì tố", "Xóc đĩa",
+    "Phỏm VIP", "Ba cây VIP", "Ba cây chương VIP", "Tiến lên MN VIP", "Tiến lên MNDC VIP", "Binh VIP", "Liêng VIP", "Sâm VIP", "Bầu cua VIP", "Xì tố VIP", "Xóc đĩa VIP");
 $value1 = array();
 $value1["online"] = $jsonData->{"online"};
 $value1["total"] = 0;

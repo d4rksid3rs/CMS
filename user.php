@@ -1013,7 +1013,7 @@
                     },
                     dataType: 'text',
                     success: function (msg) {
-                        $("#logKoinResult pre").html(msg);
+                        $("#logKoinResult").html(msg);
                         $("#logKoinResult").show();
                     },
                     failure: function () {
@@ -1298,8 +1298,7 @@
 
                     </form>
                 </div>
-                <div id="logKoinResult" style="display: none; background-color: white;">
-                    <pre></pre>
+                <div id="logKoinResult" style="display: none;">                    
                 </div>
             </div>
 
