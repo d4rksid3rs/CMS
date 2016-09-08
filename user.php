@@ -1002,6 +1002,31 @@
                 });
 
             }
+            
+            function getReturnExchange() {
+                var fromDate = $("#koin_vip_exchange_return input[name=fromDate]").val();
+                var toDate = $("#koin_vip_exchange_return input[name=toDate]").val();
+
+//                $("#btnFindListUser").attr("disabled", true);
+                $.ajax({
+                    type: "GET",
+                    url: "API/getListExchangeReturn.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#exchangeReturnUserList").html(msg);
+                        $("#exchangeReturnUserList").show();
+                    },
+                    failure: function () {
+                        $("#exchangeUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindListUser").attr("disabled", false);
+                    }
+                });
+            }
+            
             function getLogKoin(type) {
                 var username = $("#logKoin input[name=username]").val();
                 var date = $("#logKoin input[name=dateKoin]").val();
@@ -1083,6 +1108,7 @@
                 $("#datepicker1").datepicker();
                 $("#datepicker2").datepicker();
                 $("#datepicker3").datepicker();
+                $(".datepicker").datepicker();
             });
 
         </script>
@@ -1285,6 +1311,22 @@
                     </form>
                 </div>
                 <div id="exchangeUserList" style="display: none;">
+
+                </div>
+            </div>
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);">Thống kê Danh sách User cộng bù Chip</a></div>
+                <div class="box_body" style="display: none">
+                    <form id="koin_vip_exchange_return">
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDate" style="text-align: center; width: 100px;" />
+                        Tới Ngày
+                        <input type="text" class="datepicker" name="toDate" style="text-align: center; width: 100px;" />
+                        <input type="button" name="add" value="Thống kê" onclick="getReturnExchange();"/>
+
+                    </form>
+                </div>
+                <div id="exchangeReturnUserList" style="display: none;">
 
                 </div>
             </div>
