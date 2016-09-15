@@ -22,8 +22,11 @@ try {
 //    echo $sql3;
     foreach ($db->query($sql) as $row) {
         $obj = json_decode($row['data']);
-//        $obj->KOINVIPSMS = $row['sms_koin_vip'];
-//        $obj->KOINVIPCARD = $row['card_koin_vip'];
+        $obj->KOINVIPSMS = $row['sms_chip'];
+        $obj->KOINVIPCARD = $row['card_chip'];
+        $obj->KOINVIPIAP = $row['iap_chip'];
+        $obj->XOCDIAVIP = $row['vipxocdia'];
+        $obj->BAUCUAVIP = $row['vipbaucua'];
 //        $obj->KOINADMIN = $row['admin_koin'];
         /*
           foreach($db->query($sql2) as $row2) {
@@ -55,7 +58,8 @@ try {
     echo "Lỗi kết nối CSDL";
 }
 $title = "Thống kê tiền fee";
-$output = "";
+$output = $output2 = "";
+
 foreach ($chart_data as $row) {
     /*
       $obj = json_decode($row['data']);
@@ -190,6 +194,57 @@ foreach ($chart_data as $row) {
 
     break;
 }
+foreach ($chart_data as $row) {
+    //register
+    $output .= "{name: 'CHIP IAP',";
+    $output .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output .= $obj->KOINVIPIAP . ",";
+    }
+    $output .= "]}, ";
+    //koin sms
+    $output2 .= "{name: 'CHIP SMS',";
+    $output2 .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output2 .= $obj->KOINVIPSMS . ",";
+    }
+    $output2 .= "]}, ";
+    //koin card
+    $output2 .= "{name: 'CHIP CARD',";
+    $output2 .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output2 .= $obj->KOINVIPCARD . ",";
+    }
+    $output2 .= "]}, ";
+    // IAP Koin
+    $output2 .= "{name: 'BAU CUA VIP',";
+    $output2 .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output2 .= $obj->BAUCUAVIP . ",";
+    }
+    $output2 .= "]}, ";
+    // IAP Koin
+    $output2 .= "{name: 'XOC DIA VIP',";
+    $output2 .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output2 .= $obj->XOCDIAVIP . ",";
+    }
+    $output2 .= "]}, ";
+    // IAP Koin
+    $output2 .= "{name: 'ADMIN ADD CHIP',";
+    $output2 .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output2 .= $obj->KOINADMIN . ",";
+    }
+    $output2 .= "]}, ";
+    break;
+}
 //echo substr($output, 0, -1);die;
 ?>
 <!DOCTYPE html>
@@ -232,7 +287,7 @@ foreach ($chart_data as $row) {
                     series: [
 <?php
 
-
+echo substr($output2, 0, -1);
 ?>
                     ]
                 });
@@ -352,44 +407,48 @@ echo substr($output, 0, -1);
                             ?>
                         </table>
 
-<!--                        <table width="100%" style="padding-top:20px">
+                        <table width="100%" style="padding-top:20px">
                             <tr>
                                 <td>Ngày</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Chip game</b></td>                                
-                                <td>Bù Chip</td>
+                                <td>Chip IAP</td>
                                 
                                 <td>Chip SMS</td>
                                 <td>Chip Card</td>
+                                <td>Bau Cua</td>
+                                <td>Xoc Dia</td>
+                                <td>Admin Add</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Tổng</b></td>
-                                <td align="center" style="background-color:#81A0F3;"><b>Diff</b></td>
                             </tr>
                             <?php
-//                            foreach ($chart_data as $row) {
-//                                $obj = json_decode($row['data']);
-//                                echo "<tr>";
-//                                echo "<td>{$row['day']}</td>";
-//                                $total = $obj->PHOMVIP + $obj->TLMNVIP + $obj->TLMNDCVIP + 
-//                                        $obj->POKERVIP + $obj->BACAYCHVIP + $obj->BACAYVIP + 
-//                                        $obj->BACAYNEWVIP + $obj->LIENGVIP + $obj->SAMVIP + $obj->MAUBINHVIP;
-//                                echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
-//
-////                                echo "<td>" . number_format($obj->FACEBOOK) . "</td>";
-////                                echo "<td>" . number_format($obj->DAILY_BONUS) . "</td>";
-//                                echo "<td>" . number_format($obj->BU_CHIP) . "</td>";
-////                                echo "<td>" . number_format($obj->EXP_MISSION) . "</td>";
-////                                echo "<td>" . number_format($obj->EVENT) . "</td>";
-//                                echo "<td>" . number_format($obj->KOINVIPSMS) . "</td>";
-//                                echo "<td>" . number_format($obj->KOINVIPCARD) . "</td>";
-////                                echo "<td>" . number_format($row['regKoin']) . "</td>";
-////                                echo "<td>" . number_format($obj->MONACO_FIRSTWIN) . "</td>";
-//                                
-//                                $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD ;
-//                                echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
-//                                echo "<td style='background-color:#FCD5B4;'><b>" . number_format($row['koin']) . "</b></td>";
-//                                echo "</tr>";
-//                            }
+                            foreach ($chart_data as $row) {
+                                $obj = json_decode($row['data']);
+                                echo "<tr>";
+                                echo "<td>{$row['day']}</td>";
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + 
+                                        $obj->POKER + $obj->BACAYCHVIP  + $obj->BACAYVIP + 
+                                        $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA;
+                                echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
+
+//                                echo "<td>" . number_format($obj->FACEBOOK) . "</td>";
+//                                echo "<td>" . number_format($obj->DAILY_BONUS) . "</td>";
+                                echo "<td>" . number_format($obj->KOINVIPIAP) . "</td>";
+//                                echo "<td>" . number_format($obj->EXP_MISSION) . "</td>";
+//                                echo "<td>" . number_format($obj->EVENT) . "</td>";
+                                echo "<td>" . number_format($obj->KOINVIPSMS) . "</td>";
+                                echo "<td>" . number_format($obj->KOINVIPCARD) . "</td>";
+                                echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";
+                                echo "<td>" . number_format($obj->BAUCUAVIP) . "</td>";
+//                                echo "<td>" . number_format($row['regKoin']) . "</td>";
+                                echo "<td>" . number_format($obj->KOINADMIN) . "</td>";
+                                
+                                $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP + 
+                                        $obj->BAUCUAVIP + $obj->KOINADMIN  ;
+                                echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
+                                echo "</tr>";
+                            }
                             ?>
-                        </table>-->
+                        </table>
                         <br />
                         <div id="chart-container-1" style="width: <?php echo $size; ?>; height: 350px"></div>
                         <br />
