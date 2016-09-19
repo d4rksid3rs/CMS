@@ -13,7 +13,7 @@ $users = array(
     'nguyet' => 'nguyet2023',
     'lam' => 'lam2023',
     'chamsockh' => 'cskh2013xyz2013',
-    'monaco' => 'monaco123',
+    'monaco' => 'Mnc!@#(*&',
     'monacovh' => 'monacovh123456',
     'hq' => 'monaco654321'
 );
