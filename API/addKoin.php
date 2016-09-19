@@ -11,7 +11,7 @@ $user = mysql_escape_string($user);
 $pass = mysql_escape_string($pass);
 $cause = mysql_escape_string($cause);
 if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause) > 0) {
-    if ($pass == "Mnc(*&!@#") {
+    if ($pass == "Mnc^%$!@#") {
         if ($koin <= $allowMaxKoin) {
             try {
                 $db->query("SET NAMES 'UTF8'");

@@ -37,11 +37,11 @@ if (isset($_COOKIE[$domain_code.'_uid']) && $_COOKIE[$domain_code.'_uid']!='' &&
 if (!$pass_login) {
 	$need_login = TRUE;
 	
-	//Trying To Login
+	//Trying To Login        
 	if (isset($_POST['login'])) {
 		//Verify Login
 		$login_user = $login->cleanse_input($_POST['username']);
-		$login_pass = $login->cleanse_input($_POST['password']);
+		$login_pass = $login->cleanse_input($_POST['password']);                
 		$login_captcha = $login->cleanse_input($_POST['captcha']);
 			//Check Login
 			if ($login->check_login($login_user, $login_pass)) {
