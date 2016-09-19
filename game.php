@@ -182,7 +182,7 @@ if (!isset($toDate)) {
 					</div>
                 </div>
             </div>
-            <div class="box grid">
+<!--            <div class="box grid">
                 <div class="box_header">
                     <a href="javascript:void(0);">Monaco</a>
                 </div>
@@ -209,7 +209,7 @@ if (!isset($toDate)) {
                     </table>
                     
                 </div>
-            </div>
+            </div>-->
             
 <!--            <div class="box grid">
                 <div class="box_header">
