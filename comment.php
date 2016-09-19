@@ -14,7 +14,7 @@ if (!isset($acc)) {
 if (!isset($message)) {
     $message = "";
 }
-$sql = "SELECT fb.* FROM (SELECT f.* FROM feedback f ORDER BY id DESC ) fb ";
+$sql = "SELECT fb.*, u.* FROM (SELECT f.* FROM feedback f ORDER BY id DESC ) fb ";
 if ($acc != "") {
     $query .= "a=" . $acc;
     $sql .= " where fb.user like '%" . $acc . "%'";
@@ -27,16 +27,22 @@ if ($message != "" && $acc == "") {
     $query .= "&m=" . $message;
     $sql .= " and f.feedback like '%" . $message . "%'";
 }
-$sql .= " GROUP BY user_id order by date_created desc limit " . ($page - 1) * $pageSize . "," . $pageSize;
+$sql .= " LEFT JOIN user u ON fb.user_id = u.id GROUP BY user_id order by   fb.date_created desc limit " . ($page - 1) * $pageSize . "," . $pageSize;
+//echo $sql;die;
 $comments = array();
 foreach ($db->query($sql) as $row) {
-    $comments[] = array('username' => $row['user'],
+    $comments[] = array(
+        'username' => $row['user'],
         'comment' => $row['feedback'],
         'date' => $row['date_created'],
         'mobile' => $row['mobile'],
+        'screen_name' => $row['screen_name'],
+        'vip' => $row['vip'],
+        'koin_added' => $row['koin_added'],
         'id' => $row['id'],
         'status' => $row['status'],
-        'userId' => $row['user_id']);
+        'userId' => $row['user_id']
+    );
 }
 ?>
 <!DOCTYPE html>
@@ -191,7 +197,7 @@ foreach ($db->query($sql) as $row) {
                                 </td>
                                 <td>
                                     Message
-                                    <input type="text" name="m" class="input_text" value="<?php echo $message; ?>" style="margin-left: 10px;"/>
+                                    <textarea  row="5" col="300" name="m" value="<?php echo $message; ?>" style="margin-left: 10px;height: 100px; width: 500px;"></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -211,6 +217,9 @@ foreach ($db->query($sql) as $row) {
                             <tr>
                                 <th style="width: 30px;" align="center">STT</th>
                                 <th style="width: 80px;" align="center">Tài khoản</th>
+                                <th style="width: 80px;" align="center">Screen Name</th>
+                                <th style="width: 80px;" align="center">Vip</th>
+                                <th style="width: 80px;" align="center">Tổng Nạp</th>
                                 <th style="width: 80px;" align="center">Số điện thoại</th>
                                 <th>Nội dung</th>
                                 <th style="width: 100px;" align="center">Ngày</th>
@@ -224,7 +233,15 @@ foreach ($db->query($sql) as $row) {
                                 echo "<tr>";
                                 echo "<td align=center>" . $count . "</td>";
                                 echo "<td align=center>" . $cm['username'] . "</td>";
-                                echo "<td align=center>" . $cm['mobile'] . "</td>";
+                                echo "<td align=center>" . $cm['screen_name'] . "</td>";
+                                
+                                if ($cm['vip'] == 1) {
+                                    echo "<td align=center>Có</td>";
+                                } else {
+                                    echo "<td align=center>Không</td>";
+                                }
+                                echo "<td align=center>" . $cm['koin_added'] . "</td>";
+                                echo "<td align=center>" . $cm['mobile'] . "</td>";                                
                                 if ($cm['status'] == 1) {
                                     $index = strrpos($cm['comment'], '->');
                                     if ($index === false) {
