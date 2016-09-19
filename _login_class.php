@@ -63,7 +63,6 @@ class login_class {
 	function check_login ($username, $password) {
 		foreach ($this->users as $user => $pass) {
 			if ($username == $user && $password == $pass) {
-                                echo 'ok';
 				$this->username = $username;
 				return TRUE;
 			}
