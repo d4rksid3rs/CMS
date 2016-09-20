@@ -14,7 +14,7 @@ if (!isset($acc)) {
 if (!isset($message)) {
     $message = "";
 }
-$sql = "SELECT fb.*, u.* FROM (SELECT f.* FROM feedback f ORDER BY id DESC ) fb ";
+$sql = "SELECT fb.*, u.screen_name, u.koin_added, u.vip FROM (SELECT f.* FROM feedback f ORDER BY id DESC ) fb ";
 if ($acc != "") {
     $query .= "a=" . $acc;
     $sql .= " where fb.user like '%" . $acc . "%'";
@@ -62,7 +62,7 @@ foreach ($db->query($sql) as $row) {
             function prepareReply(element, id, userId) {
                 $(".reply").remove();
                 var parent = element.parent().parent();
-                parent.after("<tr class='reply'><td colspan=5 align=right><input type='text' name='replyContent' style='margin-right:5px; width:250px;'/><input type='button' value='Trả lời' style='margin-right:5px;' onclick='reply(" + id + "," + userId + ");'/><input type='button' value='Hủy' onclick='$(this).parent().parent().remove();'/></td></tr>");
+                parent.after("<tr class='reply'><td colspan=5 align=right><textarea type='text' col='50' row='4' name='replyContent' style='margin-right:5px; width:250px;'></textarea><input type='button' value='Trả lời' style='margin-right:5px;' onclick='reply(" + id + "," + userId + ");'/><input type='button' value='Hủy' onclick='$(this).parent().parent().remove();'/></td></tr>");
             }
 
             function disableReply(element, id) {
@@ -134,7 +134,7 @@ foreach ($db->query($sql) as $row) {
             }
 
             function reply(id, userId) {
-                var element = $("input[name=replyContent]");
+                var element = $("textarea[name=replyContent]");
                 var content = element.val();
                 if (content.length == 0) {
                     alert("Chưa nhập thông tin trả lời.");
@@ -197,7 +197,7 @@ foreach ($db->query($sql) as $row) {
                                 </td>
                                 <td>
                                     Message
-                                    <textarea  row="5" col="300" name="m" value="<?php echo $message; ?>" style="margin-left: 10px;height: 100px; width: 500px;"></textarea>
+                                    <input type="text" name="m" class="input_text" value="<?php echo $message; ?>" style="margin-left: 10px;" />
                                 </td>
                             </tr>
                             <tr>

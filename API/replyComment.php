@@ -1,4 +1,5 @@
 <?php
+
 require('../Config.php');
 require('db.class.php');
 $type = $_GET['type'];
@@ -7,7 +8,7 @@ if ($type == "reply") {
         $id = $_GET['id'];
         $userId = $_GET['userId'];
         $content = $_GET['content'];
-	        $content = mysql_escape_string($content);
+        $content = mysql_escape_string($content);        
         if (isset($content) && strlen($content) > 0) {
             $sql = "update feedback f set f.status=1,f.feedback=concat(f.feedback,' -> $content') where f.id=" . $id;
             $db->exec($sql);
