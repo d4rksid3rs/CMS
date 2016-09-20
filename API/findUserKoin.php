@@ -11,7 +11,7 @@ if (isset($username) && strlen($username) > 0) {
             $found = true;
             $array_true = array(
                 'status' => 1,
-                'vip' => vipType($row['vip_type']),
+                'vip' => $row['vip_type'],
                 'koin' => number_format($row['koin']) . ' xu',
                 'koin_vip' => number_format($row['koin_vip']). ' chip'
             );

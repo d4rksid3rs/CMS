@@ -8,8 +8,10 @@ if ($_GET['username']) {
     echo "<b>Chưa nhập Username</b>";
     exit;
 }
+$today = date('Y-m-d', time());
 $date = '';
 if (!empty($_GET['date'])) {
+    if ($today != $_GET['date'])
     $date = '.' . $_GET['date'];
 }
 $type = $_GET['type'];

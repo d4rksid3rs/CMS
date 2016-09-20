@@ -1,3 +1,6 @@
+<?php
+$today = date('Y-m-d', time());
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -162,7 +165,7 @@
                                 $("#date").text(data.dateCreated);
                                 $("#valueChargedSMS").text(data.smsmoney);
                                 $("#valueChargedCard").text(data.cardmoney);
-                                $("#valueIAPCard").text(data.iapmoney); 
+                                $("#valueIAPCard").text(data.iapmoney);
                                 $("#valueSmsDate").text(data.smsDate);
                                 $("#valueCardDate").text(data.cardDate);
                                 $("#farmCount").text(data.farm);
@@ -211,7 +214,7 @@
                     success: function (msg) {
                         msg = msg.trim();
                         if (msg != '' && msg.length > 2) {
-                            var data = jQuery.parseJSON(msg);                            
+                            var data = jQuery.parseJSON(msg);
                             if (data.status == 1) {
                                 console.log(data.iapmoney);
                                 $("#username").text(data.username);
@@ -223,7 +226,7 @@
                                 $("#date").text(data.dateCreated);
                                 $("#valueChargedSMS").text(data.smsmoney);
                                 $("#valueChargedCard").text(data.cardmoney);
-                                $("#valueIAPCard").text(data.iapmoney);                                
+                                $("#valueIAPCard").text(data.iapmoney);
                                 $("#valueSmsDate").text(data.smsDate);
                                 $("#valueCardDate").text(data.cardDate);
                                 $("#farmCount").text(data.farm);
@@ -1002,7 +1005,7 @@
                 });
 
             }
-            
+
             function getReturnExchange() {
                 var fromDate = $("#koin_vip_exchange_return input[name=fromDate]").val();
                 var toDate = $("#koin_vip_exchange_return input[name=toDate]").val();
@@ -1026,7 +1029,7 @@
                     }
                 });
             }
-            
+
             function getLogKoin(type) {
                 var username = $("#logKoin input[name=username]").val();
                 var date = $("#logKoin input[name=dateKoin]").val();
@@ -1209,14 +1212,14 @@
                                 <td align="center"><span id="valueIAPCard"></span></td>
                                 <td width="20%">Lần nạp thẻ cuối cùng</td>
                                 <td width="" align="center"><span id="valueCardDate"></span></td>
-                                
+
                             </tr>
                             <tr>
                                 <td width="10%">Số account farm</td>
                                 <td align="center"><span id="farmCount"></span></td>
                                 <td width="10%">Loại user</td>
                                 <td align="center"><span id="userType"></span></td>
-                                
+
                             </tr>
                             <tr>
                                 <td width="10%">VIP</td>
@@ -1335,7 +1338,7 @@
                 <div class="box_body" style="display: none">
                     <form id="logKoin">
                         Ngày
-                        <input type="text" id="datepicker3" name="dateKoin" style="text-align: center; width: 100px;" />
+                        <input type="text" id="datepicker3" name="dateKoin" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
                         Username:
                         <input type="text" name="username" value="" />
                         <input type="button" name="add" value="Log Chơi (Xu)" onclick="getLogKoin(1);"/>
