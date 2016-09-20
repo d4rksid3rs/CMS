@@ -9,7 +9,7 @@ $pars .= isset($_REQUEST['nocache']) ? '&nocache' : '';
     <li>Cache tại thời điểm: <?php echo date("Y-m-d H:i:s"); ?> |</li>
     <li><a href="rev.php">Biến động doanh thu</a> |</li>
     <!--<li><a href="stat_sms.php?id=0<?php echo $pars; ?>">Sản lượng SMS</a> (<a href="stat_sms.php?sum&id=0">Tổng</a>) |</li>-->
-    <li><a href="stat_sms.php?id=1<?php echo $pars; ?>">Doanh thu SMS</a> (<a href="stat_sms.php?sum&id=1">Tổng</a>) |</li>
+    <!--<li><a href="stat_sms.php?id=1<?php echo $pars; ?>">Doanh thu SMS</a> (<a href="stat_sms.php?sum&id=1">Tổng</a>) |</li>-->
     <!--<li><a href="stat_os_sms.php?id=0<?php echo $pars; ?>">Doanh thu SMS theo OS</a> |</li>-->
     <!--<li><a href="stat_os_card.php?id=0<?php echo $pars; ?>">Doanh thu Card theo OS</a> |</li>-->
     <li><a href="stat_card.php?<?php echo $pars; ?>">Doanh thu thẻ cào</a> (<a href="stat_card.php?sum">Tổng</a>) |</li>
