@@ -16,7 +16,7 @@ $pars .= isset($_REQUEST['nocache']) ? '&nocache' : '';
     <!--<li><a href="stat_money.php">Chia sẻ doanh thu</a> |</li>-->
     <!--<li><a href="thongkesms.php">TK chi tiết tin nhắn</a> |</li>-->
     <!--<li><a href="tksmsdausodt.php">TK tin nhắn từ đầu số đối tác</a> | </li>-->
-    <li><a href="thongkethecao.php">TK chi tiết thẻ cào</a> |</li>
+    <li><a href="thongkethecao.php">TK chi tiết</a> |</li>
     <li><a href="koin_charge.php">Thống Kê Charging</a> |</li>
     <li><a href="koin_hour.php">TK doanh thu theo giờ</a></li>
 </ul>
