@@ -1,5 +1,6 @@
 <?php
 $today = date('Y-m-d', time());
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -1032,13 +1033,15 @@ $today = date('Y-m-d', time());
 
             function getLogKoin(type) {
                 var username = $("#logKoin input[name=username]").val();
-                var date = $("#logKoin input[name=dateKoin]").val();
+                var fromdate = $("#logKoin input[name=fromDateKoin]").val();
+                var todate = $("#logKoin input[name=toDateKoin]").val();
                 $.ajax({
                     type: "GET",
                     url: "API/getLogKoin.php",
                     data: {
                         "username": username,
-                        "date": date,
+                        "fromdate": fromdate,
+                        "todate": todate,
                         "type": type
                     },
                     dataType: 'text',
@@ -1101,6 +1104,34 @@ $today = date('Y-m-d', time());
                         $("#btnFindMobileDataSMS").attr("disabled", false);
                     }
                 });
+            });
+            $("a.pagination-link-log").live("click", function (e) {
+                e.preventDefault();
+                var page = $(this).attr('page');
+                var username = $("#logKoin input[name=username]").val();
+                var fromdate = $("#logKoin input[name=fromDateKoin]").val();
+                var todate = $("#logKoin input[name=toDateKoin]").val();
+                var type = $(this).attr('type');
+                $.ajax({
+                    type: "GET",
+                    url: "API/getLogKoin.php",
+                    data: {
+                        "page": page,
+                        "username": username,
+                        "fromdate": fromdate,
+                        "todate": todate,
+                        "type": type
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#logKoinResult").html(msg);
+                        $("#logKoinResult").show();
+                    },
+                    failure: function () {
+                        $("#exchangeUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindListUser").attr("disabled", false);
+                    }
+                });                        
             });
             $("input#hidelog").live("click", function (e) {
                 e.preventDefault();
@@ -1302,43 +1333,13 @@ $today = date('Y-m-d', time());
                 </div>
             </div>
             <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Thống kê Danh sách User đổi thưởng</a></div>
-                <div class="box_body" style="display: none">
-                    <form id="koin_vip_exchange">
-                        Từ Ngày
-                        <input type="text" id="datepicker1" name="fromDate" style="text-align: center; width: 100px;" />
-                        Tới Ngày
-                        <input type="text" id="datepicker2" name="toDate" style="text-align: center; width: 100px;" />
-                        <input type="button" name="add" value="Thống kê" onclick="getExchange();"/>
-
-                    </form>
-                </div>
-                <div id="exchangeUserList" style="display: none;">
-
-                </div>
-            </div>
-            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);">Thống kê Danh sách User cộng bù Chip</a></div>
-                <div class="box_body" style="display: none">
-                    <form id="koin_vip_exchange_return">
-                        Từ Ngày
-                        <input type="text" class="datepicker" name="fromDate" style="text-align: center; width: 100px;" />
-                        Tới Ngày
-                        <input type="text" class="datepicker" name="toDate" style="text-align: center; width: 100px;" />
-                        <input type="button" name="add" value="Thống kê" onclick="getReturnExchange();"/>
-
-                    </form>
-                </div>
-                <div id="exchangeReturnUserList" style="display: none;">
-
-                </div>
-            </div>
-            <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);">Xem log chơi Xu/Chip của Người chơi</a></div>
                 <div class="box_body" style="display: none">
                     <form id="logKoin">
-                        Ngày
-                        <input type="text" id="datepicker3" name="dateKoin" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDateKoin" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Đến Ngày
+                        <input type="text" class="datepicker" name="toDateKoin" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
                         Username:
                         <input type="text" name="username" value="" />
                         <input type="button" name="add" value="Log Chơi (Xu)" onclick="getLogKoin(1);"/>
@@ -1488,3 +1489,4 @@ $today = date('Y-m-d', time());
         </div>
     </body>
 </html>
+
