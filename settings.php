@@ -140,9 +140,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $arr['iap2']['from_date'] = "$from_date5 $from_time5";
     $arr['iap2']['to_date'] = "$to_date5 $to_time5";
     $arr['iap2']['factor'] = $factor5;
-    $arr['chip']['from_date'] = "$from_date6 $from_time6";
-    $arr['chip']['to_date'] = "$to_date6 $to_time6";
-    $arr['chip']['factor'] = $factor6;
+    $arr['cardvip']['from_date'] = "$from_date6 $from_time6";
+    $arr['cardvip']['to_date'] = "$to_date6 $to_time6";
+    $arr['cardvip']['factor'] = $factor6;
 //    var_dump($arr);die;
     $json = json_encode($arr);
     
@@ -216,15 +216,15 @@ if ($row = mysql_fetch_assoc($result)) {
         $to_time5 = $arr1[1];
         $factor5 = !empty($arr['iap2']['factor']) ? $arr['iap2']['factor'] : $ratio_presets;
         // chip
-        $from_date6 = !empty($arr['chip']['from_date']) ? $arr['chip']['from_date'] : '2016-06-20';
+        $from_date6 = !empty($arr['cardvip']['from_date']) ? $arr['cardvip']['from_date'] : '2016-06-20';
         $arr1 = explode(' ', $from_date6);
         $from_date6 = $arr1[0];
         $from_time6 = $arr1[1];
-        $to_date6 = !empty($arr['chip']['to_date']) ? $arr['chip']['to_date'] : '2016-06-20';
+        $to_date6 = !empty($arr['cardvip']['to_date']) ? $arr['cardvip']['to_date'] : '2016-06-20';
         $arr1 = explode(' ', $to_date6);
         $to_date6 = $arr1[0];
         $to_time6 = $arr1[1];
-        $factor6 = !empty($arr['chip']['factor']) ? $arr['chip']['factor'] : $ratio_presets;
+        $factor6 = !empty($arr['cardvip']['factor']) ? $arr['cardvip']['factor'] : $ratio_presets;
     }
 }
 if ($init) {
