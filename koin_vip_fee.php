@@ -89,6 +89,14 @@ foreach ($chart_data as $row) {
         $output .= $obj->PHOM . ",";
     }
     $output .= "]}, ";
+    //xito
+    $output .= "{name: 'Xì Tố VIP',";
+    $output .= "data:[";
+    foreach ($chart_data as $row2) {        
+        $obj = json_decode($row2['data']);
+        $output .= $obj->XITO . ",";
+    }
+    $output .= "]}, ";
     //tienlenmiennam
     $output .= "{name: 'TLMN VIP',";
     $output .= "data:[";
@@ -358,6 +366,7 @@ echo substr($output, 0, -1);
                                 <td>Sam VIP</td>
                                 <td>Xoc Dia VIP</td>
                                 <td>Bau Cua VIP</td>
+                                <td>Xì tố VIP</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Chip</b></td>
 
 <!--                                <td>Facebook</td>
@@ -385,9 +394,10 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->SAM) . "</td>";
                                 echo "<td>" . number_format($obj->XOCDIA) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUA) . "</td>";
+                                echo "<td>" . number_format($obj->XITO) . "</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + 
                                         $obj->POKER + $obj->BACAYCHVIP  + $obj->BACAYVIP + 
-                                        $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA;
+                                        $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 /*
@@ -427,7 +437,7 @@ echo substr($output, 0, -1);
                                 echo "<td>{$row['day']}</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + 
                                         $obj->POKER + $obj->BACAYCHVIP  + $obj->BACAYVIP + 
-                                        $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA;
+                                        $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
 //                                echo "<td>" . number_format($obj->FACEBOOK) . "</td>";
