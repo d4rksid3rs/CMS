@@ -14,8 +14,10 @@ if (!isset($_REQUEST['toDate'])) {
 } else {
     $toDate = $_REQUEST['toDate'];
 }
+$today = date('Y-m-d', time());
+;
 try {
-    $sql = "select * from server_chip_daily where datecreate >= '" . $fromDate . "' and datecreate <= '" . $toDate . "' order by datecreate";    
+    $sql = "select * from server_chip_daily where datecreate >= '" . $fromDate . "' and datecreate <= '" . $toDate . "' order by datecreate";
     $chart_data = array();
     //$sql2 = "SELECT type, sum(koin_added) koin_added, date(created_on) as day FROM log_nap_koin  where created_on >= '".$fromDate."' and created_on <= '".$toDate."' GROUP BY day, type order by created_on";
     $sql3 = "SELECT date(date_created) as day, sum(koin) as koinadmin FROM admin_add_koin WHERE date_created >= '" . $fromDate . "' and date_created <= '" . $toDate . "' GROUP BY day";
@@ -50,7 +52,7 @@ try {
 //            'koin' => $row['diff_server_koin'],
 //            'regKoin' => $row['reg_koin'],
 //            'iapKoin' => $row['iap_koin']
-                );
+        );
     }
 //   var_dump($obj);die;
 //   var_dump($chart_data);
@@ -84,7 +86,7 @@ foreach ($chart_data as $row) {
     //phom
     $output .= "{name: 'Phỏm VIP',";
     $output .= "data:[";
-    foreach ($chart_data as $row2) {        
+    foreach ($chart_data as $row2) {
         $obj = json_decode($row2['data']);
         $output .= $obj->PHOM . ",";
     }
@@ -92,7 +94,7 @@ foreach ($chart_data as $row) {
     //xito
     $output .= "{name: 'Xì Tố VIP',";
     $output .= "data:[";
-    foreach ($chart_data as $row2) {        
+    foreach ($chart_data as $row2) {
         $obj = json_decode($row2['data']);
         $output .= $obj->XITO . ",";
     }
@@ -259,14 +261,57 @@ foreach ($chart_data as $row) {
 <html>
     <head>
         <title><?php echo $title; ?></title>
-        <?php require('header.php'); ?>
+<?php require('header.php'); ?>
         <script src="js/highcharts.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/themes/grid.js"></script>
         <script>
             var chart1;
+            function chipVerify() {
+                var date = $("#logKoin input[name=date]").val();
+                $.ajax({
+                    type: "GET",
+                    url: "API/getChipVerify.php",
+                    data: {
+                        "date": date
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#logKoinResult").html(msg);
+                        $("#logKoinResult").show();
+                    },
+                    failure: function () {
+                        $("#exchangeUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindListUser").attr("disabled", false);
+                    }
+                });
+            }
             $(document).ready(function () {
                 $("#datepicker1").datepicker();
                 $("#datepicker2").datepicker();
+                $(".datepicker").datepicker();
+                $("a.pagination-link").live("click", function (e) {
+                    e.preventDefault();
+                    var page = $(this).attr('page');
+                    var date = $("#logKoin input[name=date]").val();
+                    $("#btnFindMobileDataSMS").attr("disabled", true);
+                    $.ajax({
+                        type: "GET",
+                        url: "API/getChipVerify.php",
+                        data: {
+                            "page": page,
+                            "date": date
+                        },
+                        dataType: 'text',
+                        success: function (msg) {
+                            $("#logKoinResult").html(msg);
+                            $("#logKoinResult").show();
+                        },
+                        failure: function () {
+                            $("#phoneDataDetail").html("<span>Không truy cập được dữ liệu</span>");
+                            $("#btnFindMobileDataSMS").attr("disabled", false);
+                        }
+                    });
+                });
                 //chart 1
                 chart1 = new Highcharts.Chart({
                     chart: {
@@ -294,7 +339,6 @@ foreach ($chart_data as $row) {
                     },
                     series: [
 <?php
-
 echo substr($output2, 0, -1);
 ?>
                     ]
@@ -335,9 +379,24 @@ echo substr($output, 0, -1);
     </head>
     <body>
         <div class="pagewrap">
-            <?php require('topMenu.php'); ?>            
+<?php require('topMenu.php'); ?> 
+
             <div class="box grid">
-                <?php include('topMenu.koin.php'); ?>
+<?php include('topMenu.koin.php'); ?>
+                <div class="box_header"><a href="javascript:void(0);">Chip Verify</a></div>
+                <div class="box_body" style="display: none">
+                    <form id="logKoin">
+                        Ngày
+                        <input type="text" class="datepicker" name="date" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />                        
+                        <input type="button" name="add" value="Thống kê" onclick="chipVerify();"/>
+
+                    </form>
+                </div>
+                <div id="logKoinResult" style="display: none;">                    
+                </div>
+                <br />
+                <br />
+                <br />
                 <div class="box_header"><a href="javascript:void(0);"><?php echo "Thống kê tiền fee"; ?></a></div>
                 <div class="box_body">
                     <div style="padding-left:10px;">
@@ -395,8 +454,8 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->XOCDIA) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUA) . "</td>";
                                 echo "<td>" . number_format($obj->XITO) . "</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + 
-                                        $obj->POKER + $obj->BACAYCHVIP  + $obj->BACAYVIP + 
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
+                                        $obj->POKER + $obj->BACAYCHVIP + $obj->BACAYVIP +
                                         $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
@@ -422,7 +481,7 @@ echo substr($output, 0, -1);
                                 <td>Ngày</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Chip game</b></td>                                
                                 <td>Chip IAP</td>
-                                
+
                                 <td>Chip SMS</td>
                                 <td>Chip Card</td>
                                 <td>Bau Cua</td>
@@ -435,8 +494,8 @@ echo substr($output, 0, -1);
                                 $obj = json_decode($row['data']);
                                 echo "<tr>";
                                 echo "<td>{$row['day']}</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + 
-                                        $obj->POKER + $obj->BACAYCHVIP  + $obj->BACAYVIP + 
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
+                                        $obj->POKER + $obj->BACAYCHVIP + $obj->BACAYVIP +
                                         $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->BAUCUA + $obj->XOCDIA + $obj->XITO;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
@@ -451,9 +510,9 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->BAUCUAVIP) . "</td>";
 //                                echo "<td>" . number_format($row['regKoin']) . "</td>";
                                 echo "<td>" . number_format($obj->KOINADMIN) . "</td>";
-                                
-                                $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP + 
-                                        $obj->BAUCUAVIP + $obj->KOINADMIN  ;
+
+                                $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP +
+                                        $obj->BAUCUAVIP + $obj->KOINADMIN;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "</tr>";
                             }
