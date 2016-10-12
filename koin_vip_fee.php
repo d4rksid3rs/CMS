@@ -29,7 +29,10 @@ try {
         $obj->KOINVIPIAP = $row['iap_chip'];
         $obj->XOCDIAVIP = $row['vipxocdia'];
         $obj->BAUCUAVIP = $row['vipbaucua'];
-//        $obj->KOINADMIN = $row['admin_koin'];
+        $obj->CASHOUT = $row['cashout'];
+        $obj->ADDKOIN = $row['addkoin'];
+        $obj->CHIPVERIFY = $row['chipverify'];
+        $obj->KOINADMIN = $row['adminaddchip'];
         /*
           foreach($db->query($sql2) as $row2) {
           if($row['day'] == $row2['day']) {
@@ -475,7 +478,6 @@ echo substr($output, 0, -1);
                             }
                             ?>
                         </table>
-
                         <table width="100%" style="padding-top:20px">
                             <tr>
                                 <td>Ngày</td>
@@ -486,6 +488,9 @@ echo substr($output, 0, -1);
                                 <td>Chip Card</td>
                                 <td>Bau Cua</td>
                                 <td>Xoc Dia</td>
+                                <td>Cash Out</td>
+                                <td>Add Chip</td>
+                                <td>Chip Verify</td>
                                 <td>Admin Add</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Tổng</b></td>
                             </tr>
@@ -508,11 +513,14 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->KOINVIPCARD) . "</td>";
                                 echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUAVIP) . "</td>";
+                                echo "<td>" . number_format($obj->CASHOUT) . "</td>";
+                                echo "<td>" . number_format($obj->ADDKOIN) . "</td>";
+                                echo "<td>" . number_format($obj->CHIPVERIFY) . "</td>";
 //                                echo "<td>" . number_format($row['regKoin']) . "</td>";
                                 echo "<td>" . number_format($obj->KOINADMIN) . "</td>";
 
                                 $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP +
-                                        $obj->BAUCUAVIP + $obj->KOINADMIN;
+                                        $obj->BAUCUAVIP + $obj->CASHOUT + $obj->ADDKOIN + $obj->CHIPVERIFY + $obj->KOINADMIN;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "</tr>";
                             }
