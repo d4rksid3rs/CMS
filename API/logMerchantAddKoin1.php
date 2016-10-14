@@ -16,7 +16,7 @@ if (isset($_GET{'page'})) {
 } else {
     $page = 1;
 }
-$limit = 2;
+$limit = 30;
 
 $start = $limit * ($page - 1);
 $end = $page * $limit;
