@@ -15,6 +15,8 @@ $users = array(
     'chamsockh' => 'cskh2013xyz2013',
     'monaco' => "Mnc123^%$",
     'monacovh' => 'monacovh123456',
-    'hq' => 'monaco654321'
+    'hq' => 'monaco654321',
+    'vuong' => 'monaco0123',
+    'hoa' => 'monaco0123'
 );
 ?>

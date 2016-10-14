@@ -21,6 +21,7 @@ $game = array("link" => "game.php", "img" => "game.png", "title" => "GAME");
 $vip = array("link" => "cskhvip.php", "img" => "vip.png", "title" => "CSKH Vip");
 $exchange = array("link" => "exchange.php", "img" => "exchange.png", "title" => "User đổi thưởng");
 $exchange_return = array("link" => "exchange_return.php", "img" => "exchange_return.png", "title" => "User cộng bù Chip");
+$merchant = array("link" => "merchant.php", "img" => "merchants.png", "title" => "Đại lý");
 ?>
 <div class="topheader">
     <div class="logo">
@@ -40,11 +41,17 @@ $exchange_return = array("link" => "exchange_return.php", "img" => "exchange_ret
         switch ($u) {
             case "bemon":
 
-                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $dau, $game);
+                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $merchant, $dau, $game);
                 break;
             case "monaco":
 
-                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $dau, $game);
+                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $merchant, $dau, $game);
+                break;
+            case "vuong":
+                $menu = array($merchant);
+                break;
+            case "hoa":
+                $menu = array($merchant);
                 break;
             case "monacovh":
 
