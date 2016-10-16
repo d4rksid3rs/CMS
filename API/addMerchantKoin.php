@@ -12,8 +12,10 @@ $pass = mysql_escape_string($pass);
 $rate = 1;
 $sql_rate = "SELECT * FROM `config` WHERE `key` LIKE 'merchant_rate'  limit 0,1";
 foreach ($db->query($sql_rate) as $row) {
-    $rate = (float) $row['value'];
+    $json =  $row['value'];
 }
+$rate_array = json_decode($json, true);
+$rate = $rate_array['merchant_rate'];
 if (is_numeric($vnd) && strlen($pass) > 0 && strlen($user) > 0) {
     $koin = $vnd * $rate;
     if ($pass == "merchantcongxu123") {
