@@ -15,12 +15,16 @@ if ($type == 'vip') {
     $sql = "SELECT au.*, u.screen_name, u.vip FROM auth_user au JOIN user u ON au.username = u.username ORDER BY au.koin_vip DESC LIMIT 0, {$num}";
 }
 $users = array();
+$i = 0;
 foreach ($db->query($sql) as $row) {
-    $users[]['username'] = $row['username'];
-    $users[]['screen_name'] = $row['screen_name'];
-    $users[]['vip'] = $row['vip'];
-    $users[]['balancexu'] = $row['koin'];
-    $users[]['balancechip'] = $row['koin_vip'];
+    
+    $users[$i]['username'] = $row['username'];
+    $users[$i]['screen_name'] = $row['screen_name'];
+    $users[$i]['vip'] = $row['vip'];
+    $users[$i]['balancexu'] = $row['koin'];
+    $users[$i]['balancechip'] = $row['koin_vip'];
+    $i++;
 }
-$json = json_encode($users, JSON_FORCE_OBJECT);
+//var_dump($users);die;
+$json = json_encode($users);
 echo $json;
