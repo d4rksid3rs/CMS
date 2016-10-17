@@ -34,7 +34,7 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {
                         $obj = new stdClass();
                         $obj->username = $user;
                         $obj->type = 3;
-                        $obj->type_money = 0;
+                        $obj->type_money = 1;
                         $obj->koinAdded = $koin;
                         $redis->publish('GameChannel', "500@" . json_encode($obj));
                         $redis->close();
