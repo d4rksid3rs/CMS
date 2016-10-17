@@ -19,6 +19,8 @@ foreach ($db->query($sql) as $row) {
     $users[]['username'] = $row['username'];
     $users[]['screen_name'] = $row['screen_name'];
     $users[]['vip'] = $row['vip'];
+    $users[]['balancexu'] = $row['koin'];
+    $users[]['balancechip'] = $row['koin_vip'];
 }
 $json = json_encode($users);
 echo $json;
