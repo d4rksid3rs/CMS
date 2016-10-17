@@ -22,5 +22,5 @@ foreach ($db->query($sql) as $row) {
     $users[]['balancexu'] = $row['koin'];
     $users[]['balancechip'] = $row['koin_vip'];
 }
-$json = json_encode($users);
+$json = json_encode($users, JSON_FORCE_OBJECT);
 echo $json;
