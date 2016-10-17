@@ -55,6 +55,94 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
+            
+            function addKoinVip() {
+                var user = $("#addChip input[name=user]").val();
+                var pass = $("#addChip input[name=pass]").val();
+                var koin = $("#addChip input[name=koin]").val();
+                $.ajax({
+                    type: "POST",
+                    url: "API/addKoinVip.php",
+                    data: {
+                        "user": user,
+                        "pass": pass,
+                        "koin": koin,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        msg = msg.trim();
+                        if (msg != '' && msg.length > 2) {
+                            var data = jQuery.parseJSON(msg);
+                            if (data.status == 1) {
+                                $("#addChip #message").html("Cập nhật thành công");
+                                $(this).oneTime(5000, function () {
+                                    $("#addChip #message").html("");
+                                });
+                            } else {
+                                $("#addChip #message").html(data.message);
+                                $(this).oneTime(5000, function () {
+                                    $("#addChip #message").html("");
+                                });
+                            }
+                        } else {
+                            $("#addChip #message").html("Lỗi hệ thống");
+                            $(this).oneTime(5000, function () {
+                                $("#addChip #message").html("");
+                            });
+                        }
+                    },
+                    failure: function () {
+                        $("#addChip #message").html("Lỗi hệ thống");
+                        $(this).oneTime(5000, function () {
+                            $("#addChip #message").html("");
+                        });
+                    }
+                });
+            }
+            
+            function reduceKoinVip() {
+                var user = $("#addChip input[name=user]").val();
+                var pass = $("#addChip input[name=pass]").val();
+                var koin = $("#addChip input[name=koin]").val();
+                $.ajax({
+                    type: "POST",
+                    url: "API/reduceKoinVip.php",
+                    data: {
+                        "user": user,
+                        "pass": pass,
+                        "koin": koin,
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        msg = msg.trim();
+                        if (msg != '' && msg.length > 2) {
+                            var data = jQuery.parseJSON(msg);
+                            if (data.status == 1) {
+                                $("#addChip #message").html("Cập nhật thành công");
+                                $(this).oneTime(5000, function () {
+                                    $("#addChip #message").html("");
+                                });
+                            } else {
+                                $("#addChip #message").html(data.message);
+                                $(this).oneTime(5000, function () {
+                                    $("#addChip #message").html("");
+                                });
+                            }
+                        } else {
+                            $("#addChip #message").html("Lỗi hệ thống");
+                            $(this).oneTime(5000, function () {
+                                $("#addChip #message").html("");
+                            });
+                        }
+                    },
+                    failure: function () {
+                        $("#addChip #message").html("Lỗi hệ thống");
+                        $(this).oneTime(5000, function () {
+                            $("#addChip #message").html("");
+                        });
+                    }
+                });
+            }
 
             function findUserPassword() {
                 var username = $("#findUser input[name=user]").val();
@@ -1151,14 +1239,26 @@ $today = date('Y-m-d', time());
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
             <div class="box">
-                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Cộng tiền</a></div>
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Cộng xu</a></div>
                 <div class="box_body">
                     <form id="addKoin">
                         Username <input type="text" name="user" style="width: 100px"/>
                         Password Admin <input type="password" name="pass" style="width: 100px"/>
-                        Koin <input type="text" name="koin" style="width: 100px"/>
-                        Lý do <input type="text" name="cause" style="width: 100px"/>
+                        Xu <input type="text" name="koin" style="width: 100px"/>
                         <input type="button" name="add" value="Thêm" onclick="addKoin();"/>
+                        <span id="message" style="color: #800000; font-weight: bold"></span>
+                    </form>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Cộng/Trừ Chip</a></div>
+                <div class="box_body">
+                    <form id="addChip">
+                        Username <input type="text" name="user" style="width: 100px"/>
+                        Password Admin <input type="password" name="pass" style="width: 100px"/>
+                        Chip <input type="text" name="koin" style="width: 100px"/>
+                        <input type="button" name="add" value="Cộng Chip" onclick="addKoinVip();"/>
+                        <input type="button" name="add" value="Trừ Chip" onclick="reduceKoinVip();"/>
                         <span id="message" style="color: #800000; font-weight: bold"></span>
                     </form>
                 </div>

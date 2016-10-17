@@ -2,17 +2,16 @@
 
 require('../Config.php');
 require('db.class.php');
-$allowMaxKoin = 10000000;
+$current_user = $_COOKIE['username'];
+//$allowMaxKoin = 10000000;
 $user = $_POST['user'];
 $pass = $_POST['pass'];
 $koin = $_POST['koin'];
-$cause = $_POST['cause'];
 $user = mysql_escape_string($user);
 $pass = mysql_escape_string($pass);
-$cause = mysql_escape_string($cause);
-if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause) > 0) {
-    if ($pass == "Mnc^%$!@#") {
-        if ($koin <= $allowMaxKoin) {
+if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {
+    if ($koin >= 0) {
+        if ($pass == "admincongchip123") {
             try {
                 $db->query("SET NAMES 'UTF8'");
                 $sql = "select * from auth_user where username='" . $user . "' limit 0,1";
@@ -22,13 +21,13 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause
                     $found = true;
                 }
                 if ($found == true) {
-                    $sql1 = "insert into admin_add_koin(username, admin_pass, koin, cause) values('{$user}','{$pass}','{$koin}', '{$cause}')";
+                    $sql1 = "insert into admin_add_chip (username, chip, created_by) values('{$user}', '{$koin }','{$current_user}')";
                     $db->exec($sql1);
 
-                    $sql2 = "update auth_user set koin=koin+{$koin} where username='{$user}'";
+                    $sql2 = "update auth_user set koin_vip=koin_vip+{$koin} where username='{$user}'";
                     $db->exec($sql2);
 
-                    echo "{\"status\":0,\"message\":\"Cộng Xu thành công\"}";
+                    echo "{\"status\":0,\"message\":\"Cộng Chip thành công\"}";
                     try {
                         $redis = new Redis();
                         $redis->connect('local.redis');
@@ -51,10 +50,10 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause
                 echo "{\"status\":0,\"message\":\"" . $e->getMessage() . "\"}";
             }
         } else {
-            echo "{\"status\":0,\"message\":\"Mức cộng tối đa trong 1 lần là {$allowMaxKoin}\"}";
+            echo "{\"status\":0,\"message\":\"Sai mật khẩu Cộng Xu\"}";
         }
     } else {
-        echo "{\"status\":0,\"message\":\"Sai mật khẩu Admin\"}";
+        echo "{\"status\":0,\"message\":\"Không được nhập số âm\"}";
     }
 } else {
     echo "{\"status\":0,\"message\":\"Tham số không hợp lệ\"}";
