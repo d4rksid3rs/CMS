@@ -60,6 +60,7 @@ $today = date('Y-m-d', time());
                 var user = $("#addChip input[name=user]").val();
                 var pass = $("#addChip input[name=pass]").val();
                 var koin = $("#addChip input[name=koin]").val();
+                var cause = $("#addChip input[name=cause]").val();
                 $.ajax({
                     type: "POST",
                     url: "API/addKoinVip.php",
@@ -67,6 +68,7 @@ $today = date('Y-m-d', time());
                         "user": user,
                         "pass": pass,
                         "koin": koin,
+                        "cause": cause
                     },
                     dataType: 'text',
                     success: function (msg) {
@@ -104,6 +106,7 @@ $today = date('Y-m-d', time());
                 var user = $("#addChip input[name=user]").val();
                 var pass = $("#addChip input[name=pass]").val();
                 var koin = $("#addChip input[name=koin]").val();
+                var cause = $("#addChip input[name=cause]").val();
                 $.ajax({
                     type: "POST",
                     url: "API/reduceKoinVip.php",
@@ -111,6 +114,7 @@ $today = date('Y-m-d', time());
                         "user": user,
                         "pass": pass,
                         "koin": koin,
+                        "cause": cause
                     },
                     dataType: 'text',
                     success: function (msg) {
@@ -1245,6 +1249,7 @@ $today = date('Y-m-d', time());
                         Username <input type="text" name="user" style="width: 100px"/>
                         Password Admin <input type="password" name="pass" style="width: 100px"/>
                         Xu <input type="text" name="koin" style="width: 100px"/>
+                        Lý do <input type="text" name="cause" style="width: 100px"/>
                         <input type="button" name="add" value="Thêm" onclick="addKoin();"/>
                         <span id="message" style="color: #800000; font-weight: bold"></span>
                     </form>
@@ -1257,6 +1262,7 @@ $today = date('Y-m-d', time());
                         Username <input type="text" name="user" style="width: 100px"/>
                         Password Admin <input type="password" name="pass" style="width: 100px"/>
                         Chip <input type="text" name="koin" style="width: 100px"/>
+                        Lý do <input type="text" name="cause" style="width: 100px"/>
                         <input type="button" name="add" value="Cộng Chip" onclick="addKoinVip();"/>
                         <input type="button" name="add" value="Trừ Chip" onclick="reduceKoinVip();"/>
                         <span id="message" style="color: #800000; font-weight: bold"></span>

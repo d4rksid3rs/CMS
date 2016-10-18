@@ -7,8 +7,10 @@ $current_user = $_COOKIE['username'];
 $user = $_POST['user'];
 $pass = $_POST['pass'];
 $koin = $_POST['koin'];
+$cause = $_POST['cause'];
 $user = mysql_escape_string($user);
 $pass = mysql_escape_string($pass);
+$cause = mysql_escape_string($cause);
 if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {
     if ($koin >= 0) {
         if ($pass == "admincongchip123") {
@@ -21,7 +23,7 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {
                     $found = true;
                 }
                 if ($found == true) {
-                    $sql1 = "insert into admin_add_chip (username, chip, created_by) values('{$user}', '{$koin }','{$current_user}')";
+                    $sql1 = "insert into admin_add_chip (username, chip, created_by, cause) values('{$user}', '{$koin }','{$current_user}', '{$cause}')";
                     $db->exec($sql1);
 
                     $sql2 = "update auth_user set koin_vip=koin_vip+{$koin} where username='{$user}'";
