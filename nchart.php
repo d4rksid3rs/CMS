@@ -15,7 +15,6 @@ if (!isset($toDate)) {
 }
 try {
     $sql = "select type, hour(dateOnline) as hourTime, sum(online)/count(*) as online from user_online_history where date(dateOnline) >= '" . $fromDate . "' and date(dateOnline) <= '" . $toDate . "' group by type,hour(dateOnline) order by hour(dateOnline)";
-//echo $sql;
     $users = array();
     foreach ($db->query($sql) as $row) {
         $type = $row['type'];
@@ -61,6 +60,7 @@ try {
 }
 $output = "";
 $tmp = array();
+var_dump($users);die;
 foreach ($users as $key => $val) {
 //while (list($key, $val) = each($users)) {
     $output = $output . "{name: '" . $key . "',";

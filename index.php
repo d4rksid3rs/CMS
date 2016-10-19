@@ -51,32 +51,16 @@ foreach ($versions as $version) {
     <body>
         <div class="pagewrap">
             <?php require('topMenu.php'); ?>
-
-
-            <div class="box grid">
-                <div class="box_header"><a href="javascript:void(0);"><?php echo "iPhone dang submit"; ?></a></div>
-                <div class="box_body">
-                    <table width="100%">
-                        <div style="padding-left:10px;">
-                            <?php
-                            foreach ($vers as $v) {
-                                echo $v . "<br />";
-                            }
-                            ?>
-                        </div>
-                    </table>
-                </div>
-
-            </div>
+            
 
             <div class="box grid">
                 <div class="box_header"><a href="javascript:void(0);"><?php echo "Doanh thu"; ?></a></div>
                 <div class="box_body">
                     <table width="100%">
                         <tr>
-
-                            <td width=50% align=center><div>The cao </div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=2">your browser does not support IFRAMEs</iframe></div></td>
-                            <td width=50% align=center><div>IAP</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=33% align=center><div>Thẻ cào </div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=2">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=33% align=center><div>IAP</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=33% align=center><div>Đại lý</div><div><iframe height="350px" width="100%" frameBorder="0" src="merchant_chart.php">your browser does not support IFRAMEs</iframe></div></td>
                         </tr>
                     </table>
                 </div>

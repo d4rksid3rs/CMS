@@ -10,6 +10,7 @@ $input = "{}";
 require('db.class.php');
 $content = sendMessage($service, $input);
 $decode = json_decode($content, true);
+var_dump($decode);die;
 $current_time = date("Y-m-d H:i:s");
 $sql = "INSERT INTO `user_online_history` (`type`, `dateOnline`, `online`, `times`) VALUES ('s1-All', '{$current_time}', '{$decode['online']}', '0'); ";
 $db->query($sql);
