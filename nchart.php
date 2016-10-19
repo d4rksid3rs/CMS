@@ -21,7 +21,7 @@ try {
         if (startsWith($type, "s1")) {
             $type = substr($type, 3);
             if ($type == 'All') {
-                $type = 'Tổng người chơi (đã trừ BOT)';
+                $type = 'Tổng người chơi trong Phòng';
                 $users[$type][] = array('hour' => $row['hourTime'], 'online' => round($row['online']), 'total' => round($row['total']));
             }
         } else if (startsWith($type, "s2")) {
