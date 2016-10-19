@@ -51,7 +51,7 @@ $sql1 = "select date_created,partner,total from revenue
 					and date_created >= '{$start_date}' AND date_created <= '{$end_date}'
 				group by partner,date_created 
 				order by partner"; //de duyet data dua vao mang cho de
-                                //
+//
 //die($sql1);			                                       
 $data = array();
 $cpname = array();

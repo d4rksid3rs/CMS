@@ -40,7 +40,7 @@ foreach ($versions as $version) {
 <html>
     <head>
         <title>Monaco</title>
-<?php require('header.php'); ?>
+        <?php require('header.php'); ?>
         <script>
             $(document).ready(function () {
                 $("#datepicker1").datepicker();
@@ -50,7 +50,7 @@ foreach ($versions as $version) {
     </head>
     <body>
         <div class="pagewrap">
-<?php require('topMenu.php'); ?>
+            <?php require('topMenu.php'); ?>
 
 
             <div class="box grid">
@@ -58,11 +58,11 @@ foreach ($versions as $version) {
                 <div class="box_body">
                     <table width="100%">
                         <div style="padding-left:10px;">
-<?php
-foreach ($vers as $v) {
-    echo $v . "<br />";
-}
-?>
+                            <?php
+                            foreach ($vers as $v) {
+                                echo $v . "<br />";
+                            }
+                            ?>
                         </div>
                     </table>
                 </div>
@@ -75,8 +75,8 @@ foreach ($vers as $v) {
                     <table width="100%">
                         <tr>
 
-                            <td width=50% align=center><div>The cao MV</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=3">your browser does not support IFRAMEs</iframe></div></td>
-                            <td width=50% align=center><div>SMS MV</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=1">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=50% align=center><div>The cao </div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=2">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=50% align=center><div>IAP</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
                         </tr>
                     </table>
                 </div>
@@ -93,9 +93,9 @@ foreach ($vers as $v) {
                     <table width=100%>
                         <tr>
                             <td width="50%">
-<?php
-$fromDate = $toDate = date('Y-m-d');
-?>
+                                <?php
+                                $fromDate = $toDate = date('Y-m-d');
+                                ?>
                                 <iframe height="370" width="100%" frameBorder="0" src="nchart.php?size=500px&fromDate=<?php echo $fromDate; ?>&toDate=<?php echo $toDate; ?>">your browser does not support IFRAMEs</iframe></td>
 
                             <td width="50%">
