@@ -14,15 +14,15 @@ if (!isset($toDate)) {
     $toDate = date('Y-m-d', time());
 }
 try {
-    $sql = "select type, hour(dateOnline) as hourTime, sum(online)/count(*) as online from user_online_history where date(dateOnline) >= '" . $fromDate . "' and date(dateOnline) <= '" . $toDate . "' group by type,hour(dateOnline) order by hour(dateOnline)";
+    $sql = "select type, hour(dateOnline) as hourTime, sum(online)/count(*) as online, sum(total)/count(*) as total from user_online_history where date(dateOnline) >= '" . $fromDate . "' and date(dateOnline) <= '" . $toDate . "' group by type,hour(dateOnline) order by hour(dateOnline)";
     $users = array();
     foreach ($db->query($sql) as $row) {
         $type = $row['type'];
         if (startsWith($type, "s1")) {
             $type = substr($type, 3);
             if ($type == 'All') {
-                $type = 'Monaco';
-                $users[$type][] = array('hour' => $row['hourTime'], 'online' => round($row['online']));
+                $type = 'Tổng người chơi (đã trừ BOT)';
+                $users[$type][] = array('hour' => $row['hourTime'], 'online' => round($row['online']), 'total' => round($row['total']));
             }
         } else if (startsWith($type, "s2")) {
             $type = substr($type, 3);
@@ -60,7 +60,7 @@ try {
 }
 $output = "";
 $tmp = array();
-var_dump($users);die;
+//var_dump($users);die;
 foreach ($users as $key => $val) {
 //while (list($key, $val) = each($users)) {
     $output = $output . "{name: '" . $key . "',";
@@ -70,7 +70,7 @@ foreach ($users as $key => $val) {
     $op = "";
     foreach ($val as $item) {
         $op = $op . "," . $item['online'];
-        $tmp[$count] += $item['online'];
+        $tmp[$count] += $item['total'];
         $count++;
     }
     $op = substr($op, 1);
@@ -78,7 +78,7 @@ foreach ($users as $key => $val) {
     $output = $output . $op . "]},";
 }
 
-$all = $all . "{name: 'Tổng',";
+$all = $all . "{name: 'Tổng người chơi',";
 $all = $all . "data:[";
 $op = "";
 for ($i = 0; $i < sizeof($tmp); $i++) {
@@ -89,6 +89,7 @@ $all = $all . $op . "]}";
 
 //$output = substr($output,0, strlen($output)-1);
 $chart = $output . $all;
+
 ?>
 <html>
     <head>

@@ -64,7 +64,6 @@ foreach ($key as $k) {
     $value1[$k]["playingTable"] = $jsonData->{$k}->{"playingTable"};
     $value1["total"] += $value1[$k]["online"];
 }
-
 /* * ********************************************* */
 /* * **********Server 2*************************** */
 /* * ********************************************* */
@@ -127,7 +126,7 @@ if (!isset($toDate)) {
                                         echo "<tr><td>" . $name[$i] . " </td><td align=\"center\">" . $value1[$key[$i]]["online"] . "</td></tr>";
                                     }
                                     ?>    
-                                    <!--<tr><td width="40%">Bot </td><td align="center"><?php echo $value1["bot"]; ?></td></tr>-->
+                                    <tr><td width="40%">Bot </td><td align="center"><?php echo $value1["bot"]; ?></td></tr>
                                 </table>
                             </td>
 <!--                            <td width="50%">
