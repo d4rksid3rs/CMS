@@ -5,8 +5,6 @@ require('chartutil.php');
 
 $end_date = date('Y-m-d');
 
-$end_date = date("Y-m-d", strtotime("-1 day", strtotime($end_date)));
-
 //$date_start = date ("Y-m-d",strtotime("yesterday"));
 
 $date_start = date("Y-m-d", strtotime("-7 day", strtotime($end_date)));
@@ -18,18 +16,19 @@ while (strtotime($date_start) < strtotime($end_date)) {
     $date_start = date("Y-m-d", strtotime("+1 day", strtotime($date_start)));
     $week[] = $date_start;
 }
-var_dump($week);die;
+//var_dump($week);die;
 //TOP Merchant trong vong 1 tuan
-$sql = "select partner, sum(total) as sum_total from revenue where type={$type} and date_created >= '{$start_date}' AND date_created <= '{$end_date}' group by partner order by sum_total desc LIMIT 0,9";
-
-//var_dump($sql);die;
+$sql= "SELECT mak.username, sum(mak.koin) as total, date(mak.date_created) as date, m.merchant_name  FROM `merchant_add_koin` as mak "
+        . "JOIN merchants m ON mak.username = m.username "
+        . "WHERE date(mak.date_created) >= '{$start_date}' AND date(mak.date_created) <= '{$end_date}' group by date(mak.date_created), mak.username";
+//echo $sql;die;
 $cps = array();
 //$cpname = array("x");
 foreach ($db->query($sql) as $row) {
-    $cps[] = "'" . $row['partner'] . "'";
+    $cps[] = "'" . $row['merchant_name'] . "'";
     //$cpname[] = $row['name1'];
 }
-
+var_dump($cps);die;
 //$cpname = asort($cpname);
 
 $cplist = implode(",", $cps);

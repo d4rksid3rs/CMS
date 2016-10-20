@@ -58,9 +58,12 @@ foreach ($versions as $version) {
                 <div class="box_body">
                     <table width="100%">
                         <tr>
-                            <td width=33% align=center><div>Thẻ cào </div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=2">your browser does not support IFRAMEs</iframe></div></td>
-                            <td width=33% align=center><div>IAP</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
-                            <td width=33% align=center><div>Đại lý</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=50% align=center><div>Thẻ cào </div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=2">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=50% align=center><div>IAP</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
+                            
+                        </tr>
+                        <tr>
+                            <td align=center><div>Đại lý</div><div><iframe height="350px" width="100%" frameBorder="0" src="merchant_chart.php.php">your browser does not support IFRAMEs</iframe></div></td>
                         </tr>
                     </table>
                 </div>
