@@ -16,7 +16,7 @@ $users = array(
     'monaco' => "Mnc123$%^789",
     'monacovh' => 'monacovh123456',
     'hq' => 'monaco654321',
-    'vuong' => 'monaco0123',
+    'vuong' => 'monacovuong123',
     'hoa' => 'monaco0123'
 );
 ?>
