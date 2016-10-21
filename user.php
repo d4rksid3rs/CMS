@@ -263,7 +263,8 @@ $today = date('Y-m-d', time());
                                 $("#valueCardDate").text(data.cardDate);
                                 $("#farmCount").text(data.farm);
                                 $("#userType").text(data.type);
-                                $("#lockTime").text(data.lock_time);
+                                $("#lockTime").text(data.lock_time);                                 
+                                $("#client_ip").text(data.clientIP);                                
                                 $('#findUserDBID').attr("disabled", false);
                                 $("#userDetailDB").slideDown(500);
                                 findUserKoin(username);
@@ -1363,6 +1364,12 @@ $today = date('Y-m-d', time());
                                 <td align="center"><span id="vip"></span></td>
                                 <td width="10%">Bị khoá đến</td>
                                 <td align="center"><span id="lockTime"></span></td>                                
+                            </tr>
+                            <tr>
+                                <td width="10%">Client IP</td>
+                                <td align="center"><span id="client_ip"></span></td>       
+                                <td width="10%"></td>
+                                <td align="center"><span id="client_ip2"></span></td>   
                             </tr>
                         </table>
                     </div>

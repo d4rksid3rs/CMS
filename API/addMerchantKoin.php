@@ -18,7 +18,7 @@ $rate_array = json_decode($json, true);
 $rate = $rate_array['merchant_rate'];
 if (is_numeric($vnd) && strlen($pass) > 0 && strlen($user) > 0) {
     $koin = $vnd * $rate;
-    if ($pass == "merchantcongxu123") {
+    if ($pass == "pwdaddmoeny123$%^") {
         try {
             $db->query("SET NAMES 'UTF8'");
             $sql = "select * from auth_user where username='" . $user . "' limit 0,1";
@@ -27,6 +27,7 @@ if (is_numeric($vnd) && strlen($pass) > 0 && strlen($user) > 0) {
 
                 $found = true;
             }
+//            $cause = $current_user .' - '.$cause;
             if ($found == true) {
                 $sql1 = "insert into merchant_add_koin(username, admin_pass, vnd, koin, created_by) values('{$user}','{$pass}','{$vnd }','{$koin }','{$current_user}')";
                 $db->exec($sql1);

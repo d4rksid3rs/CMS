@@ -62,9 +62,9 @@ foreach ($versions as $version) {
                             <td width=50% align=center><div>IAP</div><div><iframe height="350px" width="100%" frameBorder="0" src="rev_data.php?type=4">your browser does not support IFRAMEs</iframe></div></td>
                             
                         </tr>
-                        <tr>
+<!--                        <tr>
                             <td align=center><div>Đại lý</div><div><iframe height="350px" width="100%" frameBorder="0" src="merchant_chart.php.php">your browser does not support IFRAMEs</iframe></div></td>
-                        </tr>
+                        </tr>-->
                     </table>
                 </div>
             </div>

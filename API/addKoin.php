@@ -10,8 +10,9 @@ $cause = $_POST['cause'];
 $user = mysql_escape_string($user);
 $pass = mysql_escape_string($pass);
 $cause = mysql_escape_string($cause);
+$current_user = $_COOKIE['username'];
 if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause) > 0) {
-    if ($pass == "admincongxu123" || $pass == "modcongxu321") {
+    if ($pass == "pwdaddmoeny123$%^") {
         if ($koin <= $allowMaxKoin) {
             try {
                 $db->query("SET NAMES 'UTF8'");
@@ -21,11 +22,7 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause
 
                     $found = true;
                 }
-                if ($pass == "admincongxu123") {
-                    $cause = "Admin - ".$cause;
-                } else {
-                    $cause = "Mod - ".$cause;
-                }
+                $cause = $current_user .' - '.$cause;
                 if ($found == true) {
                     $sql1 = "insert into admin_add_koin(username, admin_pass, koin, cause) values('{$user}','{$pass}','{$koin}', '{$cause}')";
                     $db->exec($sql1);

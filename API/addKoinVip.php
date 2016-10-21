@@ -13,7 +13,7 @@ $pass = mysql_escape_string($pass);
 $cause = mysql_escape_string($cause);
 if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {
     if ($koin >= 0) {
-        if ($pass == "admincongchip123") {
+        if ($pass == "pwdaddmoeny123$%^") {
             try {
                 $db->query("SET NAMES 'UTF8'");
                 $sql = "select * from auth_user where username='" . $user . "' limit 0,1";
@@ -22,6 +22,7 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {
 
                     $found = true;
                 }
+                $cause = $current_user .' - '.$cause;
                 if ($found == true) {
                     $sql1 = "insert into admin_add_chip (username, chip, created_by, cause) values('{$user}', '{$koin }','{$current_user}', '{$cause}')";
                     $db->exec($sql1);

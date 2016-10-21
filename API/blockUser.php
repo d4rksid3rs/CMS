@@ -10,6 +10,7 @@ $cause = $_POST['cause'];
 if (strlen($date) == 0) {
     die("{\"status\":0,\"message\":\"Chưa nhập thời gian\"}");
 }
+
 //2011-11-12 17:19:04
 $formatDate = 'Y-m-d H:i:s';
 $currDate = date($formatDate);
@@ -26,15 +27,21 @@ if (is_numeric($date) && $date != 0) {
                     $found = true;
 
                     if ($datetype == 0) {
-                        $dateLock = strtotime(date($formatDate, strtotime($currDate)) . " +{$date} hour");
+                        $dateTime = new DateTime("+{$date} hours");
+                        $dateLock =  $dateTime->format("Y-m-d H:i:s");
+//                        $dateLock = strtotime(date($formatDate, strtotime($currDate)) . " +{$date} hour");
                     }
                     if ($datetype == 1) {
-                        $dateLock = strtotime(date($formatDate, strtotime($currDate)) . " +{$date} days");
+                        $dateTime = new DateTime("+{$date} days");
+                        $dateLock =  $dateTime->format("Y-m-d H:i:s");
+//                        $dateLock = strtotime(date($formatDate, strtotime($currDate)) . " +{$date} days");
                     }
                     if ($datetype == 2) {
-                        $dateLock = strtotime(date($formatDate, strtotime($currDate)) . " +{$date} month");
+                        $dateTime = new DateTime("+{$date} months");
+                        $dateLock =  $dateTime->format("Y-m-d H:i:s");
                     }
-                    $dateLock = date($formatDate, $dateLock);
+//                    var_dump($dateLock);die;
+//                    $dateLock = date($formatDate, $dateLock);
 
                     $sqlLock = "update user set mute_time = '{$dateLock}' where id = " . $row['id'];
 
