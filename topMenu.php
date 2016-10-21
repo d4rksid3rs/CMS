@@ -48,10 +48,10 @@ $merchant = array("link" => "merchant.php", "img" => "merchants.png", "title" =>
                 $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $merchant, $dau, $game);
                 break;
             case "vuong":
-                $menu = array($merchant);
+                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $merchant, $dau, $game);
                 break;
             case "hoa":
-                $menu = array($merchant);
+                $menu = array($logout, $settings, $activity, $koin, $money,$vip, $tool, $system, $exchange_return, $exchange, $user, $comment, $merchant, $dau, $game);
                 break;
             case "monacovh":
 
