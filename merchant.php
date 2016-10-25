@@ -5,6 +5,33 @@ require('./_login_users.php');
 $user_list = array_keys($users);
 $sql_merchants = "SELECT merchants.*, auth_user.koin, auth_user.koin_vip FROM `merchants` JOIN auth_user ON merchants.username = auth_user.username";
 $i = 0;
+if (!empty($_POST)) {
+    $user = $_POST['user'];
+    $screen_name = $_POST['screen'];
+    $merchant_name = $_POST['name'];
+    $address = $_POST['address'];
+    $mobile = $_POST['mobile'];
+    $email = $_POST['email'];
+    $fb = $_POST['fb'];
+
+    $username = mysql_escape_string($user);
+    $sql = "select * from auth_user where username='" . $username . "' limit 0,1";
+    $found = false;
+    foreach ($db->query($sql) as $row) {
+        $found = true;
+        $user_id = $row['id'];
+    }
+
+    if ($found) {
+        $sql_add_merchant = "INSERT INTO `merchants`(`user_id`, `username`, `screen_name`, `merchant_name`, `mobile`, `address`, `email`, `facebook`) "
+                . "VALUES ('{$user_id}','{$username}','{$screen_name}','{$merchant_name}','{$mobile}','{$address}','{$email}','{$fb}')";
+
+        $db->exec($sql_add_merchant);
+        echo "<span id='merchant-status'><b>Thêm Đại lý thành công</b></span>";
+    } else {
+        echo "<span id='merchant-status'>Không tìm thấy User</span>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +42,7 @@ $i = 0;
         <script type="text/javascript" src="js/themes/grid.js"></script> 
         <script>
             function addMerchantKoin() {
-                var user = $("#addKoin select[name=user]").val();
+                var user = $("#addKoin input[name=user]").val();
                 var pass = $("#addKoin input[name=pass]").val();
                 var vnd = $("#addKoin input[name=koin]").val();
                 $.ajax({
@@ -56,11 +83,10 @@ $i = 0;
                         });
                     }
                 });
-
             }
 
             function getLogAddKoinByMerchant() {
-                var user = $("#logKoinByMerchant select[name=user]").val();
+                var user = $("#logKoinByMerchant input[name=user]").val();
                 var from = $("#logKoinByMerchant input[name=fromDate]").val();
                 var to = $("#logKoinByMerchant input[name=toDate]").val();
                 $.ajax({
@@ -85,9 +111,9 @@ $i = 0;
             $("a.pagination-link-1").live("click", function (e) {
                 e.preventDefault();
                 var page = $(this).attr('page');
-                var user = $("#logKoinByMerchant select[name=user]").val();
+                var user = $("#logKoinByMerchant input[name=user]").val();
                 var from = $("#logKoinByMerchant input[name=fromDate]").val();
-                var to = $("#logKoinByMerchant input[name=toDate]").val();                
+                var to = $("#logKoinByMerchant input[name=toDate]").val();
                 $.ajax({
                     type: "GET",
                     url: "API/logMerchantAddKoin1.php",
@@ -106,11 +132,10 @@ $i = 0;
                         $("#logKoin1").html("<span>Không truy cập được dữ liệu</span>");
                         $("#btnFindListUser").attr("disabled", false);
                     }
-                });                        
+                });
             });
-            
             function getLogAddKoinByUser() {
-                var user = $("#logKoinByUser select[name=user]").val();
+                var user = $("#logKoinByUser input[name=user]").val();
                 var from = $("#logKoinByUser input[name=fromDate]").val();
                 var to = $("#logKoinByUser input[name=toDate]").val();
                 $.ajax({
@@ -132,12 +157,29 @@ $i = 0;
                     }
                 });
             }
+            function editMerchant(id) {
+                var username = $("tr#merchant-"+id+ " td:nth-child(2)").text();
+                var merchant_name = $("tr#merchant-"+id+ " td:nth-child(3)").text();
+                var screen_name = $("tr#merchant-"+id+ " td:nth-child(4)").text();
+                var mobile = $("tr#merchant-"+id+ " td:nth-child(5)").text();
+                var address = $("tr#merchant-"+id+ " td:nth-child(6)").text();
+                var fb = $("tr#merchant-"+id+ " td:nth-child(7)").text();
+                
+                $("#addMerchant input[name=user]").val(username);
+                $("#addMerchant input[name=screen]").val(merchant_name);
+                $("#addMerchant input[name=name]").val(screen_name);
+                $("#addMerchant input[name=address]").val(address);
+                $("#addMerchant input[name=fb]").val(fb);
+                $("#addMerchant input[name=email]").val();
+                $("#addMerchant input[name=mobile]").val(mobile);
+                console.log(user);
+            }
             $("a.pagination-link-2").live("click", function (e) {
                 e.preventDefault();
                 var page = $(this).attr('page');
-                var user = $("#logKoinByUser select[name=user]").val();
+                var user = $("#logKoinByUser input[name=user]").val();
                 var from = $("#logKoinByUser input[name=fromDate]").val();
-                var to = $("#logKoinByUser input[name=toDate]").val();                
+                var to = $("#logKoinByUser input[name=toDate]").val();
                 $.ajax({
                     type: "GET",
                     url: "API/logMerchantAddKoin2.php",
@@ -156,12 +198,46 @@ $i = 0;
                         $("#logKoin2").html("<span>Không truy cập được dữ liệu</span>");
                         $("#btnFindListUser").attr("disabled", false);
                     }
-                });                        
+                });
+            });
+            $("#add_merchant").click(function () {
+                var user = $("#addMerchant input[name=user]").val();
+                var screen_name = $("#addMerchant input[name=screen]").val();
+                var merchant_name = $("#addMerchant input[name=name]").val();
+                var address = $("#addMerchant input[name=address]").val();
+                var fb = $("#addMerchant input[name=fb]").val();
+                var email = $("#addMerchant input[name=email]").val();
+                var mobile = $("#addMerchant input[name=mobile]").val();
+                $.ajax({
+                    type: "POST",
+                    url: "API/addMerchant.php",
+                    data: {
+                        "user": user,
+                        "screen_name": screen_name,
+                        "merchant_name": merchant_name,
+                        "address": address,
+                        "fb": fb,
+                        "email": email,
+                        "mobile": mobile
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#logKoin2").html(msg);
+                        $("#logKoin2").show();
+                    },
+                    failure: function () {
+                        $("#logKoin2").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#btnFindListUser").attr("disabled", false);
+                    }
+                });
             });
             $(document).ready(function () {
                 $(".datepicker").datepicker();
+                var response = $("#merchant-status").html()
+                $("#merchant-status").remove();
+                console.log(response);
+                $("#response").prepend(response);
             });
-
         </script>
     </head>
     <body>
@@ -170,7 +246,24 @@ $i = 0;
             <div class="box grid">
                 <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Danh sách Đại lý</a></div>
                 <div class="box_body">
-                    <table width='100%'>
+                    <fieldset>
+                        <form id="addMerchant" method="POST">
+                            <input type="hidden" name="id_merchant" />
+                            Username <input type="text" name="user" />
+                            Tên Hiển thị <input type="text" name="screen" />
+                            Tên Đại lý <input type="text" name="name" />
+                            Khu vực <input type="text" name="address" />
+                            <br />
+                            ĐT <input type="text" name="mobile" />
+                            Email <input type="text" name="email" />
+                            FaceBook <input type="text" name="fb" />
+                            <br />
+                            <input type="submit" id="add_merchant" value="Thêm Đại lý"/>
+                            <div id="response"></div>
+                        </form>
+                    </fieldset>
+                    <hr />
+                    <table width='100%' class="merchant">
                         <tr style='background-color: rgb(255, 255, 255);text-align:center;'>
                             <td>Username</td>
                             <td>Tên đại lý</td>
@@ -180,10 +273,11 @@ $i = 0;
                             <td>Facebook</td>
                             <td>Xu</td>
                             <td>Chip</td>
+                            <td>Chức năng</td>
                         </tr>
                         <?php foreach ($db->query($sql_merchants) as $row) : ?>
                             <?php $i+=1; ?>
-                            <tr style='background-color: rgb(<?php ($i % 2 > 0) ? '204,204,204' : '255, 255, 255' ?>);text-align:center;'>
+                            <tr id="merchant-<?= $row['id'] ?>" style='background-color: rgb(<?php ($i % 2 > 0) ? '204,204,204' : '255, 255, 255' ?>);text-align:center;'>
                                 <td><?= $row['username'] ?></td>
                                 <td><?= $row['merchant_name'] ?></td>
                                 <td><?= $row['screen_name'] ?></td>
@@ -192,6 +286,7 @@ $i = 0;
                                 <td><?= $row['facebook'] ?></td>
                                 <td><?= $row['koin'] ?></td>
                                 <td><?= $row['koin_vip'] ?></td>
+                                <td><button onclick="editMerchant(<?= $row['id'] ?>)">Sửa</button> &nbsp; <button  onclick="deleteMerchant(<?= $row['id'] ?>)">Xóa</button></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
@@ -202,12 +297,7 @@ $i = 0;
                 <div class="box_body">
                     <form id="addKoin">
                         Merchant
-                        <select name="user">
-                            <option></option>
-                            <?php foreach ($db->query($sql_merchants) as $row) : ?>
-                                <option value="<?= $row['username'] ?>"><?= $row['merchant_name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <input type="text" name="user" style="width: 100px"/>
                         Password <input type="password" name="pass" style="width: 100px"/>
                         VNĐ <input type="text" name="koin" style="width: 100px"/>
                         <input type="button" name="add" value="Thêm" onclick="addMerchantKoin();"/>
@@ -220,12 +310,7 @@ $i = 0;
                 <div class="box_body"  style="display: none">
                     <form id="logKoinByMerchant">
                         Merchant
-                        <select name="user">
-                            <option></option>
-                            <?php foreach ($db->query($sql_merchants) as $row) : ?>
-                                <option value="<?= $row['username'] ?>"><?= $row['merchant_name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <input type="text" name="user" style="width: 100px"/>
                         Từ Ngày
                         <input type="text" class="datepicker" name="fromDate" value="<?= $today ?>" style="text-align: center; width: 100px;" />
                         Tới Ngày
@@ -243,12 +328,7 @@ $i = 0;
                 <div class="box_body"  style="display: none">
                     <form id="logKoinByUser">
                         Người nạp
-                        <select name="user">
-                            <option></option>
-                            <?php foreach ($user_list as $key => $user) : ?>
-                                <option value="<?= $user_list[$key] ?>"><?= $user_list[$key] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <input type="text" name="user" style="width: 100px"/>
                         Từ Ngày
                         <input type="text" class="datepicker" name="fromDate" value="<?= $today ?>" style="text-align: center; width: 100px;" />
                         Tới Ngày

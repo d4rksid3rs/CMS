@@ -20,7 +20,7 @@ while (strtotime($date_start) < strtotime($end_date)) {
 //TOP Merchant trong vong 1 tuan
 $sql= "SELECT mak.username, sum(mak.koin) as total, date(mak.date_created) as date, m.merchant_name  FROM `merchant_add_koin` as mak "
         . "JOIN merchants m ON mak.username = m.username "
-        . "WHERE date(mak.date_created) >= '{$start_date}' AND date(mak.date_created) <= '{$end_date}' group by date(mak.date_created), mak.username";
+        . "WHERE date(mak.date_created) >= '{$start_date}' AND date(mak.date_created) <= '{$end_date}' group by date(mak.date_created), m.merchant_name";
 //echo $sql;die;
 $cps = array();
 //$cpname = array("x");
