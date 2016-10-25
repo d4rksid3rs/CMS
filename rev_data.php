@@ -37,7 +37,7 @@ foreach ($db->query($sql) as $row) {
     $cps[] = "'" . $row['partner'] . "'";
     //$cpname[] = $row['name1'];
 }
-
+//var_dump($cps);die;
 //$cpname = asort($cpname);
 
 $cplist = implode(",", $cps);
@@ -118,7 +118,9 @@ foreach ($week as $day) {
     //if ($found>0) 
     $table[] = $table_row;
 }
-//var_dump($table);
+//echo '<pre>';
+//print_r($table);
+//echo '</pre>';die;
 //echo json_encode($table);
 //$xAxis = "CP,".$cps;
 //die();
