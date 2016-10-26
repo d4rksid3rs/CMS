@@ -31,6 +31,24 @@ $today = date('Y-m-d', time());
                         $("#btnFindListUser").attr("disabled", false);
                     }
                 });
+                $.ajax({
+                    type: "GET",
+                    url: "API/getTotalExchangeKoin.php",
+                    data: {
+                        "fromDate": fromDate,
+                        "toDate": toDate,
+                        "type": 2
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#total-koin").html(msg);
+                        $("#total-koin").show();
+                    },
+                    failure: function () {
+                        $("#total-koin").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#total-koin").attr("disabled", false);
+                    }
+                });
             }
             $(document).ready(function () {
                 $(".datepicker").datepicker();
@@ -50,7 +68,7 @@ $today = date('Y-m-d', time());
                         Tới Ngày
                         <input type="text" class="datepicker" value="<?= $today ?>" name="toDate" style="text-align: center; width: 100px;" />
                         <input type="button" name="add" value="Thống kê" onclick="getReturnExchange();"/>
-
+                        <span id="total-koin" style="font-weight: bold; color: #fff;"></span>
                     </form>
                 </div>
                 <div id="exchangeReturnUserList" style="display: none;">

@@ -15,23 +15,38 @@ if (!empty($_POST)) {
     $fb = $_POST['fb'];
 
     $username = mysql_escape_string($user);
-    $sql = "select * from auth_user where username='" . $username . "' limit 0,1";
-    $found = false;
-    foreach ($db->query($sql) as $row) {
-        $found = true;
-        $user_id = $row['id'];
-    }
+    if (empty($_POST['id_merchant'])) {
+        $sql = "select * from auth_user where username='" . $username . "' limit 0,1";
+        $found = false;
+        foreach ($db->query($sql) as $row) {
+            $found = true;
+            $user_id = $row['id'];
+        }
 
-    if ($found) {
-        $sql_add_merchant = "INSERT INTO `merchants`(`user_id`, `username`, `screen_name`, `merchant_name`, `mobile`, `address`, `email`, `facebook`) "
-                . "VALUES ('{$user_id}','{$username}','{$screen_name}','{$merchant_name}','{$mobile}','{$address}','{$email}','{$fb}')";
+        if ($found) {
+            $sql_add_merchant = "INSERT INTO `merchants`(`user_id`, `username`, `screen_name`, `merchant_name`, `mobile`, `address`, `email`, `facebook`) "
+                    . "VALUES ('{$user_id}','{$username}','{$screen_name}','{$merchant_name}','{$mobile}','{$address}','{$email}','{$fb}')";
 
-        $db->exec($sql_add_merchant);
-        echo "<span id='merchant-status'><b>Thêm Đại lý thành công</b></span>";
+            $db->exec($sql_add_merchant);
+            echo "<span id='merchant-status'><b>Thêm Đại lý thành công</b></span>";
+        } else {
+            echo "<span id='merchant-status'>Không tìm thấy User</span>";
+        }
     } else {
-        echo "<span id='merchant-status'>Không tìm thấy User</span>";
+        $id = $_POST['id_merchant'];
+        $sql_edit_merchant = "UPDATE `merchants` SET "
+                . "`screen_name` = '{$screen_name}', "
+                . "`merchant_name` = '{$merchant_name}', "
+                . "`mobile` = '{$mobile}', "
+                . "`address` = '{$address}', "
+                . "`email` = '{$email}', "
+                . "`facebook` = '{$fb}' "
+                . "WHERE `merchants`.`id` = {$id}";
+        $db->exec($sql_edit_merchant);
+        echo "<span id='merchant-status'><b>Sửa Đại lý thành công</b></span>";
     }
 }
+$_POST = array();
 ?>
 <!DOCTYPE html>
 <html>
@@ -158,22 +173,54 @@ if (!empty($_POST)) {
                 });
             }
             function editMerchant(id) {
-                var username = $("tr#merchant-"+id+ " td:nth-child(2)").text();
-                var merchant_name = $("tr#merchant-"+id+ " td:nth-child(3)").text();
-                var screen_name = $("tr#merchant-"+id+ " td:nth-child(4)").text();
-                var mobile = $("tr#merchant-"+id+ " td:nth-child(5)").text();
-                var address = $("tr#merchant-"+id+ " td:nth-child(6)").text();
-                var fb = $("tr#merchant-"+id+ " td:nth-child(7)").text();
-                
+                var username = $("tr#merchant-" + id + " td:nth-child(1)").text();
+                var merchant_name = $("tr#merchant-" + id + " td:nth-child(2)").text();
+                var screen_name = $("tr#merchant-" + id + " td:nth-child(3)").text();
+                var mobile = $("tr#merchant-" + id + " td:nth-child(4)").text();
+                var address = $("tr#merchant-" + id + " td:nth-child(5)").text();
+                var email = $("tr#merchant-" + id + " td:nth-child(6)").text();
+                var fb = $("tr#merchant-" + id + " td:nth-child(7)").text();
+
+                $("#addMerchant input[name=id_merchant]").val(id);
                 $("#addMerchant input[name=user]").val(username);
                 $("#addMerchant input[name=screen]").val(merchant_name);
                 $("#addMerchant input[name=name]").val(screen_name);
                 $("#addMerchant input[name=address]").val(address);
                 $("#addMerchant input[name=fb]").val(fb);
-                $("#addMerchant input[name=email]").val();
+                $("#addMerchant input[name=email]").val(email);
                 $("#addMerchant input[name=mobile]").val(mobile);
-                console.log(user);
+
+                $("#addMerchant input[name=user]").attr('disabled', 'disabled');
+                ;
+                $('#add_merchant').hide();
+                $("#edit_merchant").show();
             }
+
+            function deleteMerchant(id) {
+                var r = confirm("Xóa Đại lý này?");
+                if (r == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: "API/deleteMerchant.php",
+                        data: {
+                            "id": id
+                        },
+                        dataType: 'text',
+                        success: function (msg) {
+                            $("#logKoin2").html(msg);
+                            $("#logKoin2").show();
+                        },
+                        failure: function () {
+                            $("#logKoin2").html("<span>Không truy cập được dữ liệu</span>");
+                            $("#btnFindListUser").attr("disabled", false);
+                        }
+                    });
+                    $(document).ajaxStop(function () {
+                        window.location.reload();
+                    });
+                }
+            }
+
             $("a.pagination-link-2").live("click", function (e) {
                 e.preventDefault();
                 var page = $(this).attr('page');
@@ -246,8 +293,9 @@ if (!empty($_POST)) {
             <div class="box grid">
                 <div class="box_header" style="background-image: none;"><a href="javascript:void(0);">Danh sách Đại lý</a></div>
                 <div class="box_body">
-                    <fieldset>
-                        <form id="addMerchant" method="POST">
+                    <form id="addMerchant" method="POST">
+                        <fieldset>
+                            <legend style="color: #fff; font-weight: bold;">Thêm Đại lý</legend>
                             <input type="hidden" name="id_merchant" />
                             Username <input type="text" name="user" />
                             Tên Hiển thị <input type="text" name="screen" />
@@ -258,10 +306,12 @@ if (!empty($_POST)) {
                             Email <input type="text" name="email" />
                             FaceBook <input type="text" name="fb" />
                             <br />
-                            <input type="submit" id="add_merchant" value="Thêm Đại lý"/>
+                            <input type="submit" id="add_merchant" value="Lưu"/>
+                            <input type="submit" id="edit_merchant" value="Sửa" style="display:none;" />
                             <div id="response"></div>
-                        </form>
-                    </fieldset>
+                        </fieldset>
+                    </form>
+
                     <hr />
                     <table width='100%' class="merchant">
                         <tr style='background-color: rgb(255, 255, 255);text-align:center;'>
@@ -270,6 +320,7 @@ if (!empty($_POST)) {
                             <td>Tên hiển thị</td>
                             <td>SĐT</td>
                             <td>Khu vực</td>
+                            <td>Email</td>
                             <td>Facebook</td>
                             <td>Xu</td>
                             <td>Chip</td>
@@ -283,6 +334,7 @@ if (!empty($_POST)) {
                                 <td><?= $row['screen_name'] ?></td>
                                 <td><?= $row['mobile'] ?></td>
                                 <td><?= $row['address'] ?></td>
+                                <td><?= $row['email'] ?></td>
                                 <td><?= $row['facebook'] ?></td>
                                 <td><?= $row['koin'] ?></td>
                                 <td><?= $row['koin_vip'] ?></td>
