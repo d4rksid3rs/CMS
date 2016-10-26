@@ -54,7 +54,8 @@ try {
 
     $lines = split("\n", $log);
     $count = count($lines);
-    $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;'>";
+    $html = "<span style='font-weight: bold; color: #fff;'>Tổng số lần chơi: ".$count." ván</span>";
+    $html .= "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;'>";
     $html .= "<td>Thời điểm</td><td>Thay đổi</td><td>Giá trị mới</td><td>Lý do</td>";
     $i = 0;
     $limit = 20;
@@ -105,12 +106,13 @@ try {
         $html.= "<li><a class='pagination-link-log' href='#' page='" . ($page + 1) . "' type='" . $type . "' class='button'>Sau</a></li>";
     }
     $html .= '</ul>';
+    
     if ($found == true) {
         echo $html;
         exit;
     }
     if ($found == false) {
-        echo "Không tìm thấy log!";
+        echo "<b style='color:#fff;'>Không tìm thấy log!</b>";
     }
 //    echo $log;
 } catch (Exception $e) {

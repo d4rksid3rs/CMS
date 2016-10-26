@@ -234,12 +234,7 @@ foreach ($db->query($sql) as $row) {
                                 echo "<td align=center>" . $count . "</td>";
                                 echo "<td align=center>" . $cm['username'] . "</td>";
                                 echo "<td align=center>" . $cm['screen_name'] . "</td>";
-
-                                if ($cm['vip'] == 1) {
-                                    echo "<td align=center>Có</td>";
-                                } else {
-                                    echo "<td align=center>Không</td>";
-                                }
+                                echo "<td align=center>" . $cm['vip'] . "</td>";
                                 echo "<td align=center>" . $cm['koin_added'] . "</td>";
                                 if ($cm['mobile'] == '123456788') {
                                     echo "<td align=center></td>";
