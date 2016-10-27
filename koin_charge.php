@@ -58,12 +58,29 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
                                 $sql = "SELECT l.*, u.screen_name, u.vip, u.mobile FROM log_nap_koin l "
                                         . "LEFT JOIN user u ON l.username = u.username "
                                         . "WHERE l.username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
-                                
+
                                 $rs = mysql_query($sql) or die("Không thống kê được");
                                 $sms = mysql_num_rows($rs);
+                                $sql_total = "SELECT l.* FROM log_nap_koin l "
+                                        . "WHERE l.username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                $rs10 = mysql_query($sql_total) or die("Không thống kế đc");
+                                $total_chip = $total_xu = $total_money = 0;
+                                while ($row = mysql_fetch_array($rs2)) {
+                                    
+                                    $total_money = $total_money + $row["money"];
+                                    if ($row['flag1'] == 0) {
+                                        $total_xu = $total_xu + $row['koin_added'];
+                                    }
+                                    if ($row['flag1'] == 0) {
+                                        $total_chip = $total_chip + $row['koin_added'];
+                                    }
+                                }
                                 ?>
                                 <div style="height: 20px; text-align: right; padding-right: 9px;"><b><font color="#FFFFFF"> Tổng: <?php echo $sms . " user"; ?> </font></b></div>
                                 <div id="chart_div" style="width: 900px; ">
+                                    <span style="font-weight: bold; color: #fff;">Tổng Xu: <?= $total_xu;?> xu |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Chip: <?= $total_chip;?> chip |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Tiền: <?= $total_money;?> VNĐ</span>
                                     <?php
                                     if (mysql_num_rows($rs) <= 0)
                                         echo "";

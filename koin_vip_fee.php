@@ -454,8 +454,8 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->BACAYNEW) . "</td>";
                                 echo "<td>" . number_format($obj->LIENG) . "</td>";
                                 echo "<td>" . number_format($obj->SAM) . "</td>";
-                                echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";
-                                echo "<td>" . number_format($obj->BAUCUAVIP) . "</td>";
+                                echo "<td>" . number_format($obj->XOCDIA) . "</td>";
+                                echo "<td>" . number_format($obj->BAUCUA) . "</td>";
                                 echo "<td>" . number_format($obj->XITO) . "</td>";
                                 $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC +
                                         $obj->POKER + $obj->BACAYCHVIP + $obj->BACAYVIP +
@@ -511,8 +511,9 @@ echo substr($output, 0, -1);
 //                                echo "<td>" . number_format($obj->EVENT) . "</td>";
                                 echo "<td>" . number_format($obj->KOINVIPSMS) . "</td>";
                                 echo "<td>" . number_format($obj->KOINVIPCARD) . "</td>";
-                                echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUAVIP) . "</td>";
+                                echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";
+                                
                                 echo "<td>" . number_format($obj->CASHOUT) . "</td>";
                                 echo "<td>" . number_format($obj->ADDKOIN) . "</td>";
                                 echo "<td>" . number_format($obj->CHIPVERIFY) . "</td>";
