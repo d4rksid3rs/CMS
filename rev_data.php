@@ -28,29 +28,27 @@ while (strtotime($date_start) < strtotime($end_date)) {
 }
 
 //TOP CP trong vong 1 tuan
-$sql = "select partner, sum(total) as sum_total from revenue where type={$type} and date_created >= '{$start_date}' AND date_created <= '{$end_date}' group by partner order by sum_total desc LIMIT 0,9";
+$sql = "select type_koin, sum(total) as sum_total from revenue where type_koin != '0' and type={$type} and date_created >= '{$start_date}' AND date_created <= '{$end_date}' group by type_koin order by sum_total desc LIMIT 0,9";
 
-//var_dump($sql);die;
+//echo ($sql);die;
 $cps = array();
 //$cpname = array("x");
 foreach ($db->query($sql) as $row) {
-    $cps[] = "'" . $row['partner'] . "'";
+    $cps[] = "'" . $row['type_koin'] . "'";
     //$cpname[] = $row['name1'];
 }
-//var_dump($cps);die;
 //$cpname = asort($cpname);
 
 $cplist = implode(",", $cps);
-
 //echo $cplist;
 //var_dump($cps);
 
-$sql1 = "select date_created,partner,total from revenue 
+$sql1 = "select date_created,type_koin,total from revenue 
 			where type={$type}
-					and partner IN ({$cplist}) 
+					and type_koin IN ({$cplist}) 
 					and date_created >= '{$start_date}' AND date_created <= '{$end_date}'
-				group by partner,date_created 
-				order by partner"; //de duyet data dua vao mang cho de
+				group by type_koin,date_created 
+				order by type_koin"; //de duyet data dua vao mang cho de
 //
 //die($sql1);			                                       
 $data = array();
@@ -59,8 +57,8 @@ $lastCPName = "fuck";
 foreach ($db->query($sql1) as $row) {
 
     $data[] = $row;
-    if ($row['partner'] != $lastCPName) {
-        $lastCPName = $row['partner'];
+    if ($row['type_koin'] != $lastCPName) {
+        $lastCPName = $row['type_koin'];
         $cpname[] = $lastCPName;
     }
     //echo $row["date_login"];
@@ -95,7 +93,7 @@ foreach ($week as $day) {
         foreach ($data as $row) {
 
             //echo $row['name1']."<br />";
-            if ($row['date_created'] == $day && $row['partner'] == $name) {
+            if ($row['date_created'] == $day && $row['type_koin'] == $name) {
                 //echo "trong ".$day."<br />";
                 $table_row[] = intval($row['total']);
                 $found++;
