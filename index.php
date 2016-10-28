@@ -101,7 +101,7 @@ foreach ($versions as $version) {
                     <table width="100%">
                         <tr>
 
-                            <td width=50% align=center><div>Đăng ky</div><div><iframe height="350px" width="100%" frameBorder="0" src="dau_data.php">your browser does not support IFRAMEs</iframe></div></td>
+                            <td width=50% align=center><div>Đăng ký</div><div><iframe height="350px" width="100%" frameBorder="0" src="dau_data.php">your browser does not support IFRAMEs</iframe></div></td>
                             <td width=50% align=center><div>Đăng nhập</div><div><iframe height="350px" width="100%" frameBorder="0" src="dau1.php">your browser does not support IFRAMEs</iframe></div></td>
                         </tr>
                     </table>

@@ -1148,6 +1148,108 @@ $today = date('Y-m-d', time());
                     }
                 });
             }
+            function listReg() {
+                var fromDate = $("#RegUser input[name=fromDate]").val();
+                var toDate = $("#RegUser input[name=toDate]").val();                
+                $.ajax({
+                    type: "GET",
+                    url: "API/listReg.php",
+                    data: {
+                        "type": 1,
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#RegUserList").html(msg);
+                        $("#RegUserList").show();
+                    },
+                    failure: function () {
+                        $("#RegUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#RegUserList").attr("disabled", false);
+                    }
+                });
+            }
+            
+            $("a.user-reg-pagination-link").live("click", function (e) {
+                e.preventDefault();
+                var page = $(this).attr('page');
+                var fromDate = $("#RegUser input[name=fromDate]").val();
+                var toDate = $("#RegUser input[name=toDate]").val(); 
+                $.ajax({
+                    type: "GET",
+                    url: "API/listReg.php",
+                    data: {
+                        "page": page,
+                        "type":1,
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#RegUserList").html(msg);
+                        $("#RegUserList").show();
+                    },
+                    failure: function () {
+                        $("#RegUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#RegUserList").attr("disabled", false);
+                    }
+                });
+            });
+            
+            function listRegbyPassport() {
+                var fromDate = $("#RegUser input[name=fromDate]").val();
+                var toDate = $("#RegUser input[name=toDate]").val();                
+                $.ajax({
+                    type: "GET",
+                    url: "API/listReg.php",
+                    data: {
+                        "type": 2,
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#RegUserList").html(msg);
+                        $("#RegUserList").show();
+                    },
+                    failure: function () {
+                        $("#RegUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#RegUserList").attr("disabled", false);
+                    }
+                });
+            }
+            
+            $("a.user-reg-pagination-link").live("click", function (e) {
+                e.preventDefault();
+                var page = $(this).attr('page');
+                var fromDate = $("#RegUser input[name=fromDate]").val();
+                var toDate = $("#RegUser input[name=toDate]").val(); 
+                $.ajax({
+                    type: "GET",
+                    url: "API/listReg.php",
+                    data: {
+                        "page": page,
+                        "type": 2,
+                        "fromDate": fromDate,
+                        "toDate": toDate
+                    },
+                    dataType: 'text',
+                    success: function (msg) {
+                        $("#RegUserList").html(msg);
+                        $("#RegUserList").show();
+                    },
+                    failure: function () {
+                        $("#RegUserList").html("<span>Không truy cập được dữ liệu</span>");
+                        $("#RegUserList").attr("disabled", false);
+                    }
+                });
+            });
+            
+            $("input.show-bypassport").live("click", function(e) {
+                e.preventDefault();
+            });
+            
             $("a.pagination-link").live("click", function (e) {
                 e.preventDefault();
                 var page = $(this).attr('page');
@@ -1422,6 +1524,23 @@ $today = date('Y-m-d', time());
                     </form>                    
                     <div id="userData">
                         <div id="userDetail"></div>                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box grid">
+                <div class="box_header"><a href="javascript:void(0);">Thống kế User Đăng ký mới</a></div>
+                <div class="box_body" style="display: none">
+                    <form id="RegUser">
+                        Từ Ngày
+                        <input type="text" class="datepicker" name="fromDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        Đến Ngày
+                        <input type="text" class="datepicker" name="toDate" value="<?php echo $today; ?>" style="text-align: center; width: 100px;" />
+                        <input type="button" name="add" value="DS Đăng ký" onclick="listReg();"/>
+                        <input type="button" name="add" value="DS Đăng ký theo Passport" onclick="listRegbyPassport();"/>
+                    </form>                    
+                    <div id="RegUserList">
+                                            
                     </div>
                 </div>
             </div>
