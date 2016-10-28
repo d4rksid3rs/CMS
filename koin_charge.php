@@ -62,17 +62,16 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
                                 $rs = mysql_query($sql) or die("Không thống kê được");
                                 $sms = mysql_num_rows($rs);
                                 $sql_total = "SELECT l.* FROM log_nap_koin l "
-                                        . "WHERE l.username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                        . "WHERE l.username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";                                                                               
                                 $rs10 = mysql_query($sql_total) or die("Không thống kế đc");
                                 $total_chip = $total_xu = $total_money = 0;
-                                while ($row = mysql_fetch_array($rs2)) {
-                                    
+                                while ($row = mysql_fetch_array($rs10)) {
                                     $total_money = $total_money + $row["money"];
                                     if ($row['flag1'] == 0) {
-                                        $total_xu = $total_xu + $row['koin_added'];
+                                        $total_xu += $total_xu + $row['koin_added'];
                                     }
                                     if ($row['flag1'] == 0) {
-                                        $total_chip = $total_chip + $row['koin_added'];
+                                        $total_chip += $total_chip + $row['koin_added'];
                                     }
                                 }
                                 ?>

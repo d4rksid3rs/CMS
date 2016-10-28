@@ -1248,6 +1248,17 @@ $today = date('Y-m-d', time());
             
             $("input.show-bypassport").live("click", function(e) {
                 e.preventDefault();
+                var id = $(this).attr('data-index');                
+                $(this).next().show();
+                $(this).hide();
+                $('#content-passport-'+id).show();
+            });
+            $("input.hide-bypassport").live("click", function(e) {
+                e.preventDefault();
+                var id = $(this).attr('data-index');                
+                $(this).prev().show();
+                $(this).hide();
+                $('#content-passport-'+id).hide();
             });
             
             $("a.pagination-link").live("click", function (e) {

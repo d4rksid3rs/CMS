@@ -63,20 +63,32 @@ try {
         }
     }
     if ($type == 2) {
-        $sql = "select * from user where date_created >= '$fromDate' AND date_created <= '$toDate' group by passport order by date_created DESC LIMIT $start, $limit";        
+        $sql = "select * from user where date_created >= '$fromDate' AND date_created <= '$toDate' group by passport order by date_created DESC LIMIT $start, $limit";
         $found = false;
         $resultData = array();
         $html = "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;font-weight: bold'>";
-        $html .= "<td>Passport</td><td>Ngày tạo</td><td>List User</td></tr>";
+        $html .= "<td>Passport</td><td>List User</td></tr>";
         $i = 0;
         foreach ($db->query($sql) as $row) {
             $i+=1;
             $found = true;
+            $passport = $row['passport'];
+            $sql2 = "select * from user where passport = '$passport'";
             $html .= "<tr style='background-color: rgb(" . ($i % 2 > 0 ? "204,204,204" : "255, 255, 255") . ");text-align:left;'>";
             $html .= "<td width='20%'>" . $row['passport'] . "</td>";
-            $html .= "<td width='10%'>" . $row['date_created'] . "</td>";
-            $html .= "<td width='50%'><input class='show-bypassport' data-index='".$i."' type='button' value='Show' /> <br /><div id='content-passport-".$i."'></div></td>";
-            $html .= "</tr>";
+            $html .= "<td width='50%'><input class='show-bypassport' data-index='" . $i . "' type='button' value='Show' /> &nbsp "
+                    . "<input class='hide-bypassport' data-index='" . $i . "' type='button' value='Hide' style='display:none;' /> <br />"
+                    . "<div id='content-passport-" . $i . "' style='display:none;'>";
+            $html .= "<table style='border: solid 1px #000'><tr style='text-align:center;font-weight: bold'>";
+            $html .= "<td>Username</td><td>Screen Name</td><td>Ngày tạo</td></tr>";
+            foreach ($db->query($sql2) as $row2) {
+                $html .= "<tr style='background-color: rgb(" . ($i % 2 > 0 ? "204,204,204" : "255, 255, 255") . ");text-align:left;'>";
+                $html .= "<td width='20%'>" . $row['username'] . "</td>";
+                $html .= "<td width='10%'>" . $row['screen_name'] . "</td>";
+                $html .= "<td width='20%'>" . $row['date_created'] . "</td></tr>";
+            }
+            $html .="</div></td>";
+            $html .= "</tr></table>";
         }
         $html .= "</table>";
         $rows = $db->query("select * from user where date_created >= '$fromDate' AND date_created <= '$toDate' group by passport");
