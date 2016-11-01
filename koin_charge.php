@@ -7,7 +7,7 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Thống kê tin nhắn</title>
+        <title>Thống kê Charging</title>
         <?php require('header.php'); ?>
         <script>
             $(document).ready(function () {
@@ -61,25 +61,25 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
 
                                 $rs = mysql_query($sql) or die("Không thống kê được");
                                 $sms = mysql_num_rows($rs);
-                                $sql_total = "SELECT l.* FROM log_nap_koin l "
-                                        . "WHERE l.username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";                                                                               
-                                $rs10 = mysql_query($sql_total) or die("Không thống kế đc");
-                                $total_chip = $total_xu = $total_money = 0;
-                                while ($row = mysql_fetch_array($rs10)) {
-                                    $total_money = $total_money + $row["money"];
-                                    if ($row['flag1'] == 0) {
-                                        $total_xu += $total_xu + $row['koin_added'];
-                                    }
-                                    if ($row['flag1'] == 0) {
-                                        $total_chip += $total_chip + $row['koin_added'];
-                                    }
-                                }
+                                $sql_total_chip = "SELECT SUM(CASE WHEN flag1 = 1 THEN koin_added ELSE 0 END) AS total_chip FROM log_nap_koin "
+                                        . "WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";  
+                                $sql_total_xu = "SELECT SUM(CASE WHEN flag1 = 0 THEN koin_added ELSE 0 END) AS total_xu FROM log_nap_koin "
+                                        . "WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')"; 
+                                $sql_total_money = "SELECT SUM(money) AS total_money FROM log_nap_koin "
+                                        . "WHERE username like '%{$usern}%' AND(created_on BETWEEN '{$fDate}' AND '{$tDate}')";
+                                $rs_tt_chip = mysql_query($sql_total_chip) or die("Không thống kế đc");
+                                $rs_tt_xu = mysql_query($sql_total_xu) or die("Không thống kế đc");
+                                $rs_tt_money = mysql_query($sql_total_money) or die("Không thống kế đc");
+                                
+                                $row_chip = mysql_fetch_array($rs_tt_chip);
+                                $row_xu = mysql_fetch_array($rs_tt_xu);
+                                $row_money = mysql_fetch_array($rs_tt_money);
                                 ?>
                                 <div style="height: 20px; text-align: right; padding-right: 9px;"><b><font color="#FFFFFF"> Tổng: <?php echo $sms . " user"; ?> </font></b></div>
                                 <div id="chart_div" style="width: 900px; ">
-                                    <span style="font-weight: bold; color: #fff;">Tổng Xu: <?= $total_xu;?> xu |</span>
-                                    <span style="font-weight: bold; color: #fff;">Tổng Chip: <?= $total_chip;?> chip |</span>
-                                    <span style="font-weight: bold; color: #fff;">Tổng Tiền: <?= $total_money;?> VNĐ</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Xu: <?= number_format($row_xu['total_xu']);?> Xu |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Chip: <?= number_format($row_chip['total_chip']);?> Chip |</span>
+                                    <span style="font-weight: bold; color: #fff;">Tổng Tiền: <?= number_format($row_money['total_money']);?> VNĐ</span>
                                     <?php
                                     if (mysql_num_rows($rs) <= 0)
                                         echo "";
@@ -145,3 +145,4 @@ $toDate = isset($_REQUEST['toDate']) ? trim($_REQUEST['toDate']) : date('Y-m-d')
         </div>
     </body>
 </html>
+
