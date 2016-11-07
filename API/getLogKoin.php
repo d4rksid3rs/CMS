@@ -44,8 +44,10 @@ try {
         }
         if ($type == 1) {
             $cmd = "cat beme/logs/money.log$date_str | grep \" u_$username \" > $username.txt";
+            $money = "Xu";
         } else if ($type == 2) {
             $cmd = "cat beme/logs/moneyvip.log$date_str | grep \" u_$username \" > $username.txt";
+            $money = "Chip";
         }
         $ssh->exec($cmd);
         $log .= $ssh->exec("cat $username.txt");
@@ -53,8 +55,21 @@ try {
     }
 
     $lines = split("\n", $log);
+    $total_change = 0;
+    foreach ($lines as $line1) {
+        $str = explode(' ', $line1);
+        if (isset($str[1])) {
+            $change = (int) end($str);
+            $total_change = $total_change + $change;
+        }
+            
+    }
     $count = count($lines);
-    $html = "<span style='font-weight: bold; color: #fff;'>Tổng số lần chơi: ".$count." ván</span>";
+    $total_game = $count - 1;
+//    $str1 = explode(' ', $lines[0]);
+//    $str2 = explode(' ', $lines[$total_game - 1]);
+//    $total_change = $str2[7] - $str1[7];
+    $html = "<span style='font-weight: bold; color: #fff;'>Tổng số lần chơi: ".$total_game." ván | Tổng số tiền thay đổi: ".number_format($total_change)." ".$money."</span>";
     $html .= "<table width='100%'><tr style='background-color: rgb(255, 255, 255);text-align:center;'>";
     $html .= "<td>Thời điểm</td><td>Thay đổi</td><td>Giá trị mới</td><td>Lý do</td>";
     $i = 0;

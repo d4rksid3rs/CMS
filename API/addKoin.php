@@ -22,30 +22,39 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause
 
                     $found = true;
                 }
-                $cause = $current_user .' - '.$cause;
+                $cause = $current_user . ' - ' . $cause;
                 if ($found == true) {
-                    $sql1 = "insert into admin_add_koin(username, admin_pass, koin, cause) values('{$user}','{$pass}','{$koin}', '{$cause}')";
-                    $db->exec($sql1);
+                    $check = FALSE;
+                    $sql_merchant = "select * from merchants where username='" . $user . "' limit 0,1";
+                    foreach ($db->query($sql) as $row) {
 
-                    $sql2 = "update auth_user set koin=koin+{$koin} where username='{$user}'";
-                    $db->exec($sql2);
+                        $check = true;
+                    }
+                    if (!$check) {
+                        $sql1 = "insert into admin_add_koin(username, admin_pass, koin, cause) values('{$user}','{$pass}','{$koin}', '{$cause}')";
+                        $db->exec($sql1);
 
-                    echo "{\"status\":0,\"message\":\"Cộng Xu thành công\"}";
-                    try {
-                        $redis = new Redis();
-                        $redis->connect('local.redis');
-                        $obj = new stdClass();
-                        $obj->username = $user;
-                        $obj->type = 3;
-                        $obj->type_money = 0;
-                        $obj->koinAdded = $koin;
-                        $redis->publish('GameChannel', "500@" . json_encode($obj));
-                        $redis->close();
-                    } catch (Exception $e) {
-                        echo $e->getMessage();
+                        $sql2 = "update auth_user set koin=koin+{$koin} where username='{$user}'";
+                        $db->exec($sql2);
+
+                        echo "{\"status\":0,\"message\":\"Cộng Xu thành công\"}";
+                        try {
+                            $redis = new Redis();
+                            $redis->connect('local.redis');
+                            $obj = new stdClass();
+                            $obj->username = $user;
+                            $obj->type = 3;
+                            $obj->type_money = 0;
+                            $obj->koinAdded = $koin;
+                            $redis->publish('GameChannel', "500@" . json_encode($obj));
+                            $redis->close();
+                        } catch (Exception $e) {
+                            echo $e->getMessage();
+                        }
+                    } else {
+                        echo "{\"status\":0,\"message\":\"Không được cộng tiền cho Đại lý\"}";
                     }
                 }
-
                 if ($found == false) {
                     echo "{\"status\":0,\"message\":\"Không tìm thấy username trong DB\"}";
                 }
