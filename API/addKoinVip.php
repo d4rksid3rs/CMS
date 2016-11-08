@@ -26,7 +26,7 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0) {
                 if ($found == true) {
                     $check = FALSE;
                     $sql_merchant = "select * from merchants where username='" . $user . "' limit 0,1";
-                    foreach ($db->query($sql) as $row) {
+                    foreach ($db->query($sql_merchant) as $row) {
 
                         $check = true;
                     }
