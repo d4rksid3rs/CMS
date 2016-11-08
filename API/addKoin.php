@@ -25,7 +25,6 @@ if (is_numeric($koin) && strlen($pass) > 0 && strlen($user) > 0 && strlen($cause
                 $cause = $current_user . ' - ' . $cause;
                 if ($found == true) {
                     $check = FALSE;
-                    var_dump($check);
                     $sql_merchant = "select * from merchants where username='" . $user . "' limit 0,1";
                     foreach ($db->query($sql_merchant) as $row) {
 
