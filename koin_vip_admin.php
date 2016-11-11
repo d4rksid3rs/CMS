@@ -82,7 +82,7 @@ $title = 'Lượng koin nạp từ admin'
                                 ?>
                                 <tr>
                                     <td><?php echo $val['username'] ?></td>
-                                    <td><?php echo $val['koin'] ?></td>
+                                    <td><?php echo $val['chip'] ?></td>
                                     <td><?php echo $val['cause'] ?></td>
                                     <td><?php echo $val['day'] ?></td>
                                 </tr>
