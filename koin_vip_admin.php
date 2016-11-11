@@ -19,7 +19,7 @@ try {
 
     foreach ($db->query($sql) as $row) {
         $data[] = array('day' => $row['day'],
-            'koin' => $row['koin'], 'username' => $row['username'], 'cause' => $row['cause']);
+            'chip' => $row['chip'], 'username' => $row['username'], 'cause' => $row['cause']);
     }
     foreach ($db->query($sql2) as $row) {
         $html = "Tổng: " . number_format($row['total'], 0, ",", ".") . ' Chip';
@@ -87,7 +87,7 @@ $title = 'Lượng koin nạp từ admin'
                                     <td><?php echo $val['day'] ?></td>
                                 </tr>
                                 <?php
-                                $sum += $val['koin'];
+                                $sum += $val['chip'];
                             }
                             ?>
                             <tr>
