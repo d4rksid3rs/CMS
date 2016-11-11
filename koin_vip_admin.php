@@ -12,9 +12,9 @@ if (!isset($toDate)) {
     $toDate = date('Y-m-d', time());
 }
 try {
-    $sql = "select username, koin, date_created as day, cause from admin_add_chip where date(date_created) >= '" . $fromDate . "' and date(date_created) <= '" . $toDate . "' order by date_created DESC";
-    $sql2 = "select sum(koin) as total from admin_add_chip where date(date_created) >= '" . $fromDate . "' and date(date_created) <= '" . $toDate . "' order by date_created DESC";
-    //echo $sql;
+    $sql = "select username, chip, date_created as day, cause from admin_add_chip where date(date_created) >= '" . $fromDate . "' and date(date_created) <= '" . $toDate . "' order by date_created DESC";
+    $sql2 = "select sum(chip) as total from admin_add_chip where date(date_created) >= '" . $fromDate . "' and date(date_created) <= '" . $toDate . "' order by date_created DESC";
+//    echo $sql;die;
     $chart_data = array();
 
     foreach ($db->query($sql) as $row) {
