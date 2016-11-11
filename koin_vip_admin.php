@@ -12,8 +12,8 @@ if (!isset($toDate)) {
     $toDate = date('Y-m-d', time());
 }
 try {
-    $sql = "select username, koin, date_created as day, cause from admin_add_koin where date(date_created) >= '" . $fromDate . "' and date(date_created) <= '" . $toDate . "' order by date_created DESC";
-    $sql2 = "select sum(koin) as total from admin_add_koin where date(date_created) >= '" . $fromDate . "' and date(date_created) <= '" . $toDate . "' order by date_created DESC";
+    $sql = "select username, koin, date_created as day, cause from admin_add_chip where date(date_created) >= '" . $fromDate . "' and date(date_created) <= '" . $toDate . "' order by date_created DESC";
+    $sql2 = "select sum(koin) as total from admin_add_chip where date(date_created) >= '" . $fromDate . "' and date(date_created) <= '" . $toDate . "' order by date_created DESC";
     //echo $sql;
     $chart_data = array();
 
@@ -22,7 +22,7 @@ try {
             'koin' => $row['koin'], 'username' => $row['username'], 'cause' => $row['cause']);
     }
     foreach ($db->query($sql2) as $row) {
-        $html = "Tổng: " . number_format($row['total'], 0, ",", ".") . ' Xu';
+        $html = "Tổng: " . number_format($row['total'], 0, ",", ".") . ' Chip';
     }
     //var_dump($rec_arr);
 } catch (Exception $e) {
@@ -72,7 +72,7 @@ $title = 'Lượng koin nạp từ admin'
                         <table border="1" width="100%">
                             <tr>
                                 <td>Tài khoản</td>
-                                <td>Xu</td>
+                                <td>Chip</td>
                                 <td>Lý do</td>
                                 <td>Ngày</td>
                             </tr>
@@ -92,7 +92,7 @@ $title = 'Lượng koin nạp từ admin'
                             ?>
                             <tr>
                                 <td colspan="4">
-                                    Tổng Xu: <?php echo $sum; ?>
+                                    Tổng Chip: <?php echo $sum; ?>
                                 </td>
                             </tr>
                         </table>

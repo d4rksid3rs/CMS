@@ -18,5 +18,6 @@ $pars .= isset($_REQUEST['nocache']) ? '&nocache' : '';
     -->
     <li><a href="koin_charge.php">Tra Cứu Sản Lượng xu</a> |</li>
     <!--<li><a href="koin_daily.php">Tổng tiền xu cộng hàng ngày</a> |</li>-->
-    <li><a href="koin_admin.php">Lượng tiền nạp từ amdin</a></li>
+    <li><a href="koin_admin.php">Admin nạp Xu |</a></li>
+    <li><a href="koin_vip_admin.php">Admin nạp Chip</a></li>
 </ul>
