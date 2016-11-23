@@ -15,12 +15,14 @@ if (!isset($_REQUEST['toDate'])) {
     $toDate = $_REQUEST['toDate'];
 }
 $today = date('Y-m-d', time());
-;
+$fromDate = '2016-10-26';
+$toDate = '2016-11-4';
 try {
     $sql = "select * from server_chip_daily where datecreate >= '" . $fromDate . "' and datecreate <= '" . $toDate . "' order by datecreate";
     $chart_data = array();
     //$sql2 = "SELECT type, sum(koin_added) koin_added, date(created_on) as day FROM log_nap_koin  where created_on >= '".$fromDate."' and created_on <= '".$toDate."' GROUP BY day, type order by created_on";
     $sql3 = "SELECT date(date_created) as day, sum(koin) as koinadmin FROM admin_add_koin WHERE date_created >= '" . $fromDate . "' and date_created <= '" . $toDate . "' GROUP BY day";
+    $sql4 = "select date(time_update) as day, fee_vip from fee_taixiu where date(time_update) >= '" . $fromDate . "' and date(time_update) <= '" . $toDate . "' order by time_update";
 //    echo $sql3;
     foreach ($db->query($sql) as $row) {
         $obj = json_decode($row['data']);
@@ -50,15 +52,22 @@ try {
           echo $row3['koinadmin'];
           }
           } */
+        $taixiu = 0;
+        foreach ($db->query($sql4) as $row4) {
+            if ($row['datecreate'] == $row4['day']) {
+                $taixiu = $row4['fee_vip'] * (-1);
+            }
+        }
         $chart_data[] = array('day' => $row['datecreate'],
-            'data' => json_encode($obj)
+            'data' => json_encode($obj),
+            'taixiu' => $taixiu
 //            'koin' => $row['diff_server_koin'],
 //            'regKoin' => $row['reg_koin'],
 //            'iapKoin' => $row['iap_koin']
         );
     }
 //   var_dump($obj);die;
-//   var_dump($chart_data);
+//   var_dump($chart_data);die;
 } catch (Exception $e) {
     echo "Lỗi kết nối CSDL";
 }
@@ -256,6 +265,14 @@ foreach ($chart_data as $row) {
         $output2 .= $obj->KOINADMIN . ",";
     }
     $output2 .= "]}, ";
+    // Tai Xiu Chip
+    $output .= "{name: 'Tai Xiu',";
+    $output .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output .= $row2['taixiu'] . ",";
+    }
+    $output .= "]}, ";
     break;
 }
 //echo substr($output, 0, -1);die;
@@ -488,6 +505,7 @@ echo substr($output, 0, -1);
                                 <td>Chip Card</td>
                                 <td>Bau Cua</td>
                                 <td>Xoc Dia</td>
+                                <td>Tai Xiu</td>
                                 <td>Cash Out</td>
                                 <td>Add Chip</td>
                                 <td>Chip Verify</td>
@@ -513,6 +531,7 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->KOINVIPCARD) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUAVIP) . "</td>";
                                 echo "<td>" . number_format($obj->XOCDIAVIP) . "</td>";
+                                echo "<td>" . number_format($row['taixiu']) . "</td>";
                                 
                                 echo "<td>" . number_format($obj->CASHOUT) . "</td>";
                                 echo "<td>" . number_format($obj->ADDKOIN) . "</td>";
@@ -520,7 +539,7 @@ echo substr($output, 0, -1);
 //                                echo "<td>" . number_format($row['regKoin']) . "</td>";
                                 echo "<td>" . number_format($obj->KOINADMIN) . "</td>";
 
-                                $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP +
+                                $total2 = $total + $obj->KOINVIPSMS + $obj->KOINVIPCARD + $obj->KOINVIPIAP + $obj->XOCDIAVIP + $row['taixiu'] +
                                         $obj->BAUCUAVIP + $obj->CASHOUT + $obj->ADDKOIN + $obj->CHIPVERIFY + $obj->KOINADMIN;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "</tr>";

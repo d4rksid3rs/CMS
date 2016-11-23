@@ -14,12 +14,16 @@ if (!isset($_REQUEST['toDate'])) {
 } else {
     $toDate = $_REQUEST['toDate'];
 }
+$fromDate = '2016-10-26';
+$toDate = '2016-11-4';
 try {
     $sql = "select * from server_koin_daily where datecreate >= '" . $fromDate . "' and datecreate <= '" . $toDate . "' order by datecreate";
 //    echo $sql;
     $chart_data = array();
     //$sql2 = "SELECT type, sum(koin_added) koin_added, date(created_on) as day FROM log_nap_koin  where created_on >= '".$fromDate."' and created_on <= '".$toDate."' GROUP BY day, type order by created_on";
     $sql3 = "SELECT date(date_created) as day, sum(koin) as koinadmin FROM admin_add_koin WHERE date_created >= '" . $fromDate . "' and date_created <= '" . $toDate . "' GROUP BY day";
+    $sql4 = "select date(time_update) as day, fee from fee_taixiu where date(time_update) >= '" . $fromDate . "' and date(time_update) <= '" . $toDate . "' order by time_update";
+//    echo $sql4;die;
 //    echo $sql3;
     foreach ($db->query($sql) as $row) {
         $obj = json_decode($row['data']);
@@ -43,15 +47,20 @@ try {
           echo $row3['koinadmin'];
           }
           } */
+        $taixiu = 0;
+        foreach ($db->query($sql4) as $row4) {
+            if ($row['datecreate'] == $row4['day']) {
+                $taixiu = $row4['fee'] * (-1);
+            }
+        }
         $chart_data[] = array('day' => $row['datecreate'],
             'data' => json_encode($obj),
             'koin' => $row['diff_server_koin'],
             'regKoin' => $row['reg_koin'],
-            'iapKoin' => $row['iap_koin']
-                );
+            'iapKoin' => $row['iap_koin'],
+            'taixiu' => $taixiu
+        );
     }
-//   var_dump($obj);die;
-//   var_dump($chart_data);
 } catch (Exception $e) {
     echo "Lỗi kết nối CSDL";
 }
@@ -61,7 +70,7 @@ $title = "Thống kê tiền fee";
 <html>
     <head>
         <title><?php echo $title; ?></title>
-        <?php require('header.php'); ?>
+<?php require('header.php'); ?>
         <script src="js/highcharts.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/themes/grid.js"></script>
         <script>
@@ -232,7 +241,6 @@ foreach ($chart_data as $row) {
     break;
 }
 echo substr($output, 0, -1);
-
 ?>
                     ]
                 });
@@ -243,7 +251,7 @@ echo substr($output, 0, -1);
                         defaultSeriesType: 'spline'
                     },
                     title: {
-                        text: 'Xu Daily Bonus + First Login + Xu SMS, Card'
+                        text: 'Xu Daily Bonus + First Login + Xu SMS, Card + Tài Xỉu'
                     },
                     xAxis: {
                         categories:
@@ -305,6 +313,14 @@ foreach ($chart_data as $row) {
         $output .= $row['iapKoin'] . ",";
     }
     $output .= "]}, ";
+    // Tai Xiu Koin
+    $output .= "{name: 'Tai Xiu',";
+    $output .= "data:[";
+    foreach ($chart_data as $row2) {
+        $obj = json_decode($row2['data']);
+        $output .= $row2['taixiu'] . ",";
+    }
+    $output .= "]}, ";
     break;
 }
 echo substr($output, 0, -1);
@@ -316,9 +332,9 @@ echo substr($output, 0, -1);
     </head>
     <body>
         <div class="pagewrap">
-            <?php require('topMenu.php'); ?>            
+                <?php require('topMenu.php'); ?>            
             <div class="box grid">
-                <?php include('topMenu.koin.php'); ?>
+<?php include('topMenu.koin.php'); ?>
                 <div class="box_header"><a href="javascript:void(0);"><?php echo "Thống kê tiền fee"; ?></a></div>
                 <div class="box_body">
                     <div style="padding-left:10px;">
@@ -376,7 +392,7 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->MAUBINH) . "</td>";
                                 echo "<td>" . number_format($obj->XOCDIA) . "</td>";
                                 echo "<td>" . number_format($obj->BAUCUA) . "</td>";
-                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC  + $obj->POKER + $obj->BACAYCH  + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA;
+                                $total = $obj->PHOM + $obj->TLMN + $obj->TLMNDC + $obj->POKER + $obj->BACAYCH + $obj->BACAY + $obj->BACAYNEW + $obj->LIENG + $obj->SAM + $obj->MAUBINH + $obj->BAUCUA + $obj->XOCDIA;
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total) . "</b></td>";
 
                                 /*
@@ -409,6 +425,7 @@ echo substr($output, 0, -1);
                                 <td>Xu Card</td>
                                 <td>Register</td>
                                 <td>First Win</td>
+                                <td>Tài Xỉu</td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Tổng</b></td>
                                 <td align="center" style="background-color:#81A0F3;"><b>Diff</b></td>
                             </tr>
@@ -429,8 +446,9 @@ echo substr($output, 0, -1);
                                 echo "<td>" . number_format($obj->KOINCARD) . "</td>";
                                 echo "<td>" . number_format($row['regKoin']) . "</td>";
                                 echo "<td>" . number_format($obj->MONACO_FIRSTWIN) . "</td>";
-                                
-                                $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->EXP_MISSION + $obj->EVENT + $obj->KOINSMS + $obj->KOINCARD + $obj->KOINADMIN + $row['regKoin'] + $obj->MONACO_FIRSTWIN ;
+                                echo "<td>" . number_format($row['taixiu']) . "</td>";
+
+                                $total2 = $total + $obj->FACEBOOK + $obj->DAILY_BONUS + $obj->EXP_MISSION + $obj->EVENT + $obj->KOINSMS + $obj->KOINCARD + $obj->KOINADMIN + $row['regKoin'] + $obj->MONACO_FIRSTWIN + $row['regKoin'];
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($total2) . "</b></td>";
                                 echo "<td style='background-color:#FCD5B4;'><b>" . number_format($row['koin']) . "</b></td>";
                                 echo "</tr>";
