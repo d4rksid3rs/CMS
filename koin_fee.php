@@ -14,8 +14,6 @@ if (!isset($_REQUEST['toDate'])) {
 } else {
     $toDate = $_REQUEST['toDate'];
 }
-$fromDate = '2016-10-26';
-$toDate = '2016-11-4';
 try {
     $sql = "select * from server_koin_daily where datecreate >= '" . $fromDate . "' and datecreate <= '" . $toDate . "' order by datecreate";
 //    echo $sql;
