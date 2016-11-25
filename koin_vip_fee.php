@@ -15,8 +15,6 @@ if (!isset($_REQUEST['toDate'])) {
     $toDate = $_REQUEST['toDate'];
 }
 $today = date('Y-m-d', time());
-$fromDate = '2016-10-26';
-$toDate = '2016-11-4';
 try {
     $sql = "select * from server_chip_daily where datecreate >= '" . $fromDate . "' and datecreate <= '" . $toDate . "' order by datecreate";
     $chart_data = array();
