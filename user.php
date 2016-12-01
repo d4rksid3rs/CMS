@@ -210,6 +210,8 @@ $today = date('Y-m-d', time());
                             if (data.status == 1) {
                                 $("#balance").text(data.koin);
                                 $("#koin_vip").text(data.koin_vip);
+                                $("#mkoin").text(data.mkoin);
+                                $("#mkoin_vip").text(data.mkoin_vip);
                                 $("#vip").text(data.vip);
                             } else {
                                 $("#findUser #message").html(data.message);
@@ -1450,6 +1452,12 @@ $today = date('Y-m-d', time());
                                 <td width="20%" align="center"><span id="koin_vip"></span></td>
                                 <td width="10%">Số tiền nạp SMS</td>
                                 <td align="center"><span id="valueChargedSMS"></span></td>
+                            </tr>
+                            <tr>
+                                <td width="10%">Mini Xu</td>
+                                <td width="20%" align="center"><span id="mkoin"></span></td>
+                                <td width="10%">Mini Chip</td>
+                                <td align="center"><span id="mkoin_vip"></span></td>
                             </tr>
                             <tr>
 
